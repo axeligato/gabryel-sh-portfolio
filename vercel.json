@@ -17,11 +17,3 @@
     "INSTAGRAM_ACCESS_TOKEN": "@instagram_access_token"
   }
 }
-{
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "framework": null
-}
-{
-  "rewrites": [{ "source": "/", "destination": "/photographer-portfolio.html" }]
-}
