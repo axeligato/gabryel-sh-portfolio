@@ -283,20 +283,30 @@ function setupEventListeners() {
 
 function randomizeMediaDisplay() {
     const mediaDisplay = document.getElementById('mediaDisplay');
-    const shuffledPosts = shuffleArray([...allPosts]);
+    const currentItems = document.querySelectorAll('.placeholder-item');
     
-    mediaDisplay.innerHTML = '';
-    const placeholderGrid = document.createElement('div');
-    placeholderGrid.className = 'placeholder-grid';
-    
-    // Show random selection of posts
-    shuffledPosts.slice(0, 3).forEach((post, index) => {
-        const item = createMediaItem(post);
-        item.style.animationDelay = (index * 0.1) + 's';
-        placeholderGrid.appendChild(item);
+    // Add shuffle animation to current items
+    currentItems.forEach(item => {
+        item.classList.add('shuffling');
     });
     
-    mediaDisplay.appendChild(placeholderGrid);
+    // After animation completes, update the display
+    setTimeout(() => {
+        const shuffledPosts = shuffleArray([...allPosts]);
+        
+        mediaDisplay.innerHTML = '';
+        const placeholderGrid = document.createElement('div');
+        placeholderGrid.className = 'placeholder-grid';
+        
+        // Show random selection of posts
+        shuffledPosts.slice(0, 3).forEach((post, index) => {
+            const item = createMediaItem(post);
+            item.style.animationDelay = (index * 0.1) + 's';
+            placeholderGrid.appendChild(item);
+        });
+        
+        mediaDisplay.appendChild(placeholderGrid);
+    }, 500); // Wait for animation to finish
 }
 
 function createMediaItem(post) {
