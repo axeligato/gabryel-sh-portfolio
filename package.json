@@ -1,23 +1,12 @@
 {
-  "name": "gabryel-sh-photography-portfolio",
+  "name": "gabryel-sh-portfolio",
   "version": "1.0.0",
-  "description": "Photography portfolio website for Gabryel SH - Editorial/Archival aesthetic with Instagram integration",
-  "main": "script.js",
+  "description": "Photography portfolio website for Gabryel SH",
+  "main": "photographer-portfolio.html",
   "scripts": {
-    "start": "python3 -m http.server 8000"
-    "dev": "python3 -m http.server 8000",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "python3 -m http.server 8000"
   },
-  "keywords": [
-    "photography",
-    "portfolio",
-    "editorial",
-    "instagram",
-    "responsive"
-  ],
+  "keywords": ["photography", "portfolio", "editorial"],
   "author": "Gabryel SH",
-  "license": "MIT",
-  "engines": {
-    "node": "18.x"
-  }
+  "license": "MIT"
 }
