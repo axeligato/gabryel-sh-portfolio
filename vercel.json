@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "photographer-portfolio.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "photographer-portfolio.html"
+    }
+  ],
+  "env": {
+    "INSTAGRAM_BUSINESS_ACCOUNT_ID": "@instagram_business_account_id",
+    "INSTAGRAM_ACCESS_TOKEN": "@instagram_access_token"
+  }
+}

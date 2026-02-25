@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabryel SH - Photography Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">Gabryel SH</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#mystery" class="nav-link">???</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <section id="home" class="page home-page">
+        <div class="home-container">
+            <!-- Randomize View Button -->
+            <div class="randomize-section">
+                <button class="randomize-btn" id="randomizeBtn">RANDOMIZE VIEW</button>
+                <p class="randomize-desc">get lost in my world</p>
+            </div>
+
+            <!-- Media Display Space -->
+            <div class="media-display" id="mediaDisplay">
+                <div class="placeholder-grid">
+                    <div class="placeholder-item">
+                        <img src="https://via.placeholder.com/400x500" alt="Portfolio image">
+                        <p class="image-caption">Instagram caption goes here</p>
+                        <div class="image-tags">
+                            <span class="tag">#photography</span>
+                            <span class="tag">#portrait</span>
+                        </div>
+                    </div>
+                    <div class="placeholder-item">
+                        <img src="https://via.placeholder.com/400x500" alt="Portfolio image">
+                        <p class="image-caption">Instagram caption goes here</p>
+                        <div class="image-tags">
+                            <span class="tag">#photography</span>
+                            <span class="tag">#portrait</span>
+                        </div>
+                    </div>
+                    <div class="placeholder-item">
+                        <img src="https://via.placeholder.com/400x500" alt="Portfolio image">
+                        <p class="image-caption">Instagram caption goes here</p>
+                        <div class="image-tags">
+                            <span class="tag">#photography</span>
+                            <span class="tag">#portrait</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA to Questionnaire -->
+            <div class="questionnaire-cta">
+                <a href="#contact" class="cta-button">YOUR IDEAL SHOOT QUESTIONNAIRE</a>
+            </div>
+
+            <!-- Emergency Contact -->
+            <div class="emergency-section">
+                <button class="emergency-btn" id="emergencyBtn">URGENT ?</button>
+                <p class="emergency-desc">contact me at this address only if this is an emergency request</p>
+                <p class="emergency-contact" id="emergencyContact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="593c34383035193c21383429353c773a3634">[email&#160;protected]</a> | +1 (555) 000-0000</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY PAGE -->
+    <section id="gallery" class="page gallery-page">
+        <div class="gallery-container">
+            <h1>Gallery</h1>
+            
+            <!-- Filter Controls -->
+            <div class="gallery-filters">
+                <div class="filter-group">
+                    <label for="dateFilter">Sort by Date:</label>
+                    <select id="dateFilter" class="filter-select">
+                        <option value="newest">Most Recent</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="typeFilter">Filter by Type:</label>
+                    <select id="typeFilter" class="filter-select">
+                        <option value="all">All</option>
+                        <option value="image">Images</option>
+                        <option value="video">Videos</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/500x600" alt="Gallery image">
+                    <p class="image-caption">Instagram caption goes here</p>
+                    <div class="image-tags">
+                        <span class="tag">#photography</span>
+                        <span class="tag">#portrait</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/500x600" alt="Gallery image">
+                    <p class="image-caption">Instagram caption goes here</p>
+                    <div class="image-tags">
+                        <span class="tag">#photography</span>
+                        <span class="tag">#portrait</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/500x600" alt="Gallery image">
+                    <p class="image-caption">Instagram caption goes here</p>
+                    <div class="image-tags">
+                        <span class="tag">#photography</span>
+                        <span class="tag">#portrait</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/500x600" alt="Gallery image">
+                    <p class="image-caption">Instagram caption goes here</p>
+                    <div class="image-tags">
+                        <span class="tag">#photography</span>
+                        <span class="tag">#portrait</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section id="contact" class="page contact-page">
+        <div class="contact-container">
+            <h1>Get in Touch</h1>
+
+            <!-- Questionnaire Section -->
+            <div class="questionnaire-section">
+                <h2>Your Ideal Shoot Questionnaire</h2>
+                <form class="questionnaire-form" id="questionnaireForm">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shootType">Type of Shoot *</label>
+                        <select id="shootType" name="shootType" required>
+                            <option value="">Select a type</option>
+                            <option value="portrait">Portrait</option>
+                            <option value="editorial">Editorial</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="event">Event</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Preferred Shoot Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location *</label>
+                        <input type="text" id="location" name="location" placeholder="City, Studio, Outdoor, etc." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vision">Describe Your Vision *</label>
+                        <textarea id="vision" name="vision" rows="5" placeholder="Tell me about your dream shoot..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Budget Range</label>
+                        <select id="budget" name="budget">
+                            <option value="">Select a range</option>
+                            <option value="0-1000">$0 - $1,000</option>
+                            <option value="1000-5000">$1,000 - $5,000</option>
+                            <option value="5000-10000">$5,000 - $10,000</option>
+                            <option value="10000+">$10,000+</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">SUBMIT QUESTIONNAIRE</button>
+                </form>
+            </div>
+
+            <!-- Emergency Contact Section -->
+            <div class="contact-emergency">
+                <h2>Emergency Request?</h2>
+                <p class="emergency-contact-text">Contact me at this address only if this is an emergency request</p>
+                <p class="emergency-contact-info"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f0959d91999cb09588919d809c95de939f9d">[email&#160;protected]</a> | +1 (555) 000-0000</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MYSTERY PAGE (???) -->
+    <section id="mystery" class="page mystery-page">
+        <div class="mystery-container">
+            <!-- Miley Cyrus Section -->
+            <div class="mystery-content">
+                <div class="mystery-image">
+                    <img id="mileyImage" src="placeholder-miley.jpg" alt="Mystery Figure">
+                </div>
+                <div class="mystery-text-box">
+                    <div class="countdown" id="countdown">
+                        <p class="countdown-text">--- days waiting to shoot <span class="mystery-name">MYSTERY PERSON</span></p>
+                    </div>
+                    <div class="mystery-description">
+                        <p>This person represents more than just a subject to photograph. They embody an artistic vision that has inspired countless moments in my career. To capture their essence through my lens would be a dream realized—the culmination of years of dedication to the craft of photography. Every frame, every angle, every moment of light and shadow would be a tribute to the profound influence they've had on my work and creative journey.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section id="about" class="page about-page">
+        <div class="about-container">
+            <h1>About Me</h1>
+            
+            <!-- Photographer Image -->
+            <div class="photographer-image">
+                <img src="https://via.placeholder.com/300x300" alt="Gabryelsa Llehount">
+            </div>
+
+            <!-- Bio -->
+            <div class="photographer-bio">
+                <h2>Gabryel SH</h2>
+                <p>
+                    I'm a passionate photographer dedicated to capturing authentic moments and telling stories through light and composition. With a keen eye for detail and a deep appreciation for human connection, I create images that resonate and inspire. Each shoot is an opportunity to collaborate and create something truly special.
+                </p>
+            </div>
+
+            <!-- Gear Section -->
+            <div class="gear-section">
+                <h2>My Gear</h2>
+                <div class="gear-grid">
+                    <div class="gear-item">
+                        <h3>Camera</h3>
+                        <p>Canon EOS R5</p>
+                    </div>
+                    <div class="gear-item">
+                        <h3>Lens</h3>
+                        <p>RF 85mm f/1.2</p>
+                    </div>
+                    <div class="gear-item">
+                        <h3>Lighting</h3>
+                        <p>Godox SL-60W LED</p>
+                    </div>
+                    <div class="gear-item">
+                        <h3>Tripod</h3>
+                        <p>Manfrotto Carbon Fiber</p>
+                    
