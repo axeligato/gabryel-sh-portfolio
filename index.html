@@ -102,7 +102,7 @@ nav::after {
 
 .page.active { display: block; }
 #page-mystery.active { display: flex; min-height: 100vh; height: 100vh; }
-#page-about.active   { display: grid; }
+#page-about.active   { display: grid; align-content: start; }
 
 /* ═══════════════════════════════
    HOME PAGE
@@ -324,92 +324,6 @@ nav::after {
 
 .gallery-item:hover img { transform: scale(1.02); }
 
-/* ═══════════════════════════════
-   CONTACT PAGE
-═══════════════════════════════ */
-#page-contact {
-  padding: 120px 48px 80px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.contact-inner {
-  width: 100%;
-  max-width: 760px;
-}
-
-.contact-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(40px, 5vw, 72px);
-  font-weight: 300;
-  line-height: 0.95;
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
-}
-
-.contact-title span { display: block; font-style: italic; color: var(--accent); }
-
-.contact-sub {
-  font-size: 9px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 52px;
-  display: block;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px 40px;
-}
-
-.form-field { display: flex; flex-direction: column; gap: 8px; }
-.form-field.full { grid-column: 1 / -1; }
-
-.form-field label {
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.form-field input,
-.form-field select,
-.form-field textarea {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--subtle);
-  color: var(--fg);
-  padding: 12px 0;
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  transition: border-color 0.3s;
-  outline: none;
-}
-
-.form-field input:focus,
-.form-field textarea:focus,
-.form-field select:focus { border-bottom-color: var(--accent); }
-.form-field select option { background: var(--bg); }
-.form-field textarea { resize: vertical; min-height: 120px; }
-
-.form-submit {
-  margin-top: 16px;
-  background: transparent;
-  border: 1px solid rgba(240,236,228,0.3);
-  color: var(--fg);
-  padding: 16px 48px;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  cursor: crosshair;
-  transition: all 0.3s;
-}
-
-.form-submit:hover { background: var(--fg); color: var(--bg); }
 
 /* ═══════════════════════════════
    MYSTERY PAGE
@@ -422,6 +336,7 @@ nav::after {
   justify-content: center;
   padding: 0 !important;
   min-height: unset !important;
+  box-sizing: border-box;
 }
 
 .mystery-bg {
@@ -513,11 +428,12 @@ nav::after {
    ABOUT PAGE
 ═══════════════════════════════ */
 #page-about {
-  padding: 88px 48px 80px;
+  padding: 88px 48px 40px;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 60px;
   align-items: start;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .about-image-wrap img {
@@ -588,8 +504,6 @@ nav::after {
   .ocean-item.wide { grid-column: span 2; }
   #page-gallery { padding: 100px 16px 60px; }
   .gallery-masonry { columns: 2; }
-  #page-contact { padding: 100px 24px 60px; }
-  .form-grid { grid-template-columns: 1fr; }
   #page-about { grid-template-columns: 1fr; gap: 40px; padding: 100px 24px 60px; }
   .mystery-countdown { gap: 24px; }
 }
@@ -603,7 +517,6 @@ nav::after {
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('home'); return false;" data-page="home">Home</a></li>
     <li><a href="#" onclick="showPage('gallery'); return false;" data-page="gallery">Gallery</a></li>
-    <li><a href="#" onclick="showPage('contact'); return false;" data-page="contact">Contact</a></li>
     <li><a href="#" onclick="showPage('mystery'); return false;" data-page="mystery">???</a></li>
     <li><a href="#" onclick="showPage('about'); return false;" data-page="about">About</a></li>
   </ul>
@@ -649,54 +562,6 @@ nav::after {
     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&fit=crop" alt=""/></div>
     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?w=600&fit=crop" alt=""/></div>
     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&fit=crop" alt=""/></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════
-     CONTACT PAGE
-═══════════════════════════════ -->
-<div id="page-contact" class="page">
-  <div class="contact-inner">
-    <h2 class="contact-title">Let's Work<br><span>Together</span></h2>
-    <span class="contact-sub">Your Ideal Shoot Questionnaire</span>
-    <form class="form-grid" onsubmit="return false;">
-      <div class="form-field">
-        <label>Name *</label>
-        <input type="text" placeholder="Your name"/>
-      </div>
-      <div class="form-field">
-        <label>Email *</label>
-        <input type="email" placeholder="your@email.com"/>
-      </div>
-      <div class="form-field">
-        <label>Phone</label>
-        <input type="tel" placeholder="+1 (555) ..."/>
-      </div>
-      <div class="form-field">
-        <label>Type of Shoot *</label>
-        <select>
-          <option value="">Select a type</option>
-          <option>Portrait</option>
-          <option>Editorial</option>
-          <option>Commercial</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label>Preferred Date *</label>
-        <input type="date"/>
-      </div>
-      <div class="form-field">
-        <label>Location *</label>
-        <input type="text" placeholder="City or venue"/>
-      </div>
-      <div class="form-field full">
-        <label>Describe Your Vision *</label>
-        <textarea placeholder="Tell me about your vision, mood, references..."></textarea>
-      </div>
-      <div class="form-field full">
-        <button class="form-submit" type="submit">Submit Inquiry</button>
-      </div>
-    </form>
   </div>
 </div>
 
