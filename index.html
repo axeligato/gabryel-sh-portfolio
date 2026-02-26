@@ -7,11 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Paper texture background -->
+    <div class="paper-texture"></div>
+    
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="#home">Gabryel SH</a>
+                <a href="#home">
+                    <span class="logo-symbol">◆</span>
+                    Gabryel SH
+                </a>
             </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
@@ -26,52 +31,87 @@
     <!-- HOME PAGE -->
     <section id="home" class="page home-page">
         <div class="home-container">
-            <!-- Randomize View Button -->
-            <div class="randomize-section">
-                <button class="randomize-btn" id="randomizeBtn">RANDOMIZE VIEW</button>
-                <p class="randomize-desc">get lost in my world</p>
+            <!-- Hero Statement -->
+            <div class="hero-statement">
+                <h1>capturing moments<br>with intention</h1>
+                <p class="hero-subtitle">editorial • archival • authentic</p>
             </div>
 
-            <!-- Media Display Space -->
+            <div class="randomize-section">
+                <button class="randomize-btn" id="randomizeBtn">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.59 9.38L6.41 5.2V8c0 .55-.45 1-1 1s-1-.45-1-1V3c0-.55.45-1 1-1h5c.55 0 1 .45 1 1s-.45 1-1 1H6.41l4.18 4.18c.39.39.39 1.02 0 1.41-.39.39-1.02.39-1.41 0zM14.5 4c.55 0 1 .45 1 1v4.59l4.18-4.18c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-4.18 4.18H20c.55 0 1 .45 1 1s-.45 1-1 1h-5c-.55 0-1-.45-1-1V5c0-.55.45-1 1-1z"/>
+                        <path d="M9.41 14.82L5.23 18.99V16c0-.55-.45-1-1-1s-1 .45-1 1v5c0 .55.45 1 1 1h5c.55 0 1-.45 1-1s-.45-1-1-1H5.23l4.18-4.18c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0zm4.5 4.59h4.59l-4.18 4.18c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l4.18-4.18V20c0 .55.45 1 1 1s1-.45 1-1v-5c0-.55-.45-1-1-1h-5c-.55 0-1 .45-1 1s.45 1 1 1z"/>
+                    </svg>
+                    RANDOMIZE
+                </button>
+                <p class="randomize-desc">shuffle through moments</p>
+            </div>
+
             <div class="media-display" id="mediaDisplay">
                 <div class="placeholder-grid">
                     <div class="placeholder-item">
-                        <img src="https://via.placeholder.com/400x500" alt="Portfolio image">
-                        <p class="image-caption">Instagram caption goes here</p>
+                        <div class="image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=500&fit=crop" alt="Portfolio">
+                            <div class="image-overlay">01</div>
+                        </div>
+                        <p class="image-caption">raw moments captured with intention and care</p>
                         <div class="image-tags">
-                            <span class="tag">#photography</span>
                             <span class="tag">#portrait</span>
+                            <span class="tag">#authentic</span>
                         </div>
                     </div>
                     <div class="placeholder-item">
-                        <img src="https://via.placeholder.com/400x500" alt="Portfolio image">
-                        <p class="image-caption">Instagram caption goes here</p>
+                        <div class="image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=500&fit=crop" alt="Portfolio">
+                            <div class="image-overlay">02</div>
+                        </div>
+                        <p class="image-caption">editorial work exploring contemporary aesthetics</p>
                         <div class="image-tags">
-                            <span class="tag">#photography</span>
-                            <span class="tag">#portrait</span>
+                            <span class="tag">#editorial</span>
+                            <span class="tag">#visual</span>
                         </div>
                     </div>
                     <div class="placeholder-item">
-                        <img src="https://via.placeholder.com/400x500" alt="Portfolio image">
-                        <p class="image-caption">Instagram caption goes here</p>
+                        <div class="image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=500&fit=crop" alt="Portfolio">
+                            <div class="image-overlay">03</div>
+                        </div>
+                        <p class="image-caption">where documentation meets artistic vision</p>
                         <div class="image-tags">
-                            <span class="tag">#photography</span>
-                            <span class="tag">#portrait</span>
+                            <span class="tag">#documentary</span>
+                            <span class="tag">#creative</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- CTA to Questionnaire -->
             <div class="questionnaire-cta">
-                <a href="#contact" class="cta-button">YOUR IDEAL SHOOT QUESTIONNAIRE</a>
+                <a href="#contact" class="cta-button">INQUIRE ABOUT YOUR SHOOT</a>
             </div>
 
-            <!-- Emergency Contact -->
+            <!-- Archive Section -->
+            <div class="archive-section">
+                <div class="archive-left">
+                    <div class="archive-label">
+                        <span class="archive-symbol">◇</span>
+                        archive
+                    </div>
+                </div>
+                <div class="archive-right">
+                    <p class="archive-text">every frame is a moment preserved. every shoot is a collaboration. every image tells a story.</p>
+                    <div class="archive-meta">
+                        <span>2024 - ongoing</span>
+                        <span>•</span>
+                        <span>Gabryel SH</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="emergency-section">
-                <button class="emergency-btn" id="emergencyBtn">URGENT ?</button>
-                <p class="emergency-desc">contact me at this address only if this is an emergency request</p>
-                <p class="emergency-contact" id="emergencyContact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="593c34383035193c21383429353c773a3634">[email&#160;protected]</a> | +1 (555) 000-0000</p>
+                <button class="emergency-btn" id="emergencyBtn">⚠ URGENT REQUEST</button>
+                <p class="emergency-desc">time-sensitive bookings and emergency requests</p>
+                <p class="emergency-contact" id="emergencyContact" style="display:none;">contact: hello@gabryel.sh | +1 (555) 123-4567</p>
             </div>
         </div>
     </section>
@@ -81,17 +121,16 @@
         <div class="gallery-container">
             <h1>Gallery</h1>
             
-            <!-- Filter Controls -->
             <div class="gallery-filters">
                 <div class="filter-group">
-                    <label for="dateFilter">Sort by Date:</label>
+                    <label for="dateFilter">Sort:</label>
                     <select id="dateFilter" class="filter-select">
                         <option value="newest">Most Recent</option>
                         <option value="oldest">Oldest</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="typeFilter">Filter by Type:</label>
+                    <label for="typeFilter">Type:</label>
                     <select id="typeFilter" class="filter-select">
                         <option value="all">All</option>
                         <option value="image">Images</option>
@@ -100,39 +139,48 @@
                 </div>
             </div>
 
-            <!-- Gallery Grid -->
             <div class="gallery-grid" id="galleryGrid">
                 <div class="gallery-item">
-                    <img src="https://via.placeholder.com/500x600" alt="Gallery image">
-                    <p class="image-caption">Instagram caption goes here</p>
-                    <div class="image-tags">
-                        <span class="tag">#photography</span>
-                        <span class="tag">#portrait</span>
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&h=600&fit=crop" alt="Gallery">
+                        <div class="image-overlay">01</div>
                     </div>
+                    <p class="image-caption">exploring vulnerability through portraiture</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://via.placeholder.com/500x600" alt="Gallery image">
-                    <p class="image-caption">Instagram caption goes here</p>
-                    <div class="image-tags">
-                        <span class="tag">#photography</span>
-                        <span class="tag">#portrait</span>
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&h=600&fit=crop" alt="Gallery">
+                        <div class="image-overlay">02</div>
                     </div>
+                    <p class="image-caption">editorial narratives captured authentically</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://via.placeholder.com/500x600" alt="Gallery image">
-                    <p class="image-caption">Instagram caption goes here</p>
-                    <div class="image-tags">
-                        <span class="tag">#photography</span>
-                        <span class="tag">#portrait</span>
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=500&h=600&fit=crop" alt="Gallery">
+                        <div class="image-overlay">03</div>
                     </div>
+                    <p class="image-caption">documentary style commercial work</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://via.placeholder.com/500x600" alt="Gallery image">
-                    <p class="image-caption">Instagram caption goes here</p>
-                    <div class="image-tags">
-                        <span class="tag">#photography</span>
-                        <span class="tag">#portrait</span>
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=500&h=600&fit=crop" alt="Gallery">
+                        <div class="image-overlay">04</div>
                     </div>
+                    <p class="image-caption">raw emotion and authentic moments</p>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1549887534-f3df24220afa?w=500&h=600&fit=crop" alt="Gallery">
+                        <div class="image-overlay">05</div>
+                    </div>
+                    <p class="image-caption">visual storytelling through composition</p>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&h=600&fit=crop" alt="Gallery">
+                        <div class="image-overlay">06</div>
+                    </div>
+                    <p class="image-caption">archival aesthetic meets contemporary vision</p>
                 </div>
             </div>
         </div>
@@ -141,74 +189,59 @@
     <!-- CONTACT PAGE -->
     <section id="contact" class="page contact-page">
         <div class="contact-container">
-            <h1>Get in Touch</h1>
+            <h1>Let's Work Together</h1>
 
-            <!-- Questionnaire Section -->
             <div class="questionnaire-section">
                 <h2>Your Ideal Shoot Questionnaire</h2>
-                <form class="questionnaire-form" id="questionnaireForm">
+                <form class="questionnaire-form">
                     <div class="form-group">
                         <label for="name">Name *</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" required>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input type="tel" id="phone" name="phone">
+                        <input type="tel" id="phone">
                     </div>
 
                     <div class="form-group">
                         <label for="shootType">Type of Shoot *</label>
-                        <select id="shootType" name="shootType" required>
+                        <select id="shootType" required>
                             <option value="">Select a type</option>
                             <option value="portrait">Portrait</option>
                             <option value="editorial">Editorial</option>
                             <option value="commercial">Commercial</option>
-                            <option value="event">Event</option>
-                            <option value="other">Other</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="date">Preferred Shoot Date *</label>
-                        <input type="date" id="date" name="date" required>
+                        <input type="date" id="date" required>
                     </div>
 
                     <div class="form-group">
                         <label for="location">Location *</label>
-                        <input type="text" id="location" name="location" placeholder="City, Studio, Outdoor, etc." required>
+                        <input type="text" id="location" placeholder="City, Studio, Outdoor, etc." required>
                     </div>
 
                     <div class="form-group">
                         <label for="vision">Describe Your Vision *</label>
-                        <textarea id="vision" name="vision" rows="5" placeholder="Tell me about your dream shoot..." required></textarea>
+                        <textarea id="vision" required placeholder="Tell me about your dream shoot..."></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label for="budget">Budget Range</label>
-                        <select id="budget" name="budget">
-                            <option value="">Select a range</option>
-                            <option value="0-1000">$0 - $1,000</option>
-                            <option value="1000-5000">$1,000 - $5,000</option>
-                            <option value="5000-10000">$5,000 - $10,000</option>
-                            <option value="10000+">$10,000+</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="submit-btn">SUBMIT QUESTIONNAIRE</button>
+                    <button type="submit" class="submit-btn">SUBMIT INQUIRY</button>
                 </form>
             </div>
 
-            <!-- Emergency Contact Section -->
             <div class="contact-emergency">
-                <h2>Emergency Request?</h2>
-                <p class="emergency-contact-text">Contact me at this address only if this is an emergency request</p>
-                <p class="emergency-contact-info"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f0959d91999cb09588919d809c95de939f9d">[email&#160;protected]</a> | +1 (555) 000-0000</p>
+                <h2>Urgent Request?</h2>
+                <p class="emergency-contact-text">For time-sensitive bookings and emergency requests</p>
+                <p class="emergency-contact-info">hello@gabryel.sh • +1 (555) 123-4567</p>
             </div>
         </div>
     </section>
@@ -216,17 +249,17 @@
     <!-- MYSTERY PAGE (???) -->
     <section id="mystery" class="page mystery-page">
         <div class="mystery-container">
-            <!-- Miley Cyrus Section -->
             <div class="mystery-content">
                 <div class="mystery-image">
-                    <img id="mileyImage" src="placeholder-miley.jpg" alt="Mystery Figure">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&h=600&fit=crop" alt="Mystery">
                 </div>
                 <div class="mystery-text-box">
                     <div class="countdown" id="countdown">
                         <p class="countdown-text">--- days waiting to shoot <span class="mystery-name">MILEY CYRUS</span></p>
                     </div>
                     <div class="mystery-description">
-                        <p>This person represents more than just a subject to photograph. They embody an artistic vision that has inspired countless moments in my career. To capture their essence through my lens would be a dream realized—the culmination of years of dedication to the craft of photography. Every frame, every angle, every moment of light and shadow would be a tribute to the profound influence they've had on my work and creative journey.</p>
+                        <p>This is more than just a photoshoot dream. It's a vision that represents everything I've worked towards in photography. To capture this person's essence, their complexity, their artistry through my lens would be the ultimate moment. Every frame would be intentional. Every angle would matter. Every light would tell part of their story.</p>
+                        <p style="margin-top: 1rem; opacity: 0.7;">Until then, I'm perfecting my craft, one shoot at a time.</p>
                     </div>
                 </div>
             </div>
@@ -236,38 +269,58 @@
     <!-- ABOUT PAGE -->
     <section id="about" class="page about-page">
         <div class="about-container">
-            <h1>About Me</h1>
+            <h1>About Gabryel</h1>
             
-            <!-- Photographer Image -->
             <div class="photographer-image">
-                <img src="https://via.placeholder.com/300x300" alt="Gabryel SH">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" alt="Gabryel SH">
             </div>
 
-            <!-- Bio -->
             <div class="photographer-bio">
                 <h2>Gabryel SH</h2>
-                <p>
-                    I'm a passionate photographer dedicated to capturing authentic moments and telling stories through light and composition. With a keen eye for detail and a deep appreciation for human connection, I create images that resonate and inspire. Each shoot is an opportunity to collaborate and create something truly special.
-                </p>
+                <p>I'm a photographer dedicated to capturing authentic moments with intention. My work explores the intersection of editorial aesthetics, documentary authenticity, and commercial appeal. I believe every frame should tell a story, every shoot should be a collaboration, and every image should matter.</p>
+                <p style="margin-top: 1.5rem;">Working in various styles—from raw portraiture to polished editorial—I bring a consistent vision: honesty, intention, and quality. My camera doesn't just document moments; it interprets them.</p>
             </div>
 
-            <!-- Gear Section -->
             <div class="gear-section">
-                <h2>My Gear</h2>
+                <h2>Equipment</h2>
                 <div class="gear-grid">
                     <div class="gear-item">
-                        <h3>Camera</h3>
+                        <h3>Primary Camera</h3>
                         <p>Canon EOS R5</p>
                     </div>
                     <div class="gear-item">
-                        <h3>Lens</h3>
+                        <h3>Signature Lens</h3>
                         <p>RF 85mm f/1.2</p>
                     </div>
                     <div class="gear-item">
-                        <h3>Lighting</h3>
+                        <h3>Lighting Setup</h3>
                         <p>Godox SL-60W LED</p>
                     </div>
                     <div class="gear-item">
-                        <h3>Tripod</h3>
+                        <h3>Support System</h3>
                         <p>Manfrotto Carbon Fiber</p>
-                    
+                    </div>
+                </div>
+                <p class="gear-note">Equipment chosen for reliability, quality, and creative control</p>
+            </div>
+
+            <div class="archive-info">
+                <div class="info-item">
+                    <span class="info-label">Location</span>
+                    <span class="info-value">Based in Major Cities</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Experience</span>
+                    <span class="info-value">2024 - Ongoing</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Specialization</span>
+                    <span class="info-value">Editorial • Portrait • Documentary</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
