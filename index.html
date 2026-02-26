@@ -91,15 +91,18 @@ nav::after {
 /* ─── PAGE SYSTEM ─── */
 .page {
   display: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  animation: pageFadeIn 0.35s ease forwards;
   min-height: 100vh;
 }
 
-.page.active {
-  display: block;
-  opacity: 1;
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+
+.page.active { display: block; }
+#page-mystery.active { display: flex; min-height: 100vh; height: 100vh; }
+#page-about.active   { display: grid; }
 
 /* ═══════════════════════════════
    HOME PAGE
@@ -154,29 +157,69 @@ nav::after {
 }
 
 .shuffle-btn {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(80px, 14vw, 180px);
-  letter-spacing: 0.04em;
-  color: var(--fg);
-  background: none;
+  position: relative;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--fg);
   border: none;
   cursor: crosshair;
-  line-height: 1;
-  transition: color 0.2s, transform 0.2s;
   padding: 0;
-  display: block;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), background 0.25s;
+  overflow: hidden;
 }
 
-.shuffle-btn:hover { color: var(--accent); transform: scaleX(1.02); }
-.shuffle-btn:active { transform: scale(0.97); }
+.shuffle-btn-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
 
-.shuffle-hint {
-  font-size: 9px;
-  letter-spacing: 0.5em;
+.shuffle-btn-icon {
+  font-size: 28px;
+  line-height: 1;
+  display: block;
+  transition: transform 0.5s cubic-bezier(.34,1.56,.64,1);
+}
+
+.shuffle-btn-text {
+  font-size: 10px;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: rgba(240,236,228,0.3);
-  margin-top: 10px;
-  margin-bottom: 28px;
+  line-height: 1;
+}
+
+.shuffle-btn:hover {
+  background: var(--accent);
+  transform: scale(1.06) rotate(8deg);
+}
+
+.shuffle-btn:hover .shuffle-btn-icon {
+  transform: rotate(-180deg);
+}
+
+.shuffle-btn:active { transform: scale(0.95); }
+
+.shuffle-btn.spinning .shuffle-btn-icon {
+  animation: spinIcon 0.55s cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes spinIcon {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 .get-lost {
@@ -184,8 +227,10 @@ nav::after {
   font-size: 16px;
   font-style: italic;
   font-weight: 300;
-  color: var(--accent);
+  color: var(--fg);
   letter-spacing: 0.06em;
+  margin-bottom: 28px;
+  opacity: 0.7;
 }
 
 /* Ocean grid below hero */
@@ -373,11 +418,10 @@ nav::after {
   position: relative;
   height: 100vh;
   overflow: hidden;
-  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  min-height: 100vh;
+  padding: 0 !important;
+  min-height: unset !important;
 }
 
 .mystery-bg {
@@ -469,8 +513,7 @@ nav::after {
    ABOUT PAGE
 ═══════════════════════════════ */
 #page-about {
-  padding: 120px 48px 80px;
-  display: grid;
+  padding: 88px 48px 80px;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: start;
@@ -573,9 +616,13 @@ nav::after {
   <div class="home-hero">
     <div class="home-hero-mosaic" id="heroMosaic"></div>
     <div class="home-hero-content">
-      <button class="shuffle-btn" onclick="shuffleAll()">SHUFFLE</button>
-      <p class="shuffle-hint">&#8635; click to remix</p>
       <p class="get-lost">Get lost in my world</p>
+      <button class="shuffle-btn" id="shuffleBtn" onclick="shuffleAll()">
+        <span class="shuffle-btn-inner">
+          <span class="shuffle-btn-icon">&#8635;</span>
+          <span class="shuffle-btn-text">Shuffle</span>
+        </span>
+      </button>
     </div>
   </div>
   <div class="home-ocean" id="homeOcean"></div>
@@ -774,6 +821,11 @@ function buildOcean(srcs) {
 }
 
 function shuffleAll() {
+  const btn = document.getElementById('shuffleBtn');
+  if (btn) {
+    btn.classList.add('spinning');
+    setTimeout(() => btn.classList.remove('spinning'), 520);
+  }
   const s = shuffleArr(imagePool);
   // Hero mosaic
   document.querySelectorAll('#heroMosaic img').forEach((img, i) => {
