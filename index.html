@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Gabryel SH</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Abril+Fatface&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Archivo+Black&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
 <style>
 /* ─── RESET & BASE ─── */
 :root {
@@ -69,7 +69,7 @@ nav::after {
 }
 
 .nav-logo {
-  font-family: 'Abril Fatface', serif;
+  font-family: 'Archivo Black', sans-serif;
   font-size: 19px;
   letter-spacing: 0.06em;
   color: var(--fg);
@@ -187,24 +187,26 @@ nav::after {
   background: var(--fg);
   border: none;
   cursor: crosshair;
-  padding: 0;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
+  padding: 12px 20px;
+  width: auto;
+  height: auto;
+  border-radius: 15px;
+  clip-path: none;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), background 0.25s;
   overflow: hidden;
+  margin-bottom: 8px;
 }
 
 .shuffle-btn-inner {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   pointer-events: none;
 }
 
@@ -225,7 +227,7 @@ nav::after {
 .shuffle-btn:hover {
   background: var(--accent);
   color: var(--cream);
-  transform: scale(1.06) rotate(8deg);
+  transform: scale(1.04) rotate(1deg);
 }
 
 .shuffle-btn:hover .shuffle-btn-icon {
@@ -248,9 +250,10 @@ nav::after {
   font-size: 18px;
   font-style: italic;
   font-weight: 400;
-  color: var(--cream);
+  color: var(--accent);
   letter-spacing: 0.04em;
-  margin-bottom: 32px;
+  margin-top: 28px;
+  margin-bottom: 0;
   opacity: 0.88;
   text-shadow: 0 1px 20px rgba(0,0,0,0.4);
 }
@@ -413,7 +416,7 @@ nav::after {
 }
 
 .countdown-num {
-  font-family: 'Abril Fatface', serif;
+  font-family: 'Archivo Black', sans-serif;
   font-size: clamp(64px, 10vw, 130px);
   line-height: 1;
   color: var(--accent2);
@@ -598,13 +601,13 @@ nav::after {
   <div class="home-hero">
     <div class="home-hero-mosaic" id="heroMosaic"></div>
     <div class="home-hero-content">
-      <p class="get-lost">[ get lost in my world ☆ ]</p>
       <button class="shuffle-btn" id="shuffleBtn" onclick="shuffleAll()">
         <span class="shuffle-btn-inner">
-          <span class="shuffle-btn-icon">&#8635;</span>
           <span class="shuffle-btn-text">Shuffle</span>
+          <span class="shuffle-btn-icon">&#8635;</span>
         </span>
       </button>
+      <p class="get-lost">[ get lost in my world ☆ ]</p>
     </div>
   </div>
   <div class="home-ocean" id="homeOcean"></div>
@@ -674,7 +677,7 @@ nav::after {
       </div>
     </div>
     <h2 class="mystery-title">Miley Cyrus ☆</h2>
-    <p class="mystery-subtitle">[ the ultimate vision ]</p>
+    <p class="mystery-subtitle">[ the ultimate muse ]</p>
   </div>
 </div>
 
