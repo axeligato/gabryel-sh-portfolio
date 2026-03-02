@@ -347,6 +347,7 @@
       display: flex;
       gap: 0;
       border-bottom: 1px solid var(--border-hd);
+      justify-content: center;
     }
     .gallery-tab {
       font-family: var(--font);
@@ -704,7 +705,34 @@
     }
     .form-submit:hover { background: transparent; color: var(--black); }
 
-    /* ─── ANIMATIONS ─── */
+    /* ─── RED DOT CURSOR ─── */
+    *, *::before, *::after { cursor: none !important; }
+    #cursor-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #e00;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease;
+      top: 0; left: 0;
+    }
+
+    /* ─── CONTACT DIRECT BELOW FORM ─── */
+    .contact-direct-below {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-hd);
+      display: flex;
+      gap: 3rem;
+    }
+    .contact-direct-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -740,6 +768,9 @@
 </head>
 <body>
 
+  <!-- RED DOT CURSOR -->
+  <div id="cursor-dot"></div>
+
   <!-- ════ LOADER ════ -->
   <div id="loader">
     <div class="loader-name">gabryel salle-hount</div>
@@ -768,34 +799,7 @@
   <!-- ════ HOME ════ -->
   <div id="page-home" class="page active">
 
-    <div class="hero">
-      <div class="hero-left anim-1">
-        <div class="hero-eyebrow">Photography — Paris, FR</div>
-        <h1 class="hero-title">Gabryel<br><em>Salle-Hount</em></h1>
-        <p class="hero-desc">Visual storyteller. Fashion, portrait & editorial photography. Every frame a world of its own.</p>
-      </div>
-      <div class="hero-right anim-2">
-        <div class="hero-meta">
-          <div class="hero-meta-item">
-            <span class="meta-label">Speciality</span>
-            <span class="meta-value">Fashion & Editorial</span>
-          </div>
-          <div class="hero-meta-item">
-            <span class="meta-label">Based in</span>
-            <span class="meta-value">Paris, France</span>
-          </div>
-          <div class="hero-meta-item">
-            <span class="meta-label">Available for</span>
-            <span class="meta-value">Commissions & Collabs</span>
-          </div>
-        </div>
-        <div class="hero-cta">
-          <button class="btn-primary" onclick="showPage('gallery')">View Work</button>
-          &nbsp;&nbsp;
-          <button class="btn-secondary" onclick="showPage('contact')">Get in touch</button>
-        </div>
-      </div>
-    </div>
+
 
     <div class="photo-grid anim-3">
       <div class="grid-header">
@@ -822,7 +826,6 @@
     <div class="container">
       <div class="page-header anim-1">
         <h1 class="page-title">Gallery</h1>
-        <span class="page-subtitle">Works 2022 — 2024</span>
       </div>
 
       <!-- TABS -->
@@ -866,7 +869,6 @@
       <img src="https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?w=1400&fit=crop" alt="" />
     </div>
     <div class="mystery-content">
-      <span class="mystery-label">classified — unreleased</span>
       <div class="mystery-countdown">
         <div class="countdown-unit">
           <span class="countdown-num" id="cd-days">--</span>
@@ -885,8 +887,7 @@
           <span class="countdown-label">Sec</span>
         </div>
       </div>
-      <h1 class="mystery-title">Something is coming.</h1>
-      <p class="mystery-subtitle">names will be revealed when the time comes</p>
+      <h1 class="mystery-title">waiting to shoot Miley</h1>
     </div>
   </div>
 
@@ -913,10 +914,6 @@
         <p class="contact-eyebrow">Get in touch</p>
         <h1 class="contact-heading">Let's create<br><em>something.</em></h1>
         <p class="contact-body">Available for editorial, fashion campaigns, portraits and creative collaborations. Based in Paris, open to travel worldwide. Response within 24 hours.</p>
-        <div class="contact-direct">
-          <span class="contact-direct-label">Direct contact</span>
-          <a href="mailto:gabryel@example.com" class="contact-email">gabryel@example.com</a>
-        </div>
       </div>
       <div class="contact-right anim-2">
         <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
@@ -968,11 +965,31 @@
           </div>
           <button type="submit" class="form-submit">Send Enquiry</button>
         </form>
+
+        <div class="contact-direct-below">
+          <div class="contact-direct-item">
+            <span class="contact-direct-label">Email</span>
+            <a href="mailto:gabryel@example.com" class="contact-email">gabryel@example.com</a>
+          </div>
+          <div class="contact-direct-item">
+            <span class="contact-direct-label">Instagram</span>
+            <a href="https://instagram.com/gabryelsallehount" target="_blank" class="contact-email">@gabryelsallehount</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
+    /* ── CURSOR ── */
+    const dot = document.getElementById('cursor-dot');
+    document.addEventListener('mousemove', e => {
+      dot.style.left = e.clientX + 'px';
+      dot.style.top  = e.clientY + 'px';
+    });
+    document.addEventListener('mousedown', () => dot.style.transform = 'translate(-50%,-50%) scale(1.6)');
+    document.addEventListener('mouseup',   () => dot.style.transform = 'translate(-50%,-50%) scale(1)');
+
     /* ── LOADER ── */
     (function() {
       const fill = document.getElementById('loader-fill');
