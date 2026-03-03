@@ -33,65 +33,53 @@
     body.loaded { padding-top: 0; }
 
     /* ════════════════════════════════
-       LOADER — Studio Olimpo style
+       LOADER
     ════════════════════════════════ */
     #loader {
       position: fixed;
       inset: 0;
       background: var(--bg);
       z-index: 9999;
-      overflow: hidden;
-      transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
     }
     #loader.hide {
-      transform: translateY(-100%);
+      opacity: 0;
       pointer-events: none;
-    }
-    .loader-bar {
-      position: absolute;
-      top: 2.5rem;
-      left: 3rem;
-      right: 3rem;
-      z-index: 3;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      transition: opacity 0.5s ease;
     }
     .loader-name {
-      font-size: 0.58rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.26em;
+      letter-spacing: 0.35em;
       text-transform: lowercase;
       color: var(--black);
-      opacity: 0.55;
+    }
+    .loader-bar-wrap {
+      width: 160px;
+      height: 1px;
+      background: var(--border);
+      position: relative;
+    }
+    .loader-bar-fill {
+      position: absolute;
+      top: 0; left: 0; height: 1px;
+      background: var(--black);
+      width: 0%;
+      transition: width 0.05s linear;
     }
     .loader-count {
-      font-size: 0.58rem;
-      font-weight: 600;
-      letter-spacing: 0.10em;
-      color: var(--black);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--grey);
       font-variant-numeric: tabular-nums;
-      opacity: 0.55;
+      width: 3ch;
+      text-align: center;
     }
-    .loader-img-wrap {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: clamp(180px, 32vw, 420px);
-      aspect-ratio: 3 / 4;
-      overflow: hidden;
-      z-index: 2;
-    }
-    .loader-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-    }
-    .loader-img.visible { opacity: 1; }
 
     /* ─── NAVBAR ─── */
     /* ─── SIDEBAR NAV ─── */
@@ -1002,7 +990,6 @@
       text-align: center;
       padding: 2rem 0 0.5rem;
       text-transform: uppercase;
-      background: #c0392b;
     }
     .contact-credit a {
       color: rgba(255,255,255,0.35);
@@ -1043,21 +1030,11 @@
 
   <!-- ════ LOADER ════ -->
   <div id="loader">
-    <div class="loader-bar">
-      <span class="loader-name">gabryel salle hount</span>
-      <span class="loader-count" id="loader-count">0</span>
+    <div class="loader-name">gabryel salle hount</div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar-fill" id="loader-fill"></div>
     </div>
-    <div class="loader-img-wrap" id="loader-img-wrap">
-      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" alt="" />
-      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1lcSnMMm8SnCXv0JYO3XP91U5w-DHo7QS" alt="" />
-      <img class="loader-img" src="https://lh3.googleusercontent.com/d/12V-LX2UW4ymTEMswV10IBXYPwFz8j8vs" alt="" />
-      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1WFPO9YVYf5KbVSm3Z9309vbJ_diDQqvN" alt="" />
-      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1Zxahjh9DuJ7LWBIRUzh7Vl459j6T6xn9" alt="" />
-      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1Hzp_fHkrbyU-zMlJcZmYjJ_aBJ1J7DQ4" alt="" />
-      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1CQHsn8-LON-vuw128BsvU9bWJLrCyYkB" alt="" />
-      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1QAiaxicz7hktI8okmXhijHootYABsX3k" alt="" />
-      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1fW5QLtWlmiqMM3s0qvDVvyFgl7e5gA8g" alt="" />
-    </div>
+    <div class="loader-count" id="loader-count">0</div>
   </div>
 
   <!-- NAVBAR -->
@@ -1098,8 +1075,11 @@
       <!-- controls -->
       <div class="arc-controls">
         <button class="arc-btn" id="arcPrev">&#8592;</button>
+        <span class="arc-counter"><span id="arcNum">01</span> <span class="arc-sep">/</span> 09</span>
         <button class="arc-btn" id="arcNext">&#8594;</button>
       </div>
+
+      <div class="arc-caption" id="arcCaption">Portrait</div>
     </div>
   </div>
 
@@ -1291,39 +1271,27 @@
 
     /* ── LOADER ── */
     (function() {
-      const countEl = document.getElementById('loader-count');
-      const loader  = document.getElementById('loader');
-      const wrap    = document.getElementById('loader-img-wrap');
-      const imgs    = Array.from(wrap.querySelectorAll('.loader-img'));
-      const total   = 100;
-      const duration = 2400;
-      const stepMs   = duration / total;
-      let n = 0, imgIdx = 0;
+      const fill = document.getElementById('loader-fill');
+      const count = document.getElementById('loader-count');
+      const loader = document.getElementById('loader');
+      let n = 0;
+      const duration = 1800; // ms total
+      const steps = 100;
+      const interval = duration / steps;
 
-      // show first image immediately
-      imgs[0].classList.add('visible');
-
-      // cycle images every 150ms
-      const imgTimer = setInterval(() => {
-        imgs[imgIdx % imgs.length].classList.remove('visible');
-        imgIdx++;
-        imgs[imgIdx % imgs.length].classList.add('visible');
-      }, 150);
-
-      // count 0 → 100
-      const countTimer = setInterval(() => {
+      const timer = setInterval(() => {
         n++;
-        countEl.textContent = n;
-        if (n >= total) {
-          clearInterval(countTimer);
-          clearInterval(imgTimer);
+        fill.style.width = n + '%';
+        count.textContent = n;
+        if (n >= 100) {
+          clearInterval(timer);
           setTimeout(() => {
             loader.classList.add('hide');
             document.body.classList.add('loaded');
-            setTimeout(() => { loader.style.display = 'none'; }, 900);
-          }, 300);
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
+          }, 180);
         }
-      }, stepMs);
+      }, interval);
     })();
 
     /* ── PAGE SYSTEM ── */
@@ -1439,15 +1407,44 @@
         if (e.key === 'ArrowRight') goTo(cur + 1);
       });
 
-      /* touch swipe */
+      /* ── touch swipe ── */
       var tx0 = 0;
-      document.getElementById('arcScene').addEventListener('touchstart', function (e) {
+      var scene = document.getElementById('arcScene');
+      scene.addEventListener('touchstart', function (e) {
         tx0 = e.touches[0].clientX;
       }, { passive: true });
-      document.getElementById('arcScene').addEventListener('touchend', function (e) {
+      scene.addEventListener('touchend', function (e) {
         var dx = e.changedTouches[0].clientX - tx0;
         if (Math.abs(dx) > 45) goTo(cur + (dx < 0 ? 1 : -1));
       }, { passive: true });
+
+      /* ── mouse drag ── */
+      var dragStartX = 0, isDragging = false, dragMoved = false;
+      scene.addEventListener('mousedown', function (e) {
+        isDragging = true; dragMoved = false; dragStartX = e.clientX;
+        scene.style.cursor = 'grabbing';
+      });
+      window.addEventListener('mousemove', function (e) {
+        if (!isDragging) return;
+        if (Math.abs(e.clientX - dragStartX) > 5) dragMoved = true;
+      });
+      window.addEventListener('mouseup', function (e) {
+        if (!isDragging) return;
+        isDragging = false; scene.style.cursor = '';
+        var dx = e.clientX - dragStartX;
+        if (dragMoved && Math.abs(dx) > 40) goTo(cur + (dx < 0 ? 1 : -1));
+      });
+
+      /* ── wheel / trackpad ── */
+      var wheelLock = false;
+      scene.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        if (wheelLock) return;
+        wheelLock = true;
+        var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        goTo(cur + (delta > 0 ? 1 : -1));
+        setTimeout(function () { wheelLock = false; }, 550);
+      }, { passive: false });
 
       render();
     }());
