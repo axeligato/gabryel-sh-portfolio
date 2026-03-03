@@ -30,7 +30,7 @@
       -webkit-font-smoothing: antialiased;
       cursor: default;
     }
-    body.loaded { padding-top: var(--nav-h); }
+    body.loaded { padding-top: 0; }
 
     /* ════════════════════════════════
        LOADER
@@ -82,55 +82,66 @@
     }
 
     /* ─── NAVBAR ─── */
+    /* ─── SIDEBAR NAV ─── */
+    :root { --nav-w: 160px; }
+    body.loaded { padding-top: 0 !important; padding-left: var(--nav-w); }
+
     .navbar {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--nav-h);
+      top: 0; left: 0; bottom: 0;
+      width: var(--nav-w);
       z-index: 1000;
       background: rgba(248,248,246,0.97);
-      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
       backdrop-filter: blur(10px);
       display: flex;
-      align-items: center;
+      flex-direction: column;
     }
     .nav-container {
-      max-width: 1400px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0 2.5rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      height: 100%;
+      padding: 2.5rem 1.8rem;
+    }
+    .nav-logo {
+      margin-bottom: auto;
     }
     .nav-logo a {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 400;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.18em;
       text-transform: lowercase;
       text-decoration: none;
       color: var(--black);
       transition: opacity 0.2s;
+      display: block;
+      line-height: 1.5;
+      word-break: break-word;
+      max-width: 100%;
     }
     .nav-logo a:hover { opacity: 0.4; }
     .nav-menu {
       display: flex;
+      flex-direction: column;
       list-style: none;
-      gap: 2.8rem;
-      align-items: center;
+      gap: 1.6rem;
+      margin-bottom: 2.5rem;
     }
     .nav-link {
-      font-size: 0.62rem;
+      font-size: 0.60rem;
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       text-decoration: none;
       color: var(--black);
-      opacity: 0.45;
+      opacity: 0.35;
       transition: opacity 0.2s;
       cursor: pointer;
       background: none;
       border: none;
       font-family: var(--font);
+      text-align: left;
+      display: block;
     }
     .nav-link:hover, .nav-link.active { opacity: 1; }
 
@@ -743,6 +754,7 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
+      :root { --nav-w: 130px; }
       .hero { grid-template-columns: 1fr; }
       .hero-left { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border-hd); margin-bottom: 3rem; }
       .hero-right { padding-left: 0; }
@@ -758,7 +770,37 @@
       .motion-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
-      :root { --nav-h: 54px; }
+      :root { --nav-w: 0px; }
+      body.loaded { padding-left: 0; }
+      .navbar {
+        width: 100%;
+        height: 52px;
+        bottom: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        flex-direction: row;
+      }
+      .nav-container {
+        flex-direction: row;
+        align-items: center;
+        padding: 0 1.2rem;
+      }
+      .nav-logo { margin-bottom: 0; margin-right: auto; }
+      .nav-logo a {
+        font-size: 0.55rem;
+        letter-spacing: 0.12em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
+      }
+      .nav-menu {
+        flex-direction: row;
+        gap: 1.2rem;
+        margin-bottom: 0;
+      }
+      .nav-link { font-size: 0.52rem; letter-spacing: 0.12em; }
+      body.loaded { padding-top: 52px; }
       .photos-wrapper { grid-template-columns: 1fr; }
       .gallery-masonry { columns: 1; }
       .mystery-countdown { gap: 1.5rem; }
@@ -801,21 +843,27 @@
 
 
 
-    <div class="photo-grid anim-3">
-      <div class="grid-header">
-        <span class="grid-header-label">Selected Works</span>
-        <span class="grid-header-count">01 — 09</span>
+    <!-- 3D CAROUSEL -->
+    <div class="carousel-scene">
+      <div class="carousel-label">Selected Works</div>
+      <div class="carousel-stage" id="carouselStage">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-card" data-caption="01 / Portrait"><img src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" alt="" /></div>
+          <div class="carousel-card" data-caption="02 / Fashion"><img src="https://lh3.googleusercontent.com/d/1lcSnMMm8SnCXv0JYO3XP91U5w-DHo7QS" alt="" /></div>
+          <div class="carousel-card" data-caption="03 / Editorial"><img src="https://lh3.googleusercontent.com/d/12V-LX2UW4ymTEMswV10IBXYPwFz8j8vs" alt="" /></div>
+          <div class="carousel-card" data-caption="04 / Campaign"><img src="https://lh3.googleusercontent.com/d/1WFPO9YVYf5KbVSm3Z9309vbJ_diDQqvN" alt="" /></div>
+          <div class="carousel-card" data-caption="05 / Portrait"><img src="https://lh3.googleusercontent.com/d/1Zxahjh9DuJ7LWBIRUzh7Vl459j6T6xn9" alt="" /></div>
+          <div class="carousel-card" data-caption="06 / Fashion"><img src="https://lh3.googleusercontent.com/d/1Hzp_fHkrbyU-zMlJcZmYjJ_aBJ1J7DQ4" alt="" /></div>
+          <div class="carousel-card" data-caption="07 / Still Life"><img src="https://lh3.googleusercontent.com/d/1CQHsn8-LON-vuw128BsvU9bWJLrCyYkB" alt="" /></div>
+          <div class="carousel-card" data-caption="08 / Portrait"><img src="https://lh3.googleusercontent.com/d/1QAiaxicz7hktI8okmXhijHootYABsX3k" alt="" /></div>
+          <div class="carousel-card" data-caption="09 / Fashion"><img src="https://lh3.googleusercontent.com/d/1fW5QLtWlmiqMM3s0qvDVvyFgl7e5gA8g" alt="" /></div>
+        </div>
       </div>
-      <div class="photos-wrapper">
-        <div class="photo-item"><img src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" alt="" /><div class="photo-item-caption">01 / Portrait</div></div>
-        <div class="photo-item"><img src="https://lh3.googleusercontent.com/d/1lcSnMMm8SnCXv0JYO3XP91U5w-DHo7QS" alt="" /><div class="photo-item-caption">02 / Fashion</div></div>
-        <div class="photo-item"><img src="https://lh3.googleusercontent.com/d/12V-LX2UW4ymTEMswV10IBXYPwFz8j8vs" alt="" /><div class="photo-item-caption">03 / Editorial</div></div>
-        <div class="photo-item"><img src="https://lh3.googleusercontent.com/d/1WFPO9YVYf5KbVSm3Z9309vbJ_diDQqvN" alt="" /><div class="photo-item-caption">04 / Campaign</div></div>
-        <div class="photo-item"><img src="https://lh3.googleusercontent.com/d/1Zxahjh9DuJ7LWBIRUzh7Vl459j6T6xn9" alt="" /><div class="photo-item-caption">05 / Portrait</div></div>
-        <div class="photo-item"><img src="https://lh3.googleusercontent.com/d/1Hzp_fHkrbyU-zMlJcZmYjJ_aBJ1J7DQ4" alt="" /><div class="photo-item-caption">06 / Fashion</div></div>
-        <div class="photo-item"><img src="https://lh3.googleusercontent.com/d/1CQHsn8-LON-vuw128BsvU9bWJLrCyYkB" alt="" /><div class="photo-item-caption">07 / Still Life</div></div>
-        <div class="photo-item"><img src="https://lh3.googleusercontent.com/d/1QAiaxicz7hktI8okmXhijHootYABsX3k" alt="" /><div class="photo-item-caption">08 / Portrait</div></div>
-        <div class="photo-item"><img src="https://lh3.googleusercontent.com/d/1fW5QLtWlmiqMM3s0qvDVvyFgl7e5gA8g" alt="" /><div class="photo-item-caption">09 / Fashion</div></div>
+      <div class="carousel-footer">
+        <button class="carousel-btn" id="carouselPrev">←</button>
+        <span class="carousel-counter"><span id="carouselCurrent">01</span> / 09</span>
+        <button class="carousel-btn" id="carouselNext">→</button>
+        <span class="carousel-caption" id="carouselCaption">01 / Portrait</span>
       </div>
     </div>
 
@@ -1041,6 +1089,82 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    /* ── 3D CAROUSEL ── */
+    (function() {
+      const track = document.getElementById('carouselTrack');
+      const cards = Array.from(track ? track.querySelectorAll('.carousel-card') : []);
+      const counterEl = document.getElementById('carouselCurrent');
+      const captionEl = document.getElementById('carouselCaption');
+      const prevBtn = document.getElementById('carouselPrev');
+      const nextBtn = document.getElementById('carouselNext');
+      if (!cards.length) return;
+
+      const total = cards.length;
+      let current = 0;
+      let isDragging = false;
+      let startX = 0;
+
+      function pad(n) { return String(n + 1).padStart(2, '0'); }
+
+      function positionCards() {
+        const angleStep = 28; // degrees between cards
+        const radius = 520;   // cylinder radius (px)
+        cards.forEach((card, i) => {
+          let diff = i - current;
+          // wrap around
+          if (diff > total / 2) diff -= total;
+          if (diff < -total / 2) diff += total;
+          const angle = diff * angleStep;
+          const rad = (angle * Math.PI) / 180;
+          const x = Math.sin(rad) * radius;
+          const z = Math.cos(rad) * radius - radius;
+          const scale = diff === 0 ? 1 : Math.max(0.6, 1 - Math.abs(diff) * 0.12);
+          const opacity = diff === 0 ? 1 : Math.max(0.25, 1 - Math.abs(diff) * 0.22);
+          const blur = diff === 0 ? 0 : Math.abs(diff) * 1.5;
+          card.style.transform = `translate(-50%, -50%) translateX(${x}px) translateZ(${z}px) rotateY(${-angle * 0.35}deg) scale(${scale})`;
+          card.style.opacity = opacity;
+          card.style.filter = blur > 0 ? `blur(${blur}px)` : 'none';
+          card.style.zIndex = 100 - Math.abs(diff);
+          card.classList.toggle('active', diff === 0);
+        });
+        if (counterEl) counterEl.textContent = pad(current);
+        if (captionEl) captionEl.textContent = cards[current].dataset.caption || '';
+      }
+
+      function goTo(index) {
+        current = ((index % total) + total) % total;
+        positionCards();
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+
+      // Click side cards to navigate
+      cards.forEach((card, i) => {
+        card.addEventListener('click', () => { if (i !== current) goTo(i); });
+      });
+
+      // Drag / swipe
+      const stage = document.getElementById('carouselStage');
+      if (stage) {
+        stage.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX; });
+        stage.addEventListener('mousemove', e => { if (!isDragging) return; });
+        stage.addEventListener('mouseup', e => {
+          if (!isDragging) return;
+          isDragging = false;
+          const dx = e.clientX - startX;
+          if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+        });
+        stage.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+        stage.addEventListener('touchend', e => {
+          const dx = e.changedTouches[0].clientX - startX;
+          if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+        }, {passive:true});
+      }
+
+      positionCards();
+    })();
 
     /* ── GALLERY TABS ── */
     function switchTab(btn, tabId) {
