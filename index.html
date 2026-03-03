@@ -58,6 +58,7 @@
       align-items: flex-start;
     }
     .loader-name {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 0.58rem;
       font-weight: 600;
       letter-spacing: 0.26em;
@@ -66,6 +67,7 @@
       opacity: 0.55;
     }
     .loader-count {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 0.58rem;
       font-weight: 600;
       letter-spacing: 0.10em;
@@ -607,7 +609,7 @@
     /* ════════════════════════════════
        CONTACT PAGE
     ════════════════════════════════ */
-    #page-contact { padding: 5rem 2.5rem 6rem; }
+    #page-contact { padding: 5rem 2.5rem 6rem; min-height: 100vh; }
 
     .contact-grid {
       max-width: 1360px;
@@ -866,12 +868,10 @@
       border-radius: 2px;
       overflow: hidden;
       cursor: pointer;
-      will-change: transform, opacity, filter;
+      will-change: transform, opacity;
       transition:
-        transform  0.65s cubic-bezier(0.25,0.46,0.45,0.94),
-        opacity    0.65s ease,
-        filter     0.65s ease,
-        box-shadow 0.65s ease;
+        transform  0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+        opacity    0.45s ease;
     }
     .arc-card img {
       width: 100%;
@@ -927,6 +927,7 @@
     }
 
     /* ════ CONTACT PAGE — NAV OVERRIDE ════ */
+    body.contact-active { background: #c0392b; }
     body.contact-active .navbar {
       background: #c0392b !important;
       border-right-color: rgba(255,255,255,0.15) !important;
@@ -968,6 +969,22 @@
     #page-contact .shoot-pill.selected, #page-contact .shoot-pill:hover { background: #fff; color: #c0392b; border-color: #fff; }
     #page-contact .form-submit { background: #fff; color: #c0392b; border-color: #fff; }
     #page-contact .form-submit:hover { background: transparent; color: #fff; border-color: #fff; }
+
+    /* ── GLOBAL LOWERCASE ENFORCEMENT ── */
+    h1, h2, h3, h4, h5, h6,
+    p, span, a, button, label,
+    li, td, th, caption,
+    input, textarea, select, option,
+    div, section, article, header, footer,
+    .page-title, .page-subtitle,
+    .about-name, .about-bio, .about-tagline,
+    .contact-heading, .mystery-title,
+    .countdown-label, .countdown-value,
+    .hero-heading, .hero-name, .hero-eyebrow,
+    .motion-cell-title, .motion-cell-num,
+    .gallery-tab, .form-submit {
+      text-transform: lowercase;
+    }
   </style>
 </head>
 <body>
@@ -1318,11 +1335,11 @@
           rotateZ     = diff * ROT_DEG
       */
       var STEP_X      = 270;   /* px between cards */
-      var STEP_Y      = 22;    /* px vertical drop per card away from centre */
-      var SCALE_STEP  = 0.10;
-      var OPACITY_STEP= 0.18;
-      var ROT_DEG     = 3.5;
-      var BLUR_STEP   = 0.8;
+      var STEP_Y      = 0;     /* flat — no vertical arc */
+      var SCALE_STEP  = 0.06;
+      var OPACITY_STEP= 0.22;
+      var ROT_DEG     = 0;     /* no tilt */
+      var BLUR_STEP   = 0;     /* no blur */
       var VISIBLE     = 4;     /* cards visible each side */
 
       function render() {
@@ -1343,9 +1360,9 @@
           var blur = abs > 0 ? abs * BLUR_STEP : 0;
           var zi   = 100 - abs * 10;
 
-          card.style.transform  = 'translateX(' + tx + 'px) translateY(' + ty + 'px) scale(' + sc + ') rotateZ(' + rot + 'deg)';
+          card.style.transform  = 'translateX(' + tx + 'px) scale(' + sc + ')';
           card.style.opacity    = op;
-          card.style.filter     = blur > 0 ? 'blur(' + blur.toFixed(1) + 'px)' : 'none';
+          card.style.filter     = 'none';
           card.style.zIndex     = zi;
           card.style.visibility = vis ? 'visible' : 'hidden';
           card.classList.toggle('is-active', diff === 0);
@@ -1356,8 +1373,19 @@
       }
 
       function goTo(n) {
-        cur = ((n % N) + N) % N;
-        render();
+        var next = ((n % N) + N) % N;
+        var delta = next - cur;
+        var isWrap = Math.abs(delta) > N / 2;
+        if (isWrap) {
+          cards.forEach(function(c) { c.style.transition = 'none'; });
+          cur = next;
+          render();
+          void cards[0].offsetWidth;
+          cards.forEach(function(c) { c.style.transition = ''; });
+        } else {
+          cur = next;
+          render();
+        }
       }
 
       prevBtn.addEventListener('click', function () { goTo(cur - 1); });
