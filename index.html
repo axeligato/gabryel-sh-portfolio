@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gabryel Salle Hount</title>
+  <title>Gabryel Sallehount</title>
   <style>
     /* ─── RESET ─── */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font); }
 
     /* ─── TOKENS ─── */
     :root {
@@ -33,53 +33,65 @@
     body.loaded { padding-top: 0; }
 
     /* ════════════════════════════════
-       LOADER
+       LOADER — Studio Olimpo style
     ════════════════════════════════ */
     #loader {
       position: fixed;
       inset: 0;
       background: var(--bg);
       z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
+      overflow: hidden;
+      transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
     }
     #loader.hide {
-      opacity: 0;
+      transform: translateY(-100%);
       pointer-events: none;
-      transition: opacity 0.5s ease;
+    }
+    .loader-bar {
+      position: absolute;
+      top: 2.5rem;
+      left: 3rem;
+      right: 3rem;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
     }
     .loader-name {
-      font-size: 0.72rem;
+      font-size: 0.58rem;
       font-weight: 600;
-      letter-spacing: 0.35em;
+      letter-spacing: 0.26em;
       text-transform: lowercase;
       color: var(--black);
-    }
-    .loader-bar-wrap {
-      width: 160px;
-      height: 1px;
-      background: var(--border);
-      position: relative;
-    }
-    .loader-bar-fill {
-      position: absolute;
-      top: 0; left: 0; height: 1px;
-      background: var(--black);
-      width: 0%;
-      transition: width 0.05s linear;
+      opacity: 0.55;
     }
     .loader-count {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      color: var(--grey);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      color: var(--black);
       font-variant-numeric: tabular-nums;
-      width: 3ch;
-      text-align: center;
+      opacity: 0.55;
     }
+    .loader-img-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(180px, 32vw, 420px);
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .loader-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+    }
+    .loader-img.visible { opacity: 1; }
 
     /* ─── NAVBAR ─── */
     /* ─── SIDEBAR NAV ─── */
@@ -167,7 +179,7 @@
       font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.22em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       padding: 0.9rem 2.5rem;
       background: var(--black);
       color: var(--white);
@@ -183,7 +195,7 @@
       font-size: 0.62rem;
       font-weight: 600;
       letter-spacing: 0.22em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       padding: 0.9rem 2.5rem;
       background: transparent;
       color: var(--black);
@@ -221,7 +233,7 @@
     .hero-eyebrow {
       font-size: 0.6rem;
       letter-spacing: 0.25em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--grey);
       margin-bottom: 2rem;
       font-weight: 600;
@@ -258,7 +270,7 @@
     .meta-label {
       font-size: 0.58rem;
       letter-spacing: 0.2em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--grey);
       font-weight: 600;
     }
@@ -284,7 +296,7 @@
     .grid-header-label {
       font-size: 0.58rem;
       letter-spacing: 0.22em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--grey);
       font-weight: 600;
     }
@@ -316,7 +328,7 @@
       background: rgba(248,248,246,0.94);
       font-size: 0.58rem;
       letter-spacing: 0.15em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--grey);
       opacity: 0;
       transition: opacity 0.25s;
@@ -346,7 +358,7 @@
     .page-subtitle {
       font-size: 0.6rem;
       letter-spacing: 0.2em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--grey);
       font-weight: 600;
     }
@@ -365,7 +377,7 @@
       font-size: 0.62rem;
       font-weight: 600;
       letter-spacing: 0.2em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       padding: 0.9rem 2rem 0.8rem;
       background: none;
       border: none;
@@ -404,7 +416,7 @@
     .gallery-cell-num {
       font-size: 0.55rem;
       letter-spacing: 0.15em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--grey);
     }
     .gallery-cell.hidden { display: none; }
@@ -454,7 +466,7 @@
       padding: 1rem 1.2rem;
       background: linear-gradient(transparent, rgba(10,10,10,0.5));
     }
-    .motion-cell-num { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(248,248,246,0.6); }
+    .motion-cell-num { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: lowercase; color: rgba(248,248,246,0.6); }
 
     /* ════════════════════════════════
        MYSTERY PAGE — fullscreen original layout
@@ -500,7 +512,7 @@
     .mystery-label {
       font-size: 9px;
       letter-spacing: 0.6em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: rgba(248,248,246,0.55);
       margin-bottom: 40px;
       display: block;
@@ -530,7 +542,7 @@
     .countdown-label {
       font-size: 8px;
       letter-spacing: 0.4em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: rgba(248,248,246,0.45);
       font-weight: 700;
     }
@@ -545,7 +557,7 @@
     .mystery-subtitle {
       font-size: 9px;
       letter-spacing: 0.4em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: rgba(248,248,246,0.45);
       font-weight: 700;
     }
@@ -611,7 +623,7 @@
     .contact-eyebrow {
       font-size: 0.58rem;
       letter-spacing: 0.22em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--grey);
       margin-bottom: 2rem;
     }
@@ -641,7 +653,7 @@
     .contact-direct-label {
       font-size: 0.55rem;
       letter-spacing: 0.2em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--grey);
     }
     .contact-email {
@@ -662,7 +674,7 @@
     .form-label {
       font-size: 0.58rem;
       letter-spacing: 0.18em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--grey);
       font-weight: 600;
     }
@@ -689,7 +701,7 @@
       font-family: var(--font);
       font-size: 0.58rem;
       letter-spacing: 0.15em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       padding: 0.5rem 1.1rem;
       border: 1px solid var(--border-hd);
       background: transparent;
@@ -704,7 +716,7 @@
       font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.22em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       width: 100%;
       padding: 1.1rem;
       background: var(--black);
@@ -729,6 +741,20 @@
       transform: translate(-50%, -50%);
       transition: transform 0.08s ease;
       top: 0; left: 0;
+      display: block;
+    }
+    #cursor-dot-white {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 100000;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease;
+      top: 0; left: 0;
+      display: none;
     }
 
     /* ─── CONTACT DIRECT BELOW FORM ─── */
@@ -819,15 +845,9 @@
       background: var(--bg);
       gap: 0;
       position: relative;
+      cursor: grab;
     }
-    .arc-label {
-      font-size: 0.56rem;
-      letter-spacing: 0.30em;
-      text-transform: uppercase;
-      opacity: 0.30;
-      margin-bottom: 2.5rem;
-      font-weight: 600;
-    }
+    .arc-scene:active { cursor: grabbing; }
     .arc-track {
       position: relative;
       width: 100%;
@@ -883,113 +903,16 @@
       line-height: 1;
     }
     .arc-btn:hover { opacity: 1; }
-    .arc-counter {
-      font-size: 0.58rem;
-      letter-spacing: 0.18em;
-      opacity: 0.45;
-      min-width: 5rem;
-      text-align: center;
-      font-weight: 600;
-    }
-    .arc-sep { margin: 0 0.3em; opacity: 0.4; }
-    .arc-caption {
-      font-size: 0.56rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      opacity: 0.30;
-      margin-top: 1rem;
-      font-weight: 600;
-      min-height: 1em;
-    }
-    @media (max-width: 768px) {
-      .arc-card { width: 58vw; height: 44vh; }
-      .arc-track { height: 48vh; }
-    }
 
 
-    /* ════ CONTACT PAGE — RED THEME ════ */
-    #page-contact {
-      background: #c0392b;
-    }
-    #page-contact .contact-eyebrow,
-    #page-contact .contact-heading,
-    #page-contact .contact-heading em,
-    #page-contact .contact-body,
-    #page-contact .contact-direct-label,
-    #page-contact .contact-email,
-    #page-contact .form-label,
-    #page-contact .form-submit,
-    #page-contact .shoot-pill,
-    #page-contact .arc-caption {
-      color: #fff;
-    }
-    #page-contact .contact-body { color: rgba(255,255,255,0.7); }
-    #page-contact .contact-eyebrow { color: rgba(255,255,255,0.55); }
-    #page-contact .contact-direct-label { color: rgba(255,255,255,0.5); }
-    #page-contact .contact-email {
-      color: #fff;
-      border-bottom-color: rgba(255,255,255,0.4);
-    }
-    #page-contact .contact-email:hover { opacity: 0.6; }
-    #page-contact .contact-left {
-      border-right-color: rgba(255,255,255,0.18);
-    }
-    #page-contact .contact-direct-below {
-      border-top-color: rgba(255,255,255,0.18);
-    }
-    #page-contact .form-input {
-      color: #fff;
-      border-bottom-color: rgba(255,255,255,0.35);
-      background: transparent;
-    }
-    #page-contact .form-input::placeholder { color: rgba(255,255,255,0.35); }
-    #page-contact .form-input:focus { border-bottom-color: #fff; }
-    #page-contact select.form-input option { color: #0a0a0a; background: #fff; }
-    #page-contact .shoot-pill {
-      border-color: rgba(255,255,255,0.35);
-      color: rgba(255,255,255,0.6);
-      background: transparent;
-    }
-    #page-contact .shoot-pill.selected,
-    #page-contact .shoot-pill:hover {
-      background: #fff;
-      color: #c0392b;
-      border-color: #fff;
-    }
-    #page-contact .form-submit {
-      background: #fff;
-      color: #c0392b;
-      border-color: #fff;
-    }
-    #page-contact .form-submit:hover {
-      background: transparent;
-      color: #fff;
-      border-color: #fff;
-    }
-
-    /* ── WHITE CURSOR ON CONTACT PAGE ── */
-    #cursor-dot-white {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: #fff;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 100000;
-      transform: translate(-50%, -50%);
-      transition: transform 0.08s ease;
-      top: 0; left: 0;
-      display: none;
-    }
-
-    /* ── MADE BY CREDIT ── */
     .contact-credit {
       font-size: 0.48rem;
       letter-spacing: 0.18em;
       color: rgba(255,255,255,0.25);
       text-align: center;
       padding: 2rem 0 0.5rem;
-      text-transform: uppercase;
+      text-transform: lowercase;
+      background: #c0392b;
     }
     .contact-credit a {
       color: rgba(255,255,255,0.35);
@@ -1019,6 +942,32 @@
     body.contact-active .navbar {
       border-bottom-color: rgba(255,255,255,0.15) !important;
     }
+
+    /* contact red theme */
+    #page-contact { background: #c0392b; }
+    #page-contact .contact-eyebrow,
+    #page-contact .contact-heading,
+    #page-contact .contact-heading em,
+    #page-contact .contact-body,
+    #page-contact .contact-direct-label,
+    #page-contact .contact-email,
+    #page-contact .form-label,
+    #page-contact .form-submit,
+    #page-contact .shoot-pill { color: #fff; }
+    #page-contact .contact-body { color: rgba(255,255,255,0.7); }
+    #page-contact .contact-eyebrow { color: rgba(255,255,255,0.55); }
+    #page-contact .contact-direct-label { color: rgba(255,255,255,0.5); }
+    #page-contact .contact-email { color: #fff; border-bottom-color: rgba(255,255,255,0.4); }
+    #page-contact .contact-email:hover { opacity: 0.6; }
+    #page-contact .contact-left { border-right-color: rgba(255,255,255,0.18); }
+    #page-contact .form-input { color: #fff; border-bottom-color: rgba(255,255,255,0.35); background: transparent; }
+    #page-contact .form-input::placeholder { color: rgba(255,255,255,0.35); }
+    #page-contact .form-input:focus { border-bottom-color: #fff; }
+    #page-contact select.form-input option { color: #0a0a0a; background: #fff; }
+    #page-contact .shoot-pill { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.6); background: transparent; }
+    #page-contact .shoot-pill.selected, #page-contact .shoot-pill:hover { background: #fff; color: #c0392b; border-color: #fff; }
+    #page-contact .form-submit { background: #fff; color: #c0392b; border-color: #fff; }
+    #page-contact .form-submit:hover { background: transparent; color: #fff; border-color: #fff; }
   </style>
 </head>
 <body>
@@ -1030,18 +979,28 @@
 
   <!-- ════ LOADER ════ -->
   <div id="loader">
-    <div class="loader-name">gabryel salle hount</div>
-    <div class="loader-bar-wrap">
-      <div class="loader-bar-fill" id="loader-fill"></div>
+    <div class="loader-bar">
+      <span class="loader-name">gabryel sallehount</span>
+      <span class="loader-count" id="loader-count">0</span>
     </div>
-    <div class="loader-count" id="loader-count">0</div>
+    <div class="loader-img-wrap" id="loader-img-wrap">
+      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" alt="" />
+      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1lcSnMMm8SnCXv0JYO3XP91U5w-DHo7QS" alt="" />
+      <img class="loader-img" src="https://lh3.googleusercontent.com/d/12V-LX2UW4ymTEMswV10IBXYPwFz8j8vs" alt="" />
+      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1WFPO9YVYf5KbVSm3Z9309vbJ_diDQqvN" alt="" />
+      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1Zxahjh9DuJ7LWBIRUzh7Vl459j6T6xn9" alt="" />
+      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1Hzp_fHkrbyU-zMlJcZmYjJ_aBJ1J7DQ4" alt="" />
+      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1CQHsn8-LON-vuw128BsvU9bWJLrCyYkB" alt="" />
+      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1QAiaxicz7hktI8okmXhijHootYABsX3k" alt="" />
+      <img class="loader-img" src="https://lh3.googleusercontent.com/d/1fW5QLtWlmiqMM3s0qvDVvyFgl7e5gA8g" alt="" />
+    </div>
   </div>
 
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">
-        <a onclick="showPage('home')" style="cursor:pointer;">gabryel salle hount</a>
+        <a onclick="showPage('home')" style="cursor:pointer;">gabryel sallehount</a>
       </div>
       <ul class="nav-menu">
         <li><button class="nav-link active" data-page="home" onclick="showPage('home')">Home</button></li>
@@ -1057,8 +1016,6 @@
   <div id="page-home" class="page active">
     <div class="arc-scene" id="arcScene">
       <!-- label -->
-      <div class="arc-label">Selected Works</div>
-
       <!-- track -->
       <div class="arc-track" id="arcTrack">
         <div class="arc-card" data-idx="0"><img src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" alt="" /></div>
@@ -1075,11 +1032,8 @@
       <!-- controls -->
       <div class="arc-controls">
         <button class="arc-btn" id="arcPrev">&#8592;</button>
-        <span class="arc-counter"><span id="arcNum">01</span> <span class="arc-sep">/</span> 09</span>
         <button class="arc-btn" id="arcNext">&#8594;</button>
       </div>
-
-      <div class="arc-caption" id="arcCaption">Portrait</div>
     </div>
   </div>
 
@@ -1157,10 +1111,10 @@
   <div id="page-about" class="page">
     <div class="about-simple container">
       <div class="about-photo anim-1">
-        <img src="https://lh3.googleusercontent.com/d/1XHLwxoyOXGc2qFCfq3WCAR3Q98a3terr" alt="Gabryel Salle Hount" />
+        <img src="https://lh3.googleusercontent.com/d/1XHLwxoyOXGc2qFCfq3WCAR3Q98a3terr" alt="Gabryel Sallehount" />
       </div>
       <div class="about-text-col anim-2">
-        <h1 class="about-name">Gabryel<br>Salle Hount</h1>
+        <h1 class="about-name">Gabryel<br>Sallehount</h1>
         <p class="about-bio">
           Photographer and visual director based in Paris. Specialising in <strong>fashion editorial, portraiture</strong> and campaign work, Gabryel's practice is defined by a raw sensitivity — images that hold tension between stillness and movement, the composed and the accidental.<br><br>
           Clients and collaborators have included emerging designers, independent magazines and cultural institutions across Europe. His approach treats every frame as a conversation — unhurried, precise, instinctive.
@@ -1271,27 +1225,40 @@
 
     /* ── LOADER ── */
     (function() {
-      const fill = document.getElementById('loader-fill');
-      const count = document.getElementById('loader-count');
-      const loader = document.getElementById('loader');
-      let n = 0;
-      const duration = 1800; // ms total
-      const steps = 100;
-      const interval = duration / steps;
+      var countEl = document.getElementById('loader-count');
+      var loader  = document.getElementById('loader');
+      var wrap    = document.getElementById('loader-img-wrap');
+      var imgs    = Array.from(wrap.querySelectorAll('.loader-img'));
+      var total   = 100;
+      var duration = 2400;
+      var stepMs   = duration / total;
+      var n = 0, imgIdx = 0;
 
-      const timer = setInterval(() => {
+      // show first image right away
+      imgs[0].classList.add('visible');
+
+      // cycle images every 150ms
+      var imgTimer = setInterval(function() {
+        imgs[imgIdx % imgs.length].classList.remove('visible');
+        imgIdx++;
+        imgs[imgIdx % imgs.length].classList.add('visible');
+      }, 150);
+
+      // count 0 → 100
+      var countTimer = setInterval(function() {
         n++;
-        fill.style.width = n + '%';
-        count.textContent = n;
-        if (n >= 100) {
-          clearInterval(timer);
-          setTimeout(() => {
+        countEl.textContent = n;
+        if (n >= total) {
+          clearInterval(countTimer);
+          clearInterval(imgTimer);
+          // brief pause at 100, then slide loader upward
+          setTimeout(function() {
             loader.classList.add('hide');
             document.body.classList.add('loaded');
-            setTimeout(() => { loader.style.display = 'none'; }, 500);
-          }, 180);
+            setTimeout(function() { loader.style.display = 'none'; }, 900);
+          }, 300);
         }
-      }, interval);
+      }, stepMs);
     })();
 
     /* ── PAGE SYSTEM ── */
@@ -1332,7 +1299,7 @@
       var CAPTIONS = ['Portrait','Fashion','Editorial','Campaign','Portrait','Fashion','Still Life','Portrait','Fashion'];
       var track    = document.getElementById('arcTrack');
       var numEl    = document.getElementById('arcNum');
-      var capEl    = document.getElementById('arcCaption');
+      var capEl    = null; /* element removed */
       var prevBtn  = document.getElementById('arcPrev');
       var nextBtn  = document.getElementById('arcNext');
       if (!track) return;
@@ -1430,7 +1397,7 @@
       });
       window.addEventListener('mouseup', function (e) {
         if (!isDragging) return;
-        isDragging = false; scene.style.cursor = '';
+        isDragging = false;
         var dx = e.clientX - dragStartX;
         if (dragMoved && Math.abs(dx) > 40) goTo(cur + (dx < 0 ? 1 : -1));
       });
@@ -1445,6 +1412,25 @@
         goTo(cur + (delta > 0 ? 1 : -1));
         setTimeout(function () { wheelLock = false; }, 550);
       }, { passive: false });
+
+      /* ── hover over side cards → auto-scroll toward them ── */
+      var hoverTimer = null;
+      cards.forEach(function (card, i) {
+        card.addEventListener('mouseenter', function () {
+          if (isDragging) return;
+          if (i === cur) return;
+          var diff = i - cur;
+          if (diff >  N / 2) diff -= N;
+          if (diff < -N / 2) diff += N;
+          var dir = diff > 0 ? 1 : -1;
+          if (hoverTimer) { clearInterval(hoverTimer); hoverTimer = null; }
+          goTo(cur + dir);
+          hoverTimer = setInterval(function () { goTo(cur + dir); }, 900);
+        });
+        card.addEventListener('mouseleave', function () {
+          if (hoverTimer) { clearInterval(hoverTimer); hoverTimer = null; }
+        });
+      });
 
       render();
     }());
