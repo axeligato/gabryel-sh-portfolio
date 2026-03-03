@@ -906,12 +906,110 @@
       .arc-track { height: 48vh; }
     }
 
+
+    /* ════ CONTACT PAGE — RED THEME ════ */
+    #page-contact {
+      background: #c0392b;
+    }
+    #page-contact .contact-eyebrow,
+    #page-contact .contact-heading,
+    #page-contact .contact-heading em,
+    #page-contact .contact-body,
+    #page-contact .contact-direct-label,
+    #page-contact .contact-email,
+    #page-contact .form-label,
+    #page-contact .form-submit,
+    #page-contact .shoot-pill,
+    #page-contact .arc-caption {
+      color: #fff;
+    }
+    #page-contact .contact-body { color: rgba(255,255,255,0.7); }
+    #page-contact .contact-eyebrow { color: rgba(255,255,255,0.55); }
+    #page-contact .contact-direct-label { color: rgba(255,255,255,0.5); }
+    #page-contact .contact-email {
+      color: #fff;
+      border-bottom-color: rgba(255,255,255,0.4);
+    }
+    #page-contact .contact-email:hover { opacity: 0.6; }
+    #page-contact .contact-left {
+      border-right-color: rgba(255,255,255,0.18);
+    }
+    #page-contact .contact-direct-below {
+      border-top-color: rgba(255,255,255,0.18);
+    }
+    #page-contact .form-input {
+      color: #fff;
+      border-bottom-color: rgba(255,255,255,0.35);
+      background: transparent;
+    }
+    #page-contact .form-input::placeholder { color: rgba(255,255,255,0.35); }
+    #page-contact .form-input:focus { border-bottom-color: #fff; }
+    #page-contact select.form-input option { color: #0a0a0a; background: #fff; }
+    #page-contact .shoot-pill {
+      border-color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.6);
+      background: transparent;
+    }
+    #page-contact .shoot-pill.selected,
+    #page-contact .shoot-pill:hover {
+      background: #fff;
+      color: #c0392b;
+      border-color: #fff;
+    }
+    #page-contact .form-submit {
+      background: #fff;
+      color: #c0392b;
+      border-color: #fff;
+    }
+    #page-contact .form-submit:hover {
+      background: transparent;
+      color: #fff;
+      border-color: #fff;
+    }
+
+    /* ── WHITE CURSOR ON CONTACT PAGE ── */
+    #cursor-dot-white {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 100000;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease;
+      top: 0; left: 0;
+      display: none;
+    }
+
+    /* ── MADE BY CREDIT ── */
+    .contact-credit {
+      font-size: 0.48rem;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      padding: 2rem 0 0.5rem;
+      text-transform: uppercase;
+    }
+    .contact-credit a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .contact-credit a:hover {
+      color: rgba(255,255,255,0.7);
+      border-bottom-color: rgba(255,255,255,0.5);
+    }
   </style>
 </head>
 <body>
 
   <!-- RED DOT CURSOR -->
   <div id="cursor-dot"></div>
+  <!-- WHITE CURSOR (contact page) -->
+  <div id="cursor-dot-white"></div>
 
   <!-- ════ LOADER ════ -->
   <div id="loader">
@@ -1124,17 +1222,35 @@
         </form>
       </div>
     </div>
+    <p class="contact-credit">site by <a href="https://www.linkedin.com/in/axel-xiberras-aa0105172/" target="_blank" rel="noopener">axel xiberras</a></p>
   </div>
 
   <script>
     /* ── CURSOR ── */
-    const dot = document.getElementById('cursor-dot');
+    const dot      = document.getElementById('cursor-dot');
+    const dotWhite = document.getElementById('cursor-dot-white');
+    let onContact  = false;
+
     document.addEventListener('mousemove', e => {
-      dot.style.left = e.clientX + 'px';
-      dot.style.top  = e.clientY + 'px';
+      const x = e.clientX + 'px', y = e.clientY + 'px';
+      dot.style.left      = x; dot.style.top      = y;
+      dotWhite.style.left = x; dotWhite.style.top = y;
     });
-    document.addEventListener('mousedown', () => dot.style.transform = 'translate(-50%,-50%) scale(1.6)');
-    document.addEventListener('mouseup',   () => dot.style.transform = 'translate(-50%,-50%) scale(1)');
+    document.addEventListener('mousedown', () => {
+      const s = 'translate(-50%,-50%) scale(1.6)';
+      dot.style.transform = s; dotWhite.style.transform = s;
+    });
+    document.addEventListener('mouseup', () => {
+      const s = 'translate(-50%,-50%) scale(1)';
+      dot.style.transform = s; dotWhite.style.transform = s;
+    });
+
+    function syncCursor() {
+      onContact = document.getElementById('page-contact').classList.contains('active');
+      dot.style.display      = onContact ? 'none' : 'block';
+      dotWhite.style.display = onContact ? 'block' : 'none';
+    }
+
 
     /* ── LOADER ── */
     (function() {
@@ -1170,6 +1286,10 @@
       const link = document.querySelector('[data-page="' + id + '"]');
       if (link) link.classList.add('active');
       window.scrollTo(0, 0);
+      /* sync cursor colour */
+      const onC = id === 'contact';
+      document.getElementById('cursor-dot').style.display       = onC ? 'none'  : 'block';
+      document.getElementById('cursor-dot-white').style.display = onC ? 'block' : 'none';
     }
 
     /* ── COUNTDOWN ── */
@@ -1212,7 +1332,7 @@
           opacity     = 1 - |diff| * OPACITY_STEP
           rotateZ     = diff * ROT_DEG
       */
-      var STEP_X      = 200;   /* px between cards */
+      var STEP_X      = 270;   /* px between cards */
       var STEP_Y      = 22;    /* px vertical drop per card away from centre */
       var SCALE_STEP  = 0.10;
       var OPACITY_STEP= 0.18;
