@@ -888,9 +888,43 @@
       display: block;
       pointer-events: none;
     }
+    /* white overlay on non-active cards */
+    .arc-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.25);
+      pointer-events: none;
+      transition: opacity 0.55s ease;
+      z-index: 2;
+    }
     .arc-card.is-active {
       box-shadow: 0 24px 60px rgba(0,0,0,0.18);
       z-index: 10;
+    }
+    .arc-card.is-active::after {
+      opacity: 0; /* no overlay on focused card */
+    }
+    /* shoot title shown on focused card */
+    .arc-title {
+      position: absolute;
+      top: -2rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: #c0392b;
+      text-transform: lowercase;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 3;
+    }
+    .arc-card.is-active .arc-title {
+      opacity: 1;
     }
     .arc-controls {
       display: flex;
@@ -1035,15 +1069,15 @@
       <!-- label -->
       <!-- track -->
       <div class="arc-track" id="arcTrack">
-        <div class="arc-card" data-idx="0"><img src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" alt="" /></div>
-        <div class="arc-card" data-idx="1"><img src="https://lh3.googleusercontent.com/d/1lcSnMMm8SnCXv0JYO3XP91U5w-DHo7QS" alt="" /></div>
-        <div class="arc-card" data-idx="2"><img src="https://lh3.googleusercontent.com/d/12V-LX2UW4ymTEMswV10IBXYPwFz8j8vs" alt="" /></div>
-        <div class="arc-card" data-idx="3"><img src="https://lh3.googleusercontent.com/d/1WFPO9YVYf5KbVSm3Z9309vbJ_diDQqvN" alt="" /></div>
-        <div class="arc-card" data-idx="4"><img src="https://lh3.googleusercontent.com/d/1Zxahjh9DuJ7LWBIRUzh7Vl459j6T6xn9" alt="" /></div>
-        <div class="arc-card" data-idx="5"><img src="https://lh3.googleusercontent.com/d/1Hzp_fHkrbyU-zMlJcZmYjJ_aBJ1J7DQ4" alt="" /></div>
-        <div class="arc-card" data-idx="6"><img src="https://lh3.googleusercontent.com/d/1CQHsn8-LON-vuw128BsvU9bWJLrCyYkB" alt="" /></div>
-        <div class="arc-card" data-idx="7"><img src="https://lh3.googleusercontent.com/d/1QAiaxicz7hktI8okmXhijHootYABsX3k" alt="" /></div>
-        <div class="arc-card" data-idx="8"><img src="https://lh3.googleusercontent.com/d/1fW5QLtWlmiqMM3s0qvDVvyFgl7e5gA8g" alt="" /></div>
+        <div class="arc-card" data-idx="0"><img src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" alt="" /><span class="arc-title">miss dior eau de parfum</span></div>
+        <div class="arc-card" data-idx="1"><img src="https://lh3.googleusercontent.com/d/1lcSnMMm8SnCXv0JYO3XP91U5w-DHo7QS" alt="" /><span class="arc-title">velvet underground</span></div>
+        <div class="arc-card" data-idx="2"><img src="https://lh3.googleusercontent.com/d/12V-LX2UW4ymTEMswV10IBXYPwFz8j8vs" alt="" /><span class="arc-title">le marais sessions</span></div>
+        <div class="arc-card" data-idx="3"><img src="https://lh3.googleusercontent.com/d/1WFPO9YVYf5KbVSm3Z9309vbJ_diDQqvN" alt="" /><span class="arc-title">golden hour</span></div>
+        <div class="arc-card" data-idx="4"><img src="https://lh3.googleusercontent.com/d/1Zxahjh9DuJ7LWBIRUzh7Vl459j6T6xn9" alt="" /><span class="arc-title">eau sauvage</span></div>
+        <div class="arc-card" data-idx="5"><img src="https://lh3.googleusercontent.com/d/1Hzp_fHkrbyU-zMlJcZmYjJ_aBJ1J7DQ4" alt="" /><span class="arc-title">paris by night</span></div>
+        <div class="arc-card" data-idx="6"><img src="https://lh3.googleusercontent.com/d/1CQHsn8-LON-vuw128BsvU9bWJLrCyYkB" alt="" /><span class="arc-title">studio blanc</span></div>
+        <div class="arc-card" data-idx="7"><img src="https://lh3.googleusercontent.com/d/1QAiaxicz7hktI8okmXhijHootYABsX3k" alt="" /><span class="arc-title">soft violence</span></div>
+        <div class="arc-card" data-idx="8"><img src="https://lh3.googleusercontent.com/d/1fW5QLtWlmiqMM3s0qvDVvyFgl7e5gA8g" alt="" /><span class="arc-title">chrome hearts</span></div>
       </div>
 
       <!-- controls -->
@@ -1311,7 +1345,7 @@
 
     /* ── ARC CAROUSEL ── */
     (function () {
-      var CAPTIONS = ['Portrait','Fashion','Editorial','Campaign','Portrait','Fashion','Still Life','Portrait','Fashion'];
+      var CAPTIONS = ['miss dior eau de parfum','velvet underground','le marais sessions','golden hour','eau sauvage','paris by night','studio blanc','soft violence','chrome hearts'];
       var track    = document.getElementById('arcTrack');
       var numEl    = document.getElementById('arcNum');
       var capEl    = null; /* element removed */
@@ -1338,7 +1372,7 @@
       var OPACITY_STEP= 0.18;
       var ROT_DEG     = 3.5;
       var BLUR_STEP   = 0.8;
-      var VISIBLE     = 4;     /* cards visible each side */
+      var VISIBLE     = 2;     /* cards visible each side */
 
       function render() {
         cards.forEach(function (card, i) {
@@ -1353,7 +1387,7 @@
           var tx   = diff * STEP_X;
           var ty   = Math.pow(abs, 1.4) * STEP_Y;
           var sc   = Math.max(0.45, 1 - abs * SCALE_STEP);
-          var op   = vis ? Math.max(0.08, 1 - abs * OPACITY_STEP) : 0;
+          var op   = vis ? 1 : 0;  /* CSS ::after handles dimming */
           var rot  = diff * ROT_DEG;
           var blur = abs > 0 ? abs * BLUR_STEP : 0;
           var zi   = 100 - abs * 10;
