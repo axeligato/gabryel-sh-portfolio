@@ -400,7 +400,7 @@
     .gallery-masonry {
       max-width: 1360px;
       margin: 0 auto;
-      columns: 4;
+      columns: 3;
       column-gap: 2px;
       background: var(--border);
     }
@@ -1022,6 +1022,83 @@
     #page-contact .shoot-pill.selected, #page-contact .shoot-pill:hover { background: #fff; color: #c0392b; border-color: #fff; }
     #page-contact .form-submit { background: #fff; color: #c0392b; border-color: #fff; }
     #page-contact .form-submit:hover { background: transparent; color: #fff; border-color: #fff; }
+
+    /* ════ GALLERY LIGHTBOX ════ */
+    .g-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(248,248,246,0.97);
+      z-index: 9000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .g-lightbox.open {
+      display: flex;
+    }
+    .g-lightbox-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      height: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0;
+    }
+    .g-lightbox-left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--black);
+      overflow: hidden;
+    }
+    .g-lightbox-left img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .g-lightbox-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 5rem;
+      position: relative;
+    }
+    .g-lightbox-close {
+      position: absolute;
+      top: 2.5rem;
+      right: 3rem;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--black);
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+      line-height: 1;
+      padding: 0;
+      font-family: var(--font);
+    }
+    .g-lightbox-close:hover { opacity: 1; }
+    .g-lightbox-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.28em;
+      text-transform: lowercase;
+      color: var(--grey);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .g-lightbox-title {
+      font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      color: var(--black);
+      text-transform: lowercase;
+    }
   </style>
 </head>
 <body>
@@ -1094,40 +1171,36 @@
   <!-- ════ GALLERY ════ -->
   <div id="page-gallery" class="page">
     <div class="container">
-      <div class="page-header anim-1">
-        <h1 class="page-title">Gallery</h1>
-      </div>
-
       <!-- TABS -->
       <div class="gallery-tabs anim-2">
-        <button class="gallery-tab active" onclick="switchTab(this,'print')">Print</button>
-        <button class="gallery-tab" onclick="switchTab(this,'motion')">Motion</button>
+        <button class="gallery-tab active" onclick="switchTab(this,'print')">Photo</button>
+        <button class="gallery-tab" onclick="switchTab(this,'motion')">Film</button>
       </div>
 
       <!-- PRINT TAB -->
       <div id="tab-print" class="tab-panel active anim-3">
         <div class="gallery-masonry">
-          <div class="gallery-cell"><img src="https://lh3.googleusercontent.com/d/1q8gm2Ut_69DM-jXM64jn4B1wnb6Up3Ld" /><div class="gallery-cell-info"><span class="gallery-cell-num">001</span></div></div>
-          <div class="gallery-cell"><img src="https://lh3.googleusercontent.com/d/1nEPggMlD_GeYC7tPqX99mbQz0lvpz0b4" /><div class="gallery-cell-info"><span class="gallery-cell-num">002</span></div></div>
-          <div class="gallery-cell"><img src="https://lh3.googleusercontent.com/d/1gB2Jpo3gDHGcRcJdRiOVYTvnkwz-6R3E" /><div class="gallery-cell-info"><span class="gallery-cell-num">003</span></div></div>
-          <div class="gallery-cell"><img src="https://lh3.googleusercontent.com/d/1lBg3QhB2A3RbfVvMNpyJTMKSRpcCPyKm" /><div class="gallery-cell-info"><span class="gallery-cell-num">004</span></div></div>
-          <div class="gallery-cell"><img src="https://lh3.googleusercontent.com/d/1d6-iCLd-rLV-RRFZpZ6d2O0oVoyk2e-y" /><div class="gallery-cell-info"><span class="gallery-cell-num">005</span></div></div>
-          <div class="gallery-cell"><img src="https://lh3.googleusercontent.com/d/1aq_4sxISaI3pwQGxnHObPWCt2RebzVDG" /><div class="gallery-cell-info"><span class="gallery-cell-num">006</span></div></div>
-          <div class="gallery-cell"><img src="https://lh3.googleusercontent.com/d/1RXz1CHbtoZotYgMztJ7w6kxNlNlAUL7W" /><div class="gallery-cell-info"><span class="gallery-cell-num">007</span></div></div>
-          <div class="gallery-cell"><img src="https://lh3.googleusercontent.com/d/1PDCAiP-rvQk-KSS1elnoyJGCUO9wdXcj" /><div class="gallery-cell-info"><span class="gallery-cell-num">008</span></div></div>
-          <div class="gallery-cell"><img src="https://lh3.googleusercontent.com/d/1int_HEWCfVjiK4J4jNdhw7XMWs_fbk3y" /><div class="gallery-cell-info"><span class="gallery-cell-num">009</span></div></div>
+          <div class="gallery-cell" data-title="nuage de soie" data-src="https://lh3.googleusercontent.com/d/1q8gm2Ut_69DM-jXM64jn4B1wnb6Up3Ld" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1q8gm2Ut_69DM-jXM64jn4B1wnb6Up3Ld" /><div class="gallery-cell-info"><span class="gallery-cell-num">001</span></div></div>
+          <div class="gallery-cell" data-title="chambre noire" data-src="https://lh3.googleusercontent.com/d/1nEPggMlD_GeYC7tPqX99mbQz0lvpz0b4" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1nEPggMlD_GeYC7tPqX99mbQz0lvpz0b4" /><div class="gallery-cell-info"><span class="gallery-cell-num">002</span></div></div>
+          <div class="gallery-cell" data-title="peau dorée" data-src="https://lh3.googleusercontent.com/d/1gB2Jpo3gDHGcRcJdRiOVYTvnkwz-6R3E" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1gB2Jpo3gDHGcRcJdRiOVYTvnkwz-6R3E" /><div class="gallery-cell-info"><span class="gallery-cell-num">003</span></div></div>
+          <div class="gallery-cell" data-title="lumière rasante" data-src="https://lh3.googleusercontent.com/d/1lBg3QhB2A3RbfVvMNpyJTMKSRpcCPyKm" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1lBg3QhB2A3RbfVvMNpyJTMKSRpcCPyKm" /><div class="gallery-cell-info"><span class="gallery-cell-num">004</span></div></div>
+          <div class="gallery-cell" data-title="miroir brisé" data-src="https://lh3.googleusercontent.com/d/1d6-iCLd-rLV-RRFZpZ6d2O0oVoyk2e-y" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1d6-iCLd-rLV-RRFZpZ6d2O0oVoyk2e-y" /><div class="gallery-cell-info"><span class="gallery-cell-num">005</span></div></div>
+          <div class="gallery-cell" data-title="jardin secret" data-src="https://lh3.googleusercontent.com/d/1aq_4sxISaI3pwQGxnHObPWCt2RebzVDG" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1aq_4sxISaI3pwQGxnHObPWCt2RebzVDG" /><div class="gallery-cell-info"><span class="gallery-cell-num">006</span></div></div>
+          <div class="gallery-cell" data-title="rouge cardinal" data-src="https://lh3.googleusercontent.com/d/1RXz1CHbtoZotYgMztJ7w6kxNlNlAUL7W" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1RXz1CHbtoZotYgMztJ7w6kxNlNlAUL7W" /><div class="gallery-cell-info"><span class="gallery-cell-num">007</span></div></div>
+          <div class="gallery-cell" data-title="corps céleste" data-src="https://lh3.googleusercontent.com/d/1PDCAiP-rvQk-KSS1elnoyJGCUO9wdXcj" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1PDCAiP-rvQk-KSS1elnoyJGCUO9wdXcj" /><div class="gallery-cell-info"><span class="gallery-cell-num">008</span></div></div>
+          <div class="gallery-cell" data-title="nuit blanche" data-src="https://lh3.googleusercontent.com/d/1int_HEWCfVjiK4J4jNdhw7XMWs_fbk3y" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1int_HEWCfVjiK4J4jNdhw7XMWs_fbk3y" /><div class="gallery-cell-info"><span class="gallery-cell-num">009</span></div></div>
         </div>
       </div>
 
       <!-- MOTION TAB -->
       <div id="tab-motion" class="tab-panel anim-3">
         <div class="motion-grid">
-          <div class="motion-cell"><img src="https://lh3.googleusercontent.com/d/1YKGL_9qfJzB0Wb9adn5io7GEvEWH6tZm" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">001 / Motion</span></div></div>
-          <div class="motion-cell"><img src="https://lh3.googleusercontent.com/d/160t0VOWSIDsoerBMEvwPewDAsNUFm2dy" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">002 / Motion</span></div></div>
-          <div class="motion-cell"><img src="https://lh3.googleusercontent.com/d/1ADASma_LYDBrialR-zrzgjaFcHbqaP0A" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">003 / Motion</span></div></div>
-          <div class="motion-cell"><img src="https://lh3.googleusercontent.com/d/1Yb1Wl9vcWflXQup_wHvLWF3M7uaeE4xE" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">004 / Motion</span></div></div>
-          <div class="motion-cell"><img src="https://lh3.googleusercontent.com/d/1XHLwxoyOXGc2qFCfq3WCAR3Q98a3terr" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">005 / Motion</span></div></div>
-          <div class="motion-cell"><img src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">006 / Motion</span></div></div>
+          <div class="motion-cell" data-title="séquence i" data-src="https://lh3.googleusercontent.com/d/1YKGL_9qfJzB0Wb9adn5io7GEvEWH6tZm" data-type="film"><img src="https://lh3.googleusercontent.com/d/1YKGL_9qfJzB0Wb9adn5io7GEvEWH6tZm" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">001 / Motion</span></div></div>
+          <div class="motion-cell" data-title="séquence ii" data-src="https://lh3.googleusercontent.com/d/160t0VOWSIDsoerBMEvwPewDAsNUFm2dy" data-type="film"><img src="https://lh3.googleusercontent.com/d/160t0VOWSIDsoerBMEvwPewDAsNUFm2dy" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">002 / Motion</span></div></div>
+          <div class="motion-cell" data-title="séquence iii" data-src="https://lh3.googleusercontent.com/d/1ADASma_LYDBrialR-zrzgjaFcHbqaP0A" data-type="film"><img src="https://lh3.googleusercontent.com/d/1ADASma_LYDBrialR-zrzgjaFcHbqaP0A" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">003 / Motion</span></div></div>
+          <div class="motion-cell" data-title="séquence iv" data-src="https://lh3.googleusercontent.com/d/1Yb1Wl9vcWflXQup_wHvLWF3M7uaeE4xE" data-type="film"><img src="https://lh3.googleusercontent.com/d/1Yb1Wl9vcWflXQup_wHvLWF3M7uaeE4xE" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">004 / Motion</span></div></div>
+          <div class="motion-cell" data-title="séquence v" data-src="https://lh3.googleusercontent.com/d/1XHLwxoyOXGc2qFCfq3WCAR3Q98a3terr" data-type="film"><img src="https://lh3.googleusercontent.com/d/1XHLwxoyOXGc2qFCfq3WCAR3Q98a3terr" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">005 / Motion</span></div></div>
+          <div class="motion-cell" data-title="séquence vi" data-src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" data-type="film"><img src="https://lh3.googleusercontent.com/d/1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF" /><div class="motion-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="motion-cell-info"><span class="motion-cell-num">006 / Motion</span></div></div>
         </div>
       </div>
     </div>
@@ -1510,6 +1583,62 @@
 
     /* ── SHOOT PILLS ── */
     function togglePill(el) { el.classList.toggle('selected'); }
+
+    /* ── GALLERY LIGHTBOX ── */
+    (function() {
+      var lb      = document.getElementById('gallery-lightbox');
+      var lbImg   = document.getElementById('g-lightbox-img');
+      var lbTitle = document.getElementById('g-lightbox-title');
+      var lbType  = document.getElementById('g-lightbox-type');
+      var lbClose = document.getElementById('g-lightbox-close');
+
+      function openLightbox(src, title, type) {
+        lbImg.src     = src;
+        lbTitle.textContent = title;
+        lbType.textContent  = type;
+        lb.classList.add('open');
+      }
+      function closeLightbox() {
+        lb.classList.remove('open');
+        lbImg.src = '';
+      }
+
+      /* Photo cells */
+      document.querySelectorAll('.gallery-cell[data-src]').forEach(function(cell) {
+        cell.addEventListener('click', function() {
+          openLightbox(cell.dataset.src, cell.dataset.title, 'photo');
+        });
+      });
+      /* Film cells */
+      document.querySelectorAll('.motion-cell[data-src]').forEach(function(cell) {
+        cell.addEventListener('click', function() {
+          openLightbox(cell.dataset.src, cell.dataset.title, 'film');
+        });
+      });
+
+      /* Close: button, backdrop click, Escape */
+      lbClose.addEventListener('click', closeLightbox);
+      lb.addEventListener('click', function(e) {
+        if (e.target === lb) closeLightbox();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+      });
+    })();
   </script>
+
+  <!-- ════ GALLERY LIGHTBOX ════ -->
+  <div id="gallery-lightbox" class="g-lightbox">
+    <div class="g-lightbox-inner">
+      <div class="g-lightbox-left">
+        <img id="g-lightbox-img" src="" alt="" />
+      </div>
+      <div class="g-lightbox-right">
+        <button class="g-lightbox-close" id="g-lightbox-close">&#215;</button>
+        <p class="g-lightbox-label" id="g-lightbox-type"></p>
+        <h2 class="g-lightbox-title" id="g-lightbox-title"></h2>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
