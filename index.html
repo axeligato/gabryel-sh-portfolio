@@ -872,7 +872,7 @@
       min-width: 180px;
       height: 56vh;
       border-radius: 2px;
-      overflow: hidden;
+      overflow: visible;
       cursor: pointer;
       will-change: transform, opacity, filter;
       transition:
@@ -887,6 +887,8 @@
       object-fit: cover;
       display: block;
       pointer-events: none;
+      border-radius: 2px;
+      overflow: hidden;
     }
     /* white overlay on non-active cards */
     .arc-card::after {
@@ -896,6 +898,7 @@
       background: rgba(255,255,255,0.25);
       pointer-events: none;
       transition: opacity 0.55s ease;
+      border-radius: 2px;
       z-index: 2;
     }
     .arc-card.is-active {
