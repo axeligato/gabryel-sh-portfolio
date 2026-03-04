@@ -58,7 +58,6 @@
       align-items: flex-start;
     }
     .loader-name {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 0.58rem;
       font-weight: 600;
       letter-spacing: 0.26em;
@@ -67,7 +66,6 @@
       opacity: 0.55;
     }
     .loader-count {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 0.58rem;
       font-weight: 600;
       letter-spacing: 0.10em;
@@ -567,7 +565,7 @@
     /* ════════════════════════════════
        ABOUT PAGE — image + title + para only
     ════════════════════════════════ */
-    #page-about { padding: 5rem 2.5rem 6rem; }
+    #page-about { padding: 5rem 2.5rem 6rem; min-height: 100vh; background: #c0392b; }
 
     .about-simple {
       max-width: 1360px;
@@ -596,20 +594,21 @@
       letter-spacing: -0.04em;
       line-height: 0.92;
       margin-bottom: 3rem;
+      color: #fff;
     }
     .about-bio {
       font-size: 0.88rem;
       line-height: 1.85;
-      color: var(--grey);
+      color: rgba(255,255,255,0.7);
       font-weight: 700;
       max-width: 560px;
     }
-    .about-bio strong { color: var(--black); font-weight: 700; }
+    .about-bio strong { color: #fff; font-weight: 700; }
 
     /* ════════════════════════════════
        CONTACT PAGE
     ════════════════════════════════ */
-    #page-contact { padding: 5rem 2.5rem 6rem; min-height: 100vh; }
+    #page-contact { padding: 5rem 2.5rem 6rem; }
 
     .contact-grid {
       max-width: 1360px;
@@ -734,8 +733,8 @@
     *, *::before, *::after { cursor: none !important; }
     #cursor-dot {
       position: fixed;
-      width: 8px;
-      height: 8px;
+      width: 16px;
+      height: 16px;
       background: #e00;
       border-radius: 50%;
       pointer-events: none;
@@ -747,8 +746,8 @@
     }
     #cursor-dot-white {
       position: fixed;
-      width: 8px;
-      height: 8px;
+      width: 16px;
+      height: 16px;
       background: #fff;
       border-radius: 50%;
       pointer-events: none;
@@ -868,10 +867,12 @@
       border-radius: 2px;
       overflow: hidden;
       cursor: pointer;
-      will-change: transform, opacity;
+      will-change: transform, opacity, filter;
       transition:
-        transform  0.55s cubic-bezier(0.25,0.46,0.45,0.94),
-        opacity    0.45s ease;
+        transform  0.65s cubic-bezier(0.25,0.46,0.45,0.94),
+        opacity    0.65s ease,
+        filter     0.65s ease,
+        box-shadow 0.65s ease;
     }
     .arc-card img {
       width: 100%;
@@ -926,21 +927,29 @@
       border-bottom-color: rgba(255,255,255,0.5);
     }
 
-    /* ════ CONTACT PAGE — NAV OVERRIDE ════ */
-    body.contact-active { background: #c0392b; }
-    body.contact-active .navbar {
+    /* ════ CONTACT + ABOUT — NAV OVERRIDE ════ */
+    body.contact-active,
+    body.about-active { background: #c0392b; }
+    body.contact-active .navbar,
+    body.about-active .navbar {
       background: #c0392b !important;
       border-right-color: rgba(255,255,255,0.15) !important;
     }
     body.contact-active .nav-logo a,
-    body.contact-active .nav-link {
+    body.contact-active .nav-link,
+    body.about-active .nav-logo a,
+    body.about-active .nav-link {
       color: #fff !important;
     }
-    body.contact-active .nav-link { opacity: 0.55 !important; }
+    body.contact-active .nav-link,
+    body.about-active .nav-link { opacity: 0.55 !important; }
     body.contact-active .nav-link:hover,
-    body.contact-active .nav-link.active { opacity: 1 !important; }
+    body.contact-active .nav-link.active,
+    body.about-active .nav-link:hover,
+    body.about-active .nav-link.active { opacity: 1 !important; }
     /* mobile border */
-    body.contact-active .navbar {
+    body.contact-active .navbar,
+    body.about-active .navbar {
       border-bottom-color: rgba(255,255,255,0.15) !important;
     }
 
@@ -969,22 +978,6 @@
     #page-contact .shoot-pill.selected, #page-contact .shoot-pill:hover { background: #fff; color: #c0392b; border-color: #fff; }
     #page-contact .form-submit { background: #fff; color: #c0392b; border-color: #fff; }
     #page-contact .form-submit:hover { background: transparent; color: #fff; border-color: #fff; }
-
-    /* ── GLOBAL LOWERCASE ENFORCEMENT ── */
-    h1, h2, h3, h4, h5, h6,
-    p, span, a, button, label,
-    li, td, th, caption,
-    input, textarea, select, option,
-    div, section, article, header, footer,
-    .page-title, .page-subtitle,
-    .about-name, .about-bio, .about-tagline,
-    .contact-heading, .mystery-title,
-    .countdown-label, .countdown-value,
-    .hero-heading, .hero-name, .hero-eyebrow,
-    .motion-cell-title, .motion-cell-num,
-    .gallery-tab, .form-submit {
-      text-transform: lowercase;
-    }
   </style>
 </head>
 <body>
@@ -1022,9 +1015,9 @@
       <ul class="nav-menu">
         <li><button class="nav-link active" data-page="home" onclick="showPage('home')">Home</button></li>
         <li><button class="nav-link" data-page="gallery" onclick="showPage('gallery')">Gallery</button></li>
-        <li><button class="nav-link" data-page="mystery" onclick="showPage('mystery')">???</button></li>
         <li><button class="nav-link" data-page="about" onclick="showPage('about')">About</button></li>
         <li><button class="nav-link" data-page="contact" onclick="showPage('contact')">Contact</button></li>
+        <li><button class="nav-link" data-page="mystery" onclick="showPage('mystery')">???</button></li>
       </ul>
     </div>
   </nav>
@@ -1120,7 +1113,7 @@
           <span class="countdown-label">Sec</span>
         </div>
       </div>
-      <h1 class="mystery-title">waiting to shoot Miley</h1>
+      <h1 class="mystery-title">waiting to shoot miley cyrus</h1>
     </div>
   </div>
 
@@ -1234,7 +1227,7 @@
     });
 
     function syncCursor() {
-      onContact = document.getElementById('page-contact').classList.contains('active');
+      onContact = document.getElementById('page-contact').classList.contains('active') || document.getElementById('page-about').classList.contains('active');
       dot.style.display      = onContact ? 'none' : 'block';
       dotWhite.style.display = onContact ? 'block' : 'none';
     }
@@ -1288,14 +1281,16 @@
       if (link) link.classList.add('active');
       window.scrollTo(0, 0);
       /* sync cursor colour + contact nav */
-      const onC = id === 'contact';
-      document.body.classList.toggle('contact-active', onC);
+      const onC = id === 'contact' || id === 'about';
+      const onContact = id === 'contact';
+      document.body.classList.toggle('contact-active', onContact);
+      document.body.classList.toggle('about-active', id === 'about');
       document.getElementById('cursor-dot').style.display       = onC ? 'none'  : 'block';
       document.getElementById('cursor-dot-white').style.display = onC ? 'block' : 'none';
     }
 
     /* ── COUNTDOWN ── */
-    const targetDate = new Date('2025-09-01T00:00:00');
+    const targetDate = new Date('2000-11-29T00:00:00');
     function updateCountdown() {
       const diff = targetDate - new Date();
       if (diff <= 0) {
@@ -1336,10 +1331,10 @@
       */
       var STEP_X      = 270;   /* px between cards */
       var STEP_Y      = 0;     /* flat — no vertical arc */
-      var SCALE_STEP  = 0.06;
-      var OPACITY_STEP= 0.22;
-      var ROT_DEG     = 0;     /* no tilt */
-      var BLUR_STEP   = 0;     /* no blur */
+      var SCALE_STEP  = 0.10;
+      var OPACITY_STEP= 0.18;
+      var ROT_DEG     = 3.5;
+      var BLUR_STEP   = 0.8;
       var VISIBLE     = 4;     /* cards visible each side */
 
       function render() {
@@ -1360,9 +1355,9 @@
           var blur = abs > 0 ? abs * BLUR_STEP : 0;
           var zi   = 100 - abs * 10;
 
-          card.style.transform  = 'translateX(' + tx + 'px) scale(' + sc + ')';
+          card.style.transform  = 'translateX(' + tx + 'px) translateY(' + ty + 'px) scale(' + sc + ') rotateZ(' + rot + 'deg)';
           card.style.opacity    = op;
-          card.style.filter     = 'none';
+          card.style.filter     = blur > 0 ? 'blur(' + blur.toFixed(1) + 'px)' : 'none';
           card.style.zIndex     = zi;
           card.style.visibility = vis ? 'visible' : 'hidden';
           card.classList.toggle('is-active', diff === 0);
