@@ -954,7 +954,7 @@
     }
 
     /* contact red theme */
-    #page-contact { background: #c0392b; }
+    #page-contact { background: #c0392b; min-height: 100vh; }
     #page-contact .contact-eyebrow,
     #page-contact .contact-heading,
     #page-contact .contact-heading em,
@@ -1292,11 +1292,7 @@
     /* ── COUNTDOWN ── */
     const targetDate = new Date('2000-11-29T00:00:00');
     function updateCountdown() {
-      const diff = targetDate - new Date();
-      if (diff <= 0) {
-        ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent = '00');
-        return;
-      }
+      const diff = new Date() - targetDate;  /* elapsed ms since 29 Nov 2000 */
       const pad = n => String(Math.floor(n)).padStart(2,'0');
       document.getElementById('cd-days').textContent  = pad(diff / 86400000);
       document.getElementById('cd-hours').textContent = pad((diff % 86400000) / 3600000);
