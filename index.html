@@ -420,6 +420,25 @@
     }
     .gallery-cell:hover img { transform: scale(1.03); }
     .gallery-cell-info { display: none; }
+    /* red overlay + title on hover */
+    .gallery-cell::after {
+      content: attr(data-title);
+      position: absolute;
+      inset: 0;
+      background: rgba(192,57,43,0.25);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: lowercase;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .gallery-cell:hover::after { opacity: 1; }
     .gallery-cell-num {
       font-size: 0.55rem;
       letter-spacing: 0.15em;
@@ -458,15 +477,27 @@
       transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
     }
     .motion-cell:hover img { transform: scale(1.04); }
-    .motion-play {
+    /* red overlay + title on hover */
+    .motion-cell::after {
+      content: attr(data-title);
       position: absolute;
-      width: 44px; height: 44px;
-      border: 1px solid rgba(248,248,246,0.6);
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color 0.2s;
+      inset: 0;
+      background: rgba(192,57,43,0.25);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: lowercase;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 2;
     }
-    .motion-play svg { width: 14px; height: 14px; fill: rgba(248,248,246,0.8); }
-    .motion-cell:hover .motion-play { border-color: rgba(248,248,246,1); }
+    .motion-cell:hover::after { opacity: 1; }
+    .motion-play { display: none; }
     .motion-cell-info {
       position: absolute;
       bottom: 0; left: 0; right: 0;
@@ -1242,10 +1273,7 @@
       </div>
       <div class="about-text-col anim-2">
         <h1 class="about-name">Gabryel<br>Sallehount</h1>
-        <p class="about-bio">
-          Photographer and visual director based in Paris. Specialising in <strong>fashion editorial, portraiture</strong> and campaign work, Gabryel's practice is defined by a raw sensitivity — images that hold tension between stillness and movement, the composed and the accidental.<br><br>
-          Clients and collaborators have included emerging designers, independent magazines and cultural institutions across Europe. His approach treats every frame as a conversation — unhurried, precise, instinctive.
-        </p>
+        <p class="about-bio">Photographer and visual director based in Paris, working worldwide.</p>
       </div>
     </div>
   </div>
@@ -1256,7 +1284,7 @@
       <div class="contact-left anim-1">
         <p class="contact-eyebrow">Get in touch</p>
         <h1 class="contact-heading">Let's create<br><em>something.</em></h1>
-        <p class="contact-body">Available for editorial, fashion campaigns, portraits and creative collaborations. Based in Paris, open to travel worldwide.</p>
+        <p class="contact-body">Photographer and visual director based in Paris, working worldwide.</p>
         <div class="contact-direct-below">
           <div class="contact-direct-item">
             <span class="contact-direct-label">Email</span>
@@ -1276,6 +1304,12 @@
               <input class="form-input" type="text" name="name" placeholder="Your name" required />
             </div>
             <div class="form-field">
+              <label class="form-label">Brand</label>
+              <input class="form-input" type="text" name="brand" placeholder="Brand or agency" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
               <label class="form-label">Email</label>
               <input class="form-input" type="email" name="email" placeholder="your@email.com" required />
             </div>
@@ -1283,29 +1317,15 @@
           <div class="form-field">
             <label class="form-label">Type of shoot</label>
             <div class="shoot-types">
-              <button type="button" class="shoot-pill" onclick="togglePill(this)">Fashion</button>
-              <button type="button" class="shoot-pill" onclick="togglePill(this)">Portrait</button>
               <button type="button" class="shoot-pill" onclick="togglePill(this)">Editorial</button>
-              <button type="button" class="shoot-pill" onclick="togglePill(this)">Campaign</button>
-              <button type="button" class="shoot-pill" onclick="togglePill(this)">Event</button>
+              <button type="button" class="shoot-pill" onclick="togglePill(this)">Commercial</button>
               <button type="button" class="shoot-pill" onclick="togglePill(this)">Other</button>
             </div>
           </div>
           <div class="form-row">
             <div class="form-field">
-              <label class="form-label">Date</label>
-              <input class="form-input" type="date" name="date" />
-            </div>
-            <div class="form-field">
-              <label class="form-label">Budget</label>
-              <select class="form-input" name="budget">
-                <option value="">Select range</option>
-                <option>Under €500</option>
-                <option>€500 – €1,500</option>
-                <option>€1,500 – €3,000</option>
-                <option>€3,000+</option>
-                <option>TBD</option>
-              </select>
+              <label class="form-label">Due Date</label>
+              <input class="form-input" type="date" name="due_date" />
             </div>
           </div>
           <div class="form-field">
@@ -1313,7 +1333,7 @@
             <input class="form-input" type="text" name="location" placeholder="Paris, studio, on location…" />
           </div>
           <div class="form-field">
-            <label class="form-label">Mood & Vision</label>
+            <label class="form-label">Describe your project</label>
             <textarea class="form-input" name="vision" placeholder="Describe the aesthetic, references, feeling…" rows="4"></textarea>
           </div>
           <button type="submit" class="form-submit">Send Enquiry</button>
