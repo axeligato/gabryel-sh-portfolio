@@ -345,7 +345,7 @@
     /* ════════════════════════════════
        GALLERY PAGE
     ════════════════════════════════ */
-    #page-gallery { padding: 4rem 2.5rem 6rem; }
+    #page-gallery { padding: 4rem 0.5rem 6rem; }
 
     .page-header {
       max-width: 1360px;
@@ -890,7 +890,7 @@
     .arc-track {
       position: relative;
       width: 100%;
-      height: 75vh;
+      height: 55vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -898,7 +898,7 @@
     .arc-card {
       position: absolute;
       /* Base dimensions — image natural ratio is preserved via img inside */
-      max-height: 70vh;
+      max-height: 52vh;
       border-radius: 2px;
       overflow: visible;
       cursor: pointer;
@@ -918,8 +918,8 @@
       pointer-events: none;
       border-radius: 2px;
       /* Show in natural aspect ratio, capped by viewport height */
-      max-height: 70vh;
-      max-width: 55vw;
+      max-height: 52vh;
+      max-width: 40vw;
       width: auto;
       height: auto;
       object-fit: contain;
@@ -942,14 +942,15 @@
     .arc-card.is-active::after {
       opacity: 0; /* no overlay on focused card */
     }
-    /* shoot title shown on focused card */
+    /* shoot title shown below focused card */
     .arc-title {
       position: absolute;
-      top: -2rem;
+      bottom: -2rem;
+      top: auto;
       left: 0;
       right: 0;
       text-align: center;
-      font-size: 0.62rem;
+      font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 0.18em;
       color: #9b0000;
