@@ -912,12 +912,11 @@
       display: block;
       pointer-events: none;
       border-radius: 2px;
-      /* Show in natural aspect ratio, capped by viewport height */
+      /* natural ratio — height caps the card, width follows freely */
       max-height: 52vh;
-      max-width: 40vw;
       width: auto;
       height: auto;
-      object-fit: contain;
+      object-fit: unset;
     }
     /* white overlay on non-active cards */
     .arc-card::after {
@@ -940,12 +939,12 @@
     /* shoot title shown below focused card */
     .arc-title {
       position: absolute;
-      bottom: -2rem;
+      bottom: -3.5rem;
       top: auto;
       left: 0;
       right: 0;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 1.15rem;
       font-weight: 600;
       letter-spacing: 0.18em;
       color: #9b0000;
@@ -1106,6 +1105,7 @@
       height: auto;
       object-fit: contain;
       display: block;
+      cursor: pointer;
     }
     .g-lightbox-right { display: none; }
     .g-lightbox-close {
@@ -1125,6 +1125,25 @@
       z-index: 9001;
     }
     .g-lightbox-close:hover { opacity: 1; }
+    .g-lightbox-back {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: var(--black);
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+      z-index: 9001;
+      padding: 0;
+    }
+    .g-lightbox-back:hover { opacity: 1; }
     .g-lightbox-label { display: none; }
     .g-lightbox-title { display: none; }
   </style>
@@ -1342,6 +1361,7 @@
   <!-- ════ GALLERY LIGHTBOX ════ -->
   <div id="gallery-lightbox" class="g-lightbox">
     <div class="g-lightbox-inner">
+      <button class="g-lightbox-back" id="g-lightbox-back">&#8592; back</button>
       <div class="g-lightbox-left">
         <img id="g-lightbox-img" src="" alt="" />
       </div>
@@ -1633,6 +1653,8 @@
       });
 
       lbClose.addEventListener('click', closeLightbox);
+      document.getElementById('g-lightbox-back').addEventListener('click', closeLightbox);
+      lbImg.addEventListener('click', closeLightbox);
       lb.addEventListener('click', function(e) {
         if (e.target === lb) closeLightbox();
       });
