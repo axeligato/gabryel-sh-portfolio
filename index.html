@@ -447,6 +447,78 @@
       color: var(--grey);
     }
     .gallery-cell.hidden { display: none; }
+    /* shoot cover card */
+    .shoot-cover { position: relative; cursor: pointer; }
+    .shoot-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1rem 1rem 0.8rem;
+      background: linear-gradient(transparent, rgba(10,10,10,0.55));
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .shoot-cover:hover .shoot-label { opacity: 1; }
+    .shoot-name {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: lowercase;
+      color: #fff;
+    }
+    .shoot-count {
+      font-size: 0.52rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.6);
+    }
+    /* shoot lightbox extras */
+    .g-lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--black);
+      opacity: 0.3;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      z-index: 9002;
+      padding: 1rem;
+      line-height: 1;
+      font-family: var(--font);
+    }
+    .g-lightbox-nav:hover { opacity: 1; }
+    .g-lightbox-nav.prev { left: 1rem; }
+    .g-lightbox-nav.next { right: 1rem; }
+    .g-lightbox-shoot-title {
+      position: fixed;
+      bottom: 1.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: lowercase;
+      color: var(--black);
+      opacity: 0.45;
+      z-index: 9002;
+      white-space: nowrap;
+      font-family: var(--font);
+    }
+    .g-lightbox-counter {
+      position: fixed;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      color: var(--black);
+      opacity: 0.35;
+      z-index: 9002;
+      font-family: var(--font);
+    }
 
     /* Tab panels */
     .tab-panel { display: none; }
@@ -1226,15 +1298,78 @@
       <!-- PRINT TAB -->
       <div id="tab-print" class="tab-panel active anim-3">
         <div class="gallery-masonry">
-          <div class="gallery-cell" data-title="nuage de soie" data-src="https://lh3.googleusercontent.com/d/1q8gm2Ut_69DM-jXM64jn4B1wnb6Up3Ld" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1q8gm2Ut_69DM-jXM64jn4B1wnb6Up3Ld" /><div class="gallery-cell-info"><span class="gallery-cell-num">001</span></div></div>
-          <div class="gallery-cell" data-title="chambre noire" data-src="https://lh3.googleusercontent.com/d/1nEPggMlD_GeYC7tPqX99mbQz0lvpz0b4" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1nEPggMlD_GeYC7tPqX99mbQz0lvpz0b4" /><div class="gallery-cell-info"><span class="gallery-cell-num">002</span></div></div>
-          <div class="gallery-cell" data-title="peau dorée" data-src="https://lh3.googleusercontent.com/d/1gB2Jpo3gDHGcRcJdRiOVYTvnkwz-6R3E" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1gB2Jpo3gDHGcRcJdRiOVYTvnkwz-6R3E" /><div class="gallery-cell-info"><span class="gallery-cell-num">003</span></div></div>
-          <div class="gallery-cell" data-title="lumière rasante" data-src="https://lh3.googleusercontent.com/d/1lBg3QhB2A3RbfVvMNpyJTMKSRpcCPyKm" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1lBg3QhB2A3RbfVvMNpyJTMKSRpcCPyKm" /><div class="gallery-cell-info"><span class="gallery-cell-num">004</span></div></div>
-          <div class="gallery-cell" data-title="miroir brisé" data-src="https://lh3.googleusercontent.com/d/1d6-iCLd-rLV-RRFZpZ6d2O0oVoyk2e-y" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1d6-iCLd-rLV-RRFZpZ6d2O0oVoyk2e-y" /><div class="gallery-cell-info"><span class="gallery-cell-num">005</span></div></div>
-          <div class="gallery-cell" data-title="jardin secret" data-src="https://lh3.googleusercontent.com/d/1aq_4sxISaI3pwQGxnHObPWCt2RebzVDG" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1aq_4sxISaI3pwQGxnHObPWCt2RebzVDG" /><div class="gallery-cell-info"><span class="gallery-cell-num">006</span></div></div>
-          <div class="gallery-cell" data-title="rouge cardinal" data-src="https://lh3.googleusercontent.com/d/1RXz1CHbtoZotYgMztJ7w6kxNlNlAUL7W" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1RXz1CHbtoZotYgMztJ7w6kxNlNlAUL7W" /><div class="gallery-cell-info"><span class="gallery-cell-num">007</span></div></div>
-          <div class="gallery-cell" data-title="corps céleste" data-src="https://lh3.googleusercontent.com/d/1PDCAiP-rvQk-KSS1elnoyJGCUO9wdXcj" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1PDCAiP-rvQk-KSS1elnoyJGCUO9wdXcj" /><div class="gallery-cell-info"><span class="gallery-cell-num">008</span></div></div>
-          <div class="gallery-cell" data-title="nuit blanche" data-src="https://lh3.googleusercontent.com/d/1int_HEWCfVjiK4J4jNdhw7XMWs_fbk3y" data-type="photo"><img src="https://lh3.googleusercontent.com/d/1int_HEWCfVjiK4J4jNdhw7XMWs_fbk3y" /><div class="gallery-cell-info"><span class="gallery-cell-num">009</span></div></div>
+          <div class="gallery-cell shoot-cover" data-shoot="atnt-skip-trip">
+            <img src="https://lh3.googleusercontent.com/d/1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">atnt skip trip</span><span class="shoot-count">26</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="atnt-2025">
+            <img src="https://lh3.googleusercontent.com/d/12YtmyQH8PIcvZaigBKRkbcsaLABE68WH" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">atnt 2025</span><span class="shoot-count">7</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="bash-london">
+            <img src="https://lh3.googleusercontent.com/d/1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">ba&amp;sh london</span><span class="shoot-count">11</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="bash-fashion-week">
+            <img src="https://lh3.googleusercontent.com/d/1mRNGQYr5S52lML21Di03LtJmuBGXBeQj" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">ba&amp;sh fashion week</span><span class="shoot-count">10</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="browberry">
+            <img src="https://lh3.googleusercontent.com/d/1_eqSvmhdVXpJa3o-cosq7BUg7nRG36D-" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">browberry</span><span class="shoot-count">1</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="corentin-et-anais">
+            <img src="https://lh3.googleusercontent.com/d/13gciX4tncxaiT2ly5OW03BimwKvKie7X" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">corentin et anais</span><span class="shoot-count">12</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="emilie-charpentier">
+            <img src="https://lh3.googleusercontent.com/d/1kVBOtp6UHTTYXVA1QDjIe6gyGDo1deZB" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">emilie charpentier</span><span class="shoot-count">7</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="galeries-lafayette">
+            <img src="https://lh3.googleusercontent.com/d/1fhIwcc2vpLgkpxq_5kE2dOkL2RQa2fSX" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">galeries lafayette royal quartz</span><span class="shoot-count">14</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="janet-by-homer">
+            <img src="https://lh3.googleusercontent.com/d/1JTkPW5veewawAi0ZVOlPe7RtbqiCBewO" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">toscane&amp;lucas for janet by homer</span><span class="shoot-count">17</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="mayer-etretat">
+            <img src="https://lh3.googleusercontent.com/d/1KoFibxlALMYGN3-gsCNJVRvIkW_SyUG-" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">mayer, étretat</span><span class="shoot-count">6</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="hebe">
+            <img src="https://lh3.googleusercontent.com/d/1EqGbWa-nirOc3-YA034CQ-k9vrPDv3kE" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">hébé</span><span class="shoot-count">6</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="jade-pedri">
+            <img src="https://lh3.googleusercontent.com/d/1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">jade pedri</span><span class="shoot-count">9</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="lenny">
+            <img src="https://lh3.googleusercontent.com/d/15uWWQYYPA8blcBHEKTD90zenOXIZpuoR" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">lenny</span><span class="shoot-count">7</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="mathis">
+            <img src="https://lh3.googleusercontent.com/d/1cm7C0DlRtCxQ9-6TM6WUED_JPmlZDXXS" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">mathis</span><span class="shoot-count">8</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="kim-lewin">
+            <img src="https://lh3.googleusercontent.com/d/1-rIRg9ZogOnfQtxkYceM73piJTe6ju8t" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">kim lewin</span><span class="shoot-count">6</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="hanay">
+            <img src="https://lh3.googleusercontent.com/d/1NsdaC2-h_MaT2TIVI8oYNDC6-hr2rqJR" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">hanay</span><span class="shoot-count">6</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="sacha-foubard">
+            <img src="https://lh3.googleusercontent.com/d/1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">sacha foubard for clara viot</span><span class="shoot-count">7</span></div>
+          </div>
+          <div class="gallery-cell shoot-cover" data-shoot="yara-carioca">
+            <img src="https://lh3.googleusercontent.com/d/18M3j29u23WQT3ERS0E9WvO3GRShgURTU" loading="lazy" />
+            <div class="shoot-label"><span class="shoot-name">yara chary for carioca</span><span class="shoot-count">9</span></div>
+          </div>
         </div>
       </div>
 
@@ -1362,6 +1497,8 @@
   <div id="gallery-lightbox" class="g-lightbox">
     <div class="g-lightbox-inner">
       <button class="g-lightbox-back" id="g-lightbox-back">&#8592; back</button>
+      <button class="g-lightbox-nav prev" id="g-lb-prev">&#8592;</button>
+      <button class="g-lightbox-nav next" id="g-lb-next">&#8594;</button>
       <div class="g-lightbox-left">
         <img id="g-lightbox-img" src="" alt="" />
       </div>
@@ -1370,6 +1507,8 @@
         <p class="g-lightbox-label" id="g-lightbox-type"></p>
         <h2 class="g-lightbox-title" id="g-lightbox-title"></h2>
       </div>
+      <span class="g-lightbox-shoot-title" id="g-lb-shoot-title"></span>
+      <span class="g-lightbox-counter" id="g-lb-counter"></span>
     </div>
   </div>
 
@@ -1624,42 +1763,79 @@
 
     /* ── GALLERY LIGHTBOX ── */
     (function() {
-      var lb      = document.getElementById('gallery-lightbox');
-      var lbImg   = document.getElementById('g-lightbox-img');
-      var lbTitle = document.getElementById('g-lightbox-title');
-      var lbType  = document.getElementById('g-lightbox-type');
-      var lbClose = document.getElementById('g-lightbox-close');
+    var PHOTO_SHOOTS = [
+      { id: "atnt-skip-trip", title: "atnt skip trip", imgs: ["1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo", "1iDuFev8IoZRCCV3U-_6yow4HWjbQqdEU", "1YQb3VgCu6qXdkgh0wbNz94URA2V2WQmI", "10Q32w3x_puSZABqNqe_puCWvPszbxQUH", "13znEjXQrryc1Vg62hLPE7_yAW1AmFJX3", "1Xq-x-ia-2QlpVzSpNvk3-MgKY4j85J6q", "1o1zeYZdUtk5fmv6tH2Quy-V6edXZYW8x", "1WHN6jNGZB204zbYHsPNqSVKYD7re7EX-", "1VPMUYFAsAcIp1zdxDVB08StUhseA9-G1", "1UnrZ_GVVxsdYdxtYXE_IjTXNMamC4Egb", "19JAwc4UaPVo6dPGLbseAPzlHNnD-z5Wg", "1BJyZq9k5wcwVPQwAFrTWwVYwKqgng6Iu", "12DfQQ3aQ0AgQZRsQDZHkIXvcjdhpLPma", "13DafhCHXF-BiCailysb7eqvzbhWsSzcw", "1axHRgEp-noONBnL3kE-h9fVRoEKeyOI8", "1AXaIYi88EYoaCbuv8AsNcqblY52TG7yA", "1K-HhQdVSsWzLmN5FQV6ajyKMWD3hXNWx", "1MKvzbB5UmlRCjjuZA3BC4RIi2kNbrzE-", "1SvcQYwTQsSxa7IBwWe7dS-9UeKdxGFC6", "1fxMvVUchbRlkAhd29UZgbGOQLGJW0g52", "1_s7-VySrFpIJpx1SHR1J-KliY5cp8QqI", "1eZ8hgQ7mTEHCJ9quTN-3BlbkW4xEu76e", "1_8fldb9I_qpdO2lLtefLHHJ8PKXdpV4N", "1flu82yw9ocZJNSxL-tvop56h0QxDAJJD", "1-Zzt2V45QTwP3y1eYsUNPiMgdFHq8JPO", "1FzGQt5I4d7QCwx_vLLPndWdpANRdkYq4"] },
+      { id: "atnt-2025", title: "atnt 2025", imgs: ["12YtmyQH8PIcvZaigBKRkbcsaLABE68WH", "1eiSNwC1PdOxiHg_NXQObnhscZ30iY0Jm", "1RdQ2KpIH2Zf3_cduuS6A8CVrPc9L0MaO", "1aL0x7dGmV8eZTup4b_giITKgOkEZKa_k", "15vflYsLOQ7JC_HO9rIbWWajJz54XYDG0", "1V0x9Y6t_BmbJUttUOOCIaT9FA4wIIeJD", "15lpFU83N7toz0GZiXnf-z9fUVTGuO47s"] },
+      { id: "bash-london", title: "ba&sh london", imgs: ["1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG", "13xtW3FQCNLXPoPPsl31xZ77IR-ZSmvCV", "1ASpIH23Ev4qunTZ8WKZd-syPM1ZO45gI", "1qRpVlvrNR6qwavy5AJiAP-V4euOtYSIj", "1YZzngpOlRn1J-95LTMcxex-vUG629B1D", "15bWyJlfHwSfUwNBAQIS1Qzopx3-ltkN9", "1DxE1l8-C7mToKI7NnyhF3oTHewm-Us-g", "1A1RV2HkUmwFWmJ7STcxEcqvzexyt1zJ8", "1iP9uMKTz2teYib9kxDyBvf1o6dzkianl", "1iCHbkcT0syROWuXuYxYKKY9FpeqhuVHN", "1b7MngmkJmcrkSU02AML_74NC4UhfiCCJ"] },
+      { id: "bash-fashion-week", title: "ba&sh fashion week", imgs: ["1mRNGQYr5S52lML21Di03LtJmuBGXBeQj", "1LzFhYC3Xlf365Eol92AcWU7qvlP026un", "1ce9060ycjjAcR8qkJpvkfibZMbdEVcE_", "1G2dAO6atDn6F2kkZs_8hJllDsazXyK2g", "1cKUu-dN6zjiR62T98_lN-KmVP8FW3b0q", "1K5htsQKypoha3-QEOvigzeuKbsVQxBbc", "1V53tPAwqybVRGwqQbu0LeaBaYjOjWu3n", "1ANaChR8SMJUWxEzLswFLNY2hP0sHJVXN", "1W37DAOM5QwvNgNtsSw_FsE2takSMo0J_", "1lAtP4EWlG8BR99FF3crThDSht55t0FFd-"] },
+      { id: "browberry", title: "browberry", imgs: ["1_eqSvmhdVXpJa3o-cosq7BUg7nRG36D-"] },
+      { id: "corentin-et-anais", title: "corentin et anais", imgs: ["13gciX4tncxaiT2ly5OW03BimwKvKie7X", "1eujIOuhM2xGv2IMMmAOXHI0q-goWaqvA", "1Yfst7m7jRSz73Sf_MQNhCcAL8o2XcAPV", "10KypBL6R0bKVD0wybjj-nn41I-Lrhswg", "1lSizja-H2usF1plPblwfl44AfNdYxXHc", "1FFz1RyA4ZY6YwjZHXp3lu3DqTRYJaCHV", "1WHLtSxNoSvilwzTvqlCKaQNxtzRfneSc", "1d2wjrm31VlNT4iI3ryfTuB1FazJBRnDr", "1nWlWwCdbPLfrzL2OOnrBzBDaN2aRsQA1", "1wHWf7-ID0ZNF6AjVpT7ZZJy1QLrnURrx", "1YQGLmwB9qyznz1a3ROBw095CNJHPDV0s", "1rvYA7KmnfLt8TzM4Lkhothi2i7h51EWk"] },
+      { id: "emilie-charpentier", title: "emilie charpentier", imgs: ["1kVBOtp6UHTTYXVA1QDjIe6gyGDo1deZB", "1U5IU_KyXjZPCpU8aj3dlTeG9zYAKSuCU", "1FFi0MsCpW0mh1Q5EXy54hUavwP9oc4oG", "1KKedHoU2hC5F0aKALETduZLqZ9DQhqK9", "1-llUhLo0JPvxxDUKd-cW4ODYKIdVbJSW", "17gyJ4D6yAzsJgSw-rs-uqi2pc6IFO4qL", "1caxgG_iOsRMBDN_yROBSmgMCH8tZtf67"] },
+      { id: "galeries-lafayette", title: "galeries lafayette royal quartz", imgs: ["1fhIwcc2vpLgkpxq_5kE2dOkL2RQa2fSX", "1jcC34PrA3qwa9mET1JXqU4FyrmtCylU_", "1AQZjkpSEhWDoeOeTIk8_kiYEgw-Lkimi", "12MGK3AS5Eexu5iAK_LGsM3Yw4RD_a0CY", "1hgVM-K8uPIzclQCkHXDW56oxwOy4i-wD", "1ugL6eD7bPdKmGq4mCL7tvzfjU5NqDLNt", "1kiTjO9EO8MG0Dhgjs2Z5Q0WD2g0jkG-x", "11c9-7BSfbb56GvlO9_GsPfm49QbER6q-", "1kcFGOQmwUz07LGBeUz8VDGT1nq8l_iRP", "1SHu5_vspunOXksmK4KSrAap26KxKZyU6", "1tv31dbFI7JAHBumTmVI5yDS6hgXpD4l-", "1LUxgiSeg004JETEge7Q2ccK82aXvp8pA", "1NWhT4_sXCbR5e2gAPmA-_afDNc-ylAtL", "1C8aEoC5gqvIRNbu9G_EPYVdUXHeKp3jJ"] },
+      { id: "janet-by-homer", title: "toscane&lucas for janet by homer", imgs: ["1JTkPW5veewawAi0ZVOlPe7RtbqiCBewO", "1iGnkjyT-Cdv8SlTBe-qU3gjKnCig4vAQ", "1mdcnTCa9uDQT91nO4a-0kY8nf3d2xOAW", "1AwlYonPzrpo54XZ_ByOg-sw9fsVXhYLV", "1HaasZ1bJODGXIHXjrZxJ2VIuh-IZ25Rt", "1aObMNUZ-gFjdGsNBk8motuv1TjV22YxW", "1M2AjxJ2U2KZf9T6fRlKWkESAMakKvFAW", "1TiHg_4DH_zZDx5ln0YtJJFZDCkl1Wzbm", "15n8VAdGI39Ztc1I1SDRCOxMkiBoz_MGs", "1mYfcyiHwmJod3FwGKy1SGRcc7y4ieK79", "1u4SwQUAijdx3MJfznxgvB9J8D0S4zdF7", "1TLHrU2VbDH6uP8bM7HcyxxcF09sK6LDp", "12S888hxGHk3wdlYyiEeq-bWt0A3PM-x9", "1g2KfIrVYU61aCUfOkU_qIoqVpgMl_U7L", "1lSmvhQdhBEzOlAVAPJ9WQq0odpuSIijv", "1rWNRJ0BZ2guHXa0r_UoSw76k-u2yf18N", "1koN_YMIJ42kmcE821afBAWwTodwPCvly"] },
+      { id: "mayer-etretat", title: "mayer, étretat", imgs: ["1KoFibxlALMYGN3-gsCNJVRvIkW_SyUG-", "1ObtdiQ9_181WCLxnx0a38_TC53Fr8fcZ", "18sHyeAfXdV-JyJR9PwSwT5_cGwAneHmh", "1AYQ5cPH1uJO5Lsf3H0OoDHYZ9ijTlgUT", "1o226IylDr51XzlgSs79rebpGdczULCXc", "1BIjA6pM03kv5icJu-IYhK6OGnIECXt_G"] },
+      { id: "hebe", title: "hébé", imgs: ["1EqGbWa-nirOc3-YA034CQ-k9vrPDv3kE", "1uaVCXkd59bbrWKKqiHVRk_Isrf8Vdrlq", "1Lq6Dtp5oe-zjpi92lo-drJZX3QTE8QB4", "17C-MyN4sypEkwU6JPE0jeceCd001Ul0S", "1s5W58lKLevG0tXNr6K9zm11NvQMWrtQl", "1-Gnp_xRTnljnrXEjIIv7wllXa1oTXnUK"] },
+      { id: "jade-pedri", title: "jade pedri", imgs: ["1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9", "1e75rgNkcIMyS7b87lqAmU6s0Y4VNG9T_", "1IyCqYEYZkeg0cwsCSXwmH4KQh0-Co6s6", "1MV3LFBwQYrEcjrlxJ3QpkCpSocEklEnY", "1MQaKcFwKurEQX6LdbIyf23wAcc02xr4j", "1JxIkOXU5hNLN9NjgwF1yVzByIjCoN1eX", "1_Sc-i-_nd_fajeYGASGXcKKg4OiE2DZh", "18Hn9nU-T2IskS0W-ev1SK8Jt81afzDaL", "1bSVC-p9MtnsvALOAsLzofIAW0pS7B-qR"] },
+      { id: "lenny", title: "lenny", imgs: ["15uWWQYYPA8blcBHEKTD90zenOXIZpuoR", "1vd7X3URhtmQDi4O2DXpYwswC6rB0oidi", "1kte1gjJzZagOgcAhcDKlTNZbiClPLIVZ", "16DthOayCmlK9rwamTNeUJQ3qVjiA-RZl", "15cG-UW2IRLodGa3-F8Llqjz5t0FYqvhf", "1RP20MYzipu3SLj7F2-m-po827obPy_13", "1rZprivbg3LN3pTUT3SNFAqQaqZLivGTQ"] },
+      { id: "mathis", title: "mathis", imgs: ["1cm7C0DlRtCxQ9-6TM6WUED_JPmlZDXXS", "1qO3if1sB5IxuDi1p_YNAd5BPXSlAD-WK", "1IasDnb3cvxq4glNJiA1vHe8cPRoKRxl-", "1upZ3DK2xOI_2S37tXBpygVwkHbD7PKF_", "1HLyTG30GZvS_9FaI2Lk2Hop9Qez0rQ3O", "1ZgrTwfLJVaVhB31Za6ThIpzoOdZADOdN", "1OTD0_ngqCtIBXdsFxb-oixzIMwqpNbZL", "1gWKAQIv8VqeUCKrtgkNg9aQgq_CLfGMD"] },
+      { id: "kim-lewin", title: "kim lewin", imgs: ["1-rIRg9ZogOnfQtxkYceM73piJTe6ju8t", "1aZXp4GxrEAxHvh46lxadGqQBXudl909e", "1lMRp7gs7sWLeqPaTcRkQLExpoU6RfwRO", "1RiRfCVTSHaXpGranAEt5dKwIot9aFMfU", "1jWVk3C_hdQbEbG8q9xLy6E_V7uqIhe6N", "1-EMtS33G7XB11ZsyuD1T8gwxJIKW-_mA"] },
+      { id: "hanay", title: "hanay", imgs: ["1NsdaC2-h_MaT2TIVI8oYNDC6-hr2rqJR", "1u8Oi8kOKzG9JAerrMq5r83saTz0Zf7ni", "1SuPaOTB4VUYK54vtgaXtkv4C0cuV9Agq", "1chP5sByOIL7n-kBDsINyvwiWHCXthV6Y", "1cTCZV26hUfQbBCQuw1pp70NkDUmqRISM", "13teio5EV_sh8kD4Bcd4Q2BK_c2qGgfL3"] },
+      { id: "sacha-foubard", title: "sacha foubard for clara viot", imgs: ["1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL", "1rMFUsN4yo3DrLP_zi0RmBpbu_XYmlhyf", "1F_tvgBqbigM_FDVpOBw2uhksIl-ThGKn", "1atZQ_4pnq4d8fM_tGGmta5sUDq0kOk9A", "1M7GzK3Y1Md45GRIGWoTeJS5bRccqJjPo", "142oz4qRFCuEXpOZSVllNWTrvvTpEsr9N", "1VIsnF0F_tkjCkCddkqj3wHS9_vpkpCVZ"] },
+      { id: "yara-carioca", title: "yara chary for carioca", imgs: ["18M3j29u23WQT3ERS0E9WvO3GRShgURTU", "1vr1GaHI19uCSWFvCL7OXXwpvBz8MxntT", "1dzKCLqzDu8I_jmRsGLOeNyqYRFLSKEV1", "1LFaS2zS3kTW1m4vXP0cL8jU8WUXrYgl4", "1-udN2ApBkFBUE7cWnYrtRz8ryIs134lg", "1pswkCKoGyi-Q-EmHtJNxBVdBpQIaEm2d", "1CUkuxmM4Ki175_33MLyvRKDniPNar4HM", "1dfGPzkOhfaoYycMNAUeWzEsKNDQAbPEU", "15Q5O3Nial9gHkabMgDNAZlpXR076ZLAE"] },
+    ];
+    var IMG_BASE = "https://lh3.googleusercontent.com/d/";
 
-      function openLightbox(src, title, type) {
-        lbImg.src     = src;
-        lbTitle.textContent = title;
-        lbType.textContent  = type;
+      var lb         = document.getElementById('gallery-lightbox');
+      var lbImg      = document.getElementById('g-lightbox-img');
+      var lbClose    = document.getElementById('g-lightbox-close');
+      var lbBack     = document.getElementById('g-lightbox-back');
+      var lbPrev     = document.getElementById('g-lb-prev');
+      var lbNext     = document.getElementById('g-lb-next');
+      var lbShootTtl = document.getElementById('g-lb-shoot-title');
+      var lbCounter  = document.getElementById('g-lb-counter');
+
+      var curShoot = null;
+      var curIdx   = 0;
+
+      function openShoot(shootId, startIdx) {
+        curShoot = PHOTO_SHOOTS.find(function(s) { return s.id === shootId; });
+        if (!curShoot) return;
+        curIdx = startIdx || 0;
+        showSlide();
         lb.classList.add('open');
+      }
+      function showSlide() {
+        var imgId = curShoot.imgs[curIdx];
+        lbImg.src = IMG_BASE + imgId;
+        lbShootTtl.textContent = curShoot.title;
+        lbCounter.textContent = (curIdx + 1) + ' / ' + curShoot.imgs.length;
+        lbPrev.style.display = curShoot.imgs.length > 1 ? 'block' : 'none';
+        lbNext.style.display = curShoot.imgs.length > 1 ? 'block' : 'none';
       }
       function closeLightbox() {
         lb.classList.remove('open');
         lbImg.src = '';
+        curShoot = null;
       }
+      function goPrev() { if (!curShoot) return; curIdx = (curIdx - 1 + curShoot.imgs.length) % curShoot.imgs.length; showSlide(); }
+      function goNext() { if (!curShoot) return; curIdx = (curIdx + 1) % curShoot.imgs.length; showSlide(); }
 
-      document.querySelectorAll('.gallery-cell[data-src]').forEach(function(cell) {
-        cell.addEventListener('click', function() {
-          openLightbox(cell.dataset.src, cell.dataset.title, 'photo');
-        });
-      });
-      document.querySelectorAll('.motion-cell[data-src]').forEach(function(cell) {
-        cell.addEventListener('click', function() {
-          openLightbox(cell.dataset.src, cell.dataset.title, 'film');
-        });
+      /* wire shoot covers */
+      document.querySelectorAll('.shoot-cover[data-shoot]').forEach(function(cell) {
+        cell.addEventListener('click', function() { openShoot(cell.dataset.shoot, 0); });
       });
 
       lbClose.addEventListener('click', closeLightbox);
-      document.getElementById('g-lightbox-back').addEventListener('click', closeLightbox);
-      lbImg.addEventListener('click', closeLightbox);
-      lb.addEventListener('click', function(e) {
-        if (e.target === lb) closeLightbox();
-      });
+      lbBack.addEventListener('click', closeLightbox);
+      lbImg.addEventListener('click', goNext);
+      lbPrev.addEventListener('click', function(e) { e.stopPropagation(); goPrev(); });
+      lbNext.addEventListener('click', function(e) { e.stopPropagation(); goNext(); });
+      lb.addEventListener('click', function(e) { if (e.target === lb) closeLightbox(); });
       document.addEventListener('keydown', function(e) {
+        if (!lb.classList.contains('open')) return;
         if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft')  goPrev();
+        if (e.key === 'ArrowRight') goNext();
       });
     })();
   </script>
