@@ -965,6 +965,7 @@
     }
     .arc-card {
       position: absolute;
+      left: 50%;
       border-radius: 2px;
       overflow: visible;
       cursor: pointer;
@@ -1616,7 +1617,7 @@
           var blur = abs > 0 ? abs * BLUR_STEP : 0;
           var zi   = 100 - abs * 10;
 
-          card.style.transform  = 'translateX(' + tx + 'px) translateY(' + ty + 'px) scale(' + sc + ') rotateZ(' + rot + 'deg)';
+          card.style.transform  = 'translateX(calc(-50% + ' + tx + 'px)) translateY(' + ty + 'px) scale(' + sc + ') rotateZ(' + rot + 'deg)';
           card.style.opacity    = op;
           card.style.filter     = blur > 0 ? 'blur(' + blur.toFixed(1) + 'px)' : 'none';
           card.style.zIndex     = zi;
