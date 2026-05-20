@@ -974,48 +974,30 @@
         opacity    0.65s ease,
         filter     0.65s ease,
         box-shadow 0.65s ease;
-      /* Card sizes to its image — flex wraps tightly */
-      display: inline-flex;
-      align-items: flex-start;
-      justify-content: center;
-      flex-direction: column;
-      /* Prevent card from collapsing if image is slow/broken */
-      min-width: 120px;
-      min-height: 80px;
+      display: inline-block;
     }
+    /* dim overlay on non-active cards — covers only the img */
     .arc-card img {
       display: block;
       pointer-events: none;
       border-radius: 2px;
-      /* Natural aspect ratio, capped at viewport height */
       max-height: 52vh;
-      max-width: 45vw;
       width: auto;
       height: auto;
-    }
-    /* white overlay on non-active cards */
-    .arc-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.25);
-      pointer-events: none;
       transition: opacity 0.55s ease;
-      border-radius: 2px;
-      z-index: 2;
     }
-    .arc-card.is-active {
+    .arc-card:not(.is-active) img {
+      opacity: 0.6;
+    }
+    .arc-card.is-active img {
+      opacity: 1;
       box-shadow: 0 24px 60px rgba(0,0,0,0.18);
-      z-index: 10;
     }
-    .arc-card.is-active::after {
-      opacity: 0; /* no overlay on focused card */
-    }
-    /* shoot title shown below focused card — flows in normal flex column */
     .arc-title {
       display: block;
-      margin-top: 1.2rem;
+      width: 100%;
       text-align: center;
+      padding-top: 1rem;
       font-size: 1.15rem;
       font-weight: 600;
       letter-spacing: 0.18em;
@@ -1025,16 +1007,12 @@
       transition: opacity 0.4s ease;
       pointer-events: none;
       white-space: nowrap;
-      z-index: 3;
-      /* no longer absolute — sits below the img in the flex column */
-      position: static;
-      bottom: auto;
-      top: auto;
-      left: auto;
-      right: auto;
     }
     .arc-card.is-active .arc-title {
       opacity: 1;
+    }
+    .arc-card.is-active {
+      z-index: 10;
     }
     .arc-controls {
       display: flex;
