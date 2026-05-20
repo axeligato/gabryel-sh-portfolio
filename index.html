@@ -958,14 +958,13 @@
     .arc-track {
       position: relative;
       width: 100%;
-      height: 55vh;
+      height: 65vh;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .arc-card {
       position: absolute;
-      max-height: 52vh;
       border-radius: 2px;
       overflow: visible;
       cursor: pointer;
@@ -975,20 +974,24 @@
         opacity    0.65s ease,
         filter     0.65s ease,
         box-shadow 0.65s ease;
-      /* size driven by image; inline-flex makes the card wrap tightly around img */
+      /* Card sizes to its image — flex wraps tightly */
       display: inline-flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
+      flex-direction: column;
+      /* Prevent card from collapsing if image is slow/broken */
+      min-width: 120px;
+      min-height: 80px;
     }
     .arc-card img {
       display: block;
       pointer-events: none;
       border-radius: 2px;
-      /* natural ratio — height caps the card, width follows freely */
+      /* Natural aspect ratio, capped at viewport height */
       max-height: 52vh;
+      max-width: 45vw;
       width: auto;
       height: auto;
-      object-fit: unset;
     }
     /* white overlay on non-active cards */
     .arc-card::after {
@@ -1008,13 +1011,10 @@
     .arc-card.is-active::after {
       opacity: 0; /* no overlay on focused card */
     }
-    /* shoot title shown below focused card */
+    /* shoot title shown below focused card — flows in normal flex column */
     .arc-title {
-      position: absolute;
-      bottom: -3.5rem;
-      top: auto;
-      left: 0;
-      right: 0;
+      display: block;
+      margin-top: 1.2rem;
       text-align: center;
       font-size: 1.15rem;
       font-weight: 600;
@@ -1026,6 +1026,12 @@
       pointer-events: none;
       white-space: nowrap;
       z-index: 3;
+      /* no longer absolute — sits below the img in the flex column */
+      position: static;
+      bottom: auto;
+      top: auto;
+      left: auto;
+      right: auto;
     }
     .arc-card.is-active .arc-title {
       opacity: 1;
