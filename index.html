@@ -994,23 +994,16 @@
       opacity: 1;
       box-shadow: 0 24px 60px rgba(0,0,0,0.18);
     }
-    .arc-title {
-      display: block;
-      width: 100%;
+    .arc-title-bar {
       text-align: center;
-      padding-top: 1rem;
       font-size: 1.15rem;
       font-weight: 600;
       letter-spacing: 0.18em;
       color: #9b0000;
       text-transform: lowercase;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
       white-space: nowrap;
-    }
-    .arc-card.is-active .arc-title {
-      opacity: 1;
+      margin-top: 1.4rem;
+      min-height: 1.6rem;
     }
     .arc-card.is-active {
       z-index: 10;
@@ -1252,16 +1245,19 @@
     <div class="arc-scene" id="arcScene">
       <!-- track -->
       <div class="arc-track" id="arcTrack">
-        <div class="arc-card" data-idx="0"><img src="https://drive.google.com/thumbnail?id=1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo&sz=w1200" alt="" /><span class="arc-title">atnt skip trip</span></div>
-        <div class="arc-card" data-idx="1"><img src="https://drive.google.com/thumbnail?id=1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG&sz=w1200" alt="" /><span class="arc-title">ba&sh london</span></div>
-        <div class="arc-card" data-idx="2"><img src="https://drive.google.com/thumbnail?id=1JTkPW5veewawAi0ZVOlPe7RtbqiCBewO&sz=w1200" alt="" /><span class="arc-title">toscane&lucas for janet by homer</span></div>
-        <div class="arc-card" data-idx="3"><img src="https://drive.google.com/thumbnail?id=1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9&sz=w1200" alt="" /><span class="arc-title">jade pedri</span></div>
-        <div class="arc-card" data-idx="4"><img src="https://drive.google.com/thumbnail?id=1fhIwcc2vpLgkpxq_5kE2dOkL2RQa2fSX&sz=w1200" alt="" /><span class="arc-title">galeries lafayette royal quartz</span></div>
-        <div class="arc-card" data-idx="5"><img src="https://drive.google.com/thumbnail?id=1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL&sz=w1200" alt="" /><span class="arc-title">sacha foubard for clara viot</span></div>
-        <div class="arc-card" data-idx="6"><img src="https://drive.google.com/thumbnail?id=1KoFibxlALMYGN3-gsCNJVRvIkW_SyUG-&sz=w1200" alt="" /><span class="arc-title">mayer, étretat</span></div>
-        <div class="arc-card" data-idx="7"><img src="https://drive.google.com/thumbnail?id=1mRNGQYr5S52lML21Di03LtJmuBGXBeQj&sz=w1200" alt="" /><span class="arc-title">ba&sh fashion week</span></div>
-        <div class="arc-card" data-idx="8"><img src="https://drive.google.com/thumbnail?id=18M3j29u23WQT3ERS0E9WvO3GRShgURTU&sz=w1200" alt="" /><span class="arc-title">yara chary for carioca</span></div>
+        <div class="arc-card" data-idx="0"><img src="https://drive.google.com/thumbnail?id=1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo&sz=w1200" alt="" /></div>
+        <div class="arc-card" data-idx="1"><img src="https://drive.google.com/thumbnail?id=1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG&sz=w1200" alt="" /></div>
+        <div class="arc-card" data-idx="2"><img src="https://drive.google.com/thumbnail?id=1JTkPW5veewawAi0ZVOlPe7RtbqiCBewO&sz=w1200" alt="" /></div>
+        <div class="arc-card" data-idx="3"><img src="https://drive.google.com/thumbnail?id=1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9&sz=w1200" alt="" /></div>
+        <div class="arc-card" data-idx="4"><img src="https://drive.google.com/thumbnail?id=1fhIwcc2vpLgkpxq_5kE2dOkL2RQa2fSX&sz=w1200" alt="" /></div>
+        <div class="arc-card" data-idx="5"><img src="https://drive.google.com/thumbnail?id=1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL&sz=w1200" alt="" /></div>
+        <div class="arc-card" data-idx="6"><img src="https://drive.google.com/thumbnail?id=1KoFibxlALMYGN3-gsCNJVRvIkW_SyUG-&sz=w1200" alt="" /></div>
+        <div class="arc-card" data-idx="7"><img src="https://drive.google.com/thumbnail?id=1mRNGQYr5S52lML21Di03LtJmuBGXBeQj&sz=w1200" alt="" /></div>
+        <div class="arc-card" data-idx="8"><img src="https://drive.google.com/thumbnail?id=18M3j29u23WQT3ERS0E9WvO3GRShgURTU&sz=w1200" alt="" /></div>
       </div>
+
+      <!-- shared title — updated by JS -->
+      <div class="arc-title-bar" id="arcTitleBar"></div>
 
       <!-- controls -->
       <div class="arc-controls">
@@ -1600,6 +1596,8 @@
       var BLUR_STEP   = 0.8;
       var VISIBLE     = 2;
 
+      var titleBar = document.getElementById('arcTitleBar');
+
       function render() {
         cards.forEach(function (card, i) {
           var diff = i - cur;
@@ -1624,6 +1622,8 @@
           card.style.visibility = vis ? 'visible' : 'hidden';
           card.classList.toggle('is-active', diff === 0);
         });
+
+        if (titleBar) titleBar.textContent = CAPTIONS[cur] || '';
       }
 
       function goTo(n) {
