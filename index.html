@@ -1243,18 +1243,8 @@
   <!-- ════ HOME ════ -->
   <div id="page-home" class="page active">
     <div class="arc-scene" id="arcScene">
-      <!-- track -->
-      <div class="arc-track" id="arcTrack">
-        <div class="arc-card" data-idx="0"><img src="https://drive.google.com/thumbnail?id=1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo&sz=w1200" alt="" /></div>
-        <div class="arc-card" data-idx="1"><img src="https://drive.google.com/thumbnail?id=1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG&sz=w1200" alt="" /></div>
-        <div class="arc-card" data-idx="2"><img src="https://drive.google.com/thumbnail?id=13gciX4tncxaiT2ly5OW03BimwKvKie7X&sz=w1200" alt="" /></div>
-        <div class="arc-card" data-idx="3"><img src="https://drive.google.com/thumbnail?id=1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9&sz=w1200" alt="" /></div>
-        <div class="arc-card" data-idx="4"><img src="https://drive.google.com/thumbnail?id=1cm7C0DlRtCxQ9-6TM6WUED_JPmlZDXXS&sz=w1200" alt="" /></div>
-        <div class="arc-card" data-idx="5"><img src="https://drive.google.com/thumbnail?id=1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL&sz=w1200" alt="" /></div>
-        <div class="arc-card" data-idx="6"><img src="https://drive.google.com/thumbnail?id=1EqGbWa-nirOc3-YA034CQ-k9vrPDv3kE&sz=w1200" alt="" /></div>
-        <div class="arc-card" data-idx="7"><img src="https://drive.google.com/thumbnail?id=1mRNGQYr5S52lML21Di03LtJmuBGXBeQj&sz=w1200" alt="" /></div>
-        <div class="arc-card" data-idx="8"><img src="https://drive.google.com/thumbnail?id=18M3j29u23WQT3ERS0E9WvO3GRShgURTU&sz=w1200" alt="" /></div>
-      </div>
+      <!-- track — populated by JS from PHOTO_SHOOTS -->
+      <div class="arc-track" id="arcTrack"></div>
 
       <!-- shared title — updated by JS -->
       <div class="arc-title-bar" id="arcTitleBar"></div>
@@ -1576,13 +1566,49 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
+    var PHOTO_SHOOTS = [
+      { id: "atnt-skip-trip", title: "atnt skip trip", imgs: ["1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo", "1iDuFev8IoZRCCV3U-_6yow4HWjbQqdEU", "1YQb3VgCu6qXdkgh0wbNz94URA2V2WQmI", "10Q32w3x_puSZABqNqe_puCWvPszbxQUH", "13znEjXQrryc1Vg62hLPE7_yAW1AmFJX3", "1Xq-x-ia-2QlpVzSpNvk3-MgKY4j85J6q", "1o1zeYZdUtk5fmv6tH2Quy-V6edXZYW8x", "1WHN6jNGZB204zbYHsPNqSVKYD7re7EX-", "1VPMUYFAsAcIp1zdxDVB08StUhseA9-G1", "1UnrZ_GVVxsdYdxtYXE_IjTXNMamC4Egb", "19JAwc4UaPVo6dPGLbseAPzlHNnD-z5Wg", "1BJyZq9k5wcwVPQwAFrTWwVYwKqgng6Iu", "12DfQQ3aQ0AgQZRsQDZHkIXvcjdhpLPma", "13DafhCHXF-BiCailysb7eqvzbhWsSzcw", "1axHRgEp-noONBnL3kE-h9fVRoEKeyOI8", "1AXaIYi88EYoaCbuv8AsNcqblY52TG7yA", "1K-HhQdVSsWzLmN5FQV6ajyKMWD3hXNWx", "1MKvzbB5UmlRCjjuZA3BC4RIi2kNbrzE-", "1SvcQYwTQsSxa7IBwWe7dS-9UeKdxGFC6", "1fxMvVUchbRlkAhd29UZgbGOQLGJW0g52", "1_s7-VySrFpIJpx1SHR1J-KliY5cp8QqI", "1eZ8hgQ7mTEHCJ9quTN-3BlbkW4xEu76e", "1_8fldb9I_qpdO2lLtefLHHJ8PKXdpV4N", "1flu82yw9ocZJNSxL-tvop56h0QxDAJJD", "1-Zzt2V45QTwP3y1eYsUNPiMgdFHq8JPO", "1FzGQt5I4d7QCwx_vLLPndWdpANRdkYq4"] },
+      { id: "atnt-2025", title: "atnt 2025", imgs: ["12YtmyQH8PIcvZaigBKRkbcsaLABE68WH", "1eiSNwC1PdOxiHg_NXQObnhscZ30iY0Jm", "1RdQ2KpIH2Zf3_cduuS6A8CVrPc9L0MaO", "1aL0x7dGmV8eZTup4b_giITKgOkEZKa_k", "15vflYsLOQ7JC_HO9rIbWWajJz54XYDG0", "1V0x9Y6t_BmbJUttUOOCIaT9FA4wIIeJD", "15lpFU83N7toz0GZiXnf-z9fUVTGuO47s"] },
+      { id: "bash-london", title: "ba&sh london", imgs: ["1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG", "13xtW3FQCNLXPoPPsl31xZ77IR-ZSmvCV", "1ASpIH23Ev4qunTZ8WKZd-syPM1ZO45gI", "1qRpVlvrNR6qwavy5AJiAP-V4euOtYSIj", "1YZzngpOlRn1J-95LTMcxex-vUG629B1D", "15bWyJlfHwSfUwNBAQIS1Qzopx3-ltkN9", "1DxE1l8-C7mToKI7NnyhF3oTHewm-Us-g", "1A1RV2HkUmwFWmJ7STcxEcqvzexyt1zJ8", "1iP9uMKTz2teYib9kxDyBvf1o6dzkianl", "1iCHbkcT0syROWuXuYxYKKY9FpeqhuVHN", "1b7MngmkJmcrkSU02AML_74NC4UhfiCCJ"] },
+      { id: "bash-fashion-week", title: "ba&sh fashion week", imgs: ["1mRNGQYr5S52lML21Di03LtJmuBGXBeQj", "1LzFhYC3Xlf365Eol92AcWU7qvlP026un", "1ce9060ycjjAcR8qkJpvkfibZMbdEVcE_", "1G2dAO6atDn6F2kkZs_8hJllDsazXyK2g", "1cKUu-dN6zjiR62T98_lN-KmVP8FW3b0q", "1K5htsQKypoha3-QEOvigzeuKbsVQxBbc", "1V53tPAwqybVRGwqQbu0LeaBaYjOjWu3n", "1ANaChR8SMJUWxEzLswFLNY2hP0sHJVXN", "1W37DAOM5QwvNgNtsSw_FsE2takSMo0J_", "1lAtP4EWlG8BR99FF3crThDSht55t0FFd-"] },
+      { id: "browberry", title: "browberry", imgs: ["1_eqSvmhdVXpJa3o-cosq7BUg7nRG36D-"] },
+      { id: "corentin-et-anais", title: "corentin et anais", imgs: ["13gciX4tncxaiT2ly5OW03BimwKvKie7X", "1eujIOuhM2xGv2IMMmAOXHI0q-goWaqvA", "1Yfst7m7jRSz73Sf_MQNhCcAL8o2XcAPV", "10KypBL6R0bKVD0wybjj-nn41I-Lrhswg", "1lSizja-H2usF1plPblwfl44AfNdYxXHc", "1FFz1RyA4ZY6YwjZHXp3lu3DqTRYJaCHV", "1WHLtSxNoSvilwzTvqlCKaQNxtzRfneSc", "1d2wjrm31VlNT4iI3ryfTuB1FazJBRnDr", "1nWlWwCdbPLfrzL2OOnrBzBDaN2aRsQA1", "1wHWf7-ID0ZNF6AjVpT7ZZJy1QLrnURrx", "1YQGLmwB9qyznz1a3ROBw095CNJHPDV0s", "1rvYA7KmnfLt8TzM4Lkhothi2i7h51EWk"] },
+      { id: "emilie-charpentier", title: "emilie charpentier", imgs: ["1kVBOtp6UHTTYXVA1QDjIe6gyGDo1deZB", "1U5IU_KyXjZPCpU8aj3dlTeG9zYAKSuCU", "1FFi0MsCpW0mh1Q5EXy54hUavwP9oc4oG", "1KKedHoU2hC5F0aKALETduZLqZ9DQhqK9", "1-llUhLo0JPvxxDUKd-cW4ODYKIdVbJSW", "17gyJ4D6yAzsJgSw-rs-uqi2pc6IFO4qL", "1caxgG_iOsRMBDN_yROBSmgMCH8tZtf67"] },
+      { id: "galeries-lafayette", title: "galeries lafayette royal quartz", imgs: ["1fhIwcc2vpLgkpxq_5kE2dOkL2RQa2fSX", "1jcC34PrA3qwa9mET1JXqU4FyrmtCylU_", "1AQZjkpSEhWDoeOeTIk8_kiYEgw-Lkimi", "12MGK3AS5Eexu5iAK_LGsM3Yw4RD_a0CY", "1hgVM-K8uPIzclQCkHXDW56oxwOy4i-wD", "1ugL6eD7bPdKmGq4mCL7tvzfjU5NqDLNt", "1kiTjO9EO8MG0Dhgjs2Z5Q0WD2g0jkG-x", "11c9-7BSfbb56GvlO9_GsPfm49QbER6q-", "1kcFGOQmwUz07LGBeUz8VDGT1nq8l_iRP", "1SHu5_vspunOXksmK4KSrAap26KxKZyU6", "1tv31dbFI7JAHBumTmVI5yDS6hgXpD4l-", "1LUxgiSeg004JETEge7Q2ccK82aXvp8pA", "1NWhT4_sXCbR5e2gAPmA-_afDNc-ylAtL", "1C8aEoC5gqvIRNbu9G_EPYVdUXHeKp3jJ"] },
+      { id: "janet-by-homer", title: "toscane&lucas for janet by homer", imgs: ["1JTkPW5veewawAi0ZVOlPe7RtbqiCBewO", "1iGnkjyT-Cdv8SlTBe-qU3gjKnCig4vAQ", "1mdcnTCa9uDQT91nO4a-0kY8nf3d2xOAW", "1AwlYonPzrpo54XZ_ByOg-sw9fsVXhYLV", "1HaasZ1bJODGXIHXjrZxJ2VIuh-IZ25Rt", "1aObMNUZ-gFjdGsNBk8motuv1TjV22YxW", "1M2AjxJ2U2KZf9T6fRlKWkESAMakKvFAW", "1TiHg_4DH_zZDx5ln0YtJJFZDCkl1Wzbm", "15n8VAdGI39Ztc1I1SDRCOxMkiBoz_MGs", "1mYfcyiHwmJod3FwGKy1SGRcc7y4ieK79", "1u4SwQUAijdx3MJfznxgvB9J8D0S4zdF7", "1TLHrU2VbDH6uP8bM7HcyxxcF09sK6LDp", "12S888hxGHk3wdlYyiEeq-bWt0A3PM-x9", "1g2KfIrVYU61aCUfOkU_qIoqVpgMl_U7L", "1lSmvhQdhBEzOlAVAPJ9WQq0odpuSIijv", "1rWNRJ0BZ2guHXa0r_UoSw76k-u2yf18N", "1koN_YMIJ42kmcE821afBAWwTodwPCvly"] },
+      { id: "mayer-etretat", title: "mayer, étretat", imgs: ["1KoFibxlALMYGN3-gsCNJVRvIkW_SyUG-", "1ObtdiQ9_181WCLxnx0a38_TC53Fr8fcZ", "18sHyeAfXdV-JyJR9PwSwT5_cGwAneHmh", "1AYQ5cPH1uJO5Lsf3H0OoDHYZ9ijTlgUT", "1o226IylDr51XzlgSs79rebpGdczULCXc", "1BIjA6pM03kv5icJu-IYhK6OGnIECXt_G"] },
+      { id: "hebe", title: "hébé", imgs: ["1EqGbWa-nirOc3-YA034CQ-k9vrPDv3kE", "1uaVCXkd59bbrWKKqiHVRk_Isrf8Vdrlq", "1Lq6Dtp5oe-zjpi92lo-drJZX3QTE8QB4", "17C-MyN4sypEkwU6JPE0jeceCd001Ul0S", "1s5W58lKLevG0tXNr6K9zm11NvQMWrtQl", "1-Gnp_xRTnljnrXEjIIv7wllXa1oTXnUK"] },
+      { id: "jade-pedri", title: "jade pedri", imgs: ["1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9", "1e75rgNkcIMyS7b87lqAmU6s0Y4VNG9T_", "1IyCqYEYZkeg0cwsCSXwmH4KQh0-Co6s6", "1MV3LFBwQYrEcjrlxJ3QpkCpSocEklEnY", "1MQaKcFwKurEQX6LdbIyf23wAcc02xr4j", "1JxIkOXU5hNLN9NjgwF1yVzByIjCoN1eX", "1_Sc-i-_nd_fajeYGASGXcKKg4OiE2DZh", "18Hn9nU-T2IskS0W-ev1SK8Jt81afzDaL", "1bSVC-p9MtnsvALOAsLzofIAW0pS7B-qR"] },
+      { id: "lenny", title: "lenny", imgs: ["15uWWQYYPA8blcBHEKTD90zenOXIZpuoR", "1vd7X3URhtmQDi4O2DXpYwswC6rB0oidi", "1kte1gjJzZagOgcAhcDKlTNZbiClPLIVZ", "16DthOayCmlK9rwamTNeUJQ3qVjiA-RZl", "15cG-UW2IRLodGa3-F8Llqjz5t0FYqvhf", "1RP20MYzipu3SLj7F2-m-po827obPy_13", "1rZprivbg3LN3pTUT3SNFAqQaqZLivGTQ"] },
+      { id: "mathis", title: "mathis", imgs: ["1cm7C0DlRtCxQ9-6TM6WUED_JPmlZDXXS", "1qO3if1sB5IxuDi1p_YNAd5BPXSlAD-WK", "1IasDnb3cvxq4glNJiA1vHe8cPRoKRxl-", "1upZ3DK2xOI_2S37tXBpygVwkHbD7PKF_", "1HLyTG30GZvS_9FaI2Lk2Hop9Qez0rQ3O", "1ZgrTwfLJVaVhB31Za6ThIpzoOdZADOdN", "1OTD0_ngqCtIBXdsFxb-oixzIMwqpNbZL", "1gWKAQIv8VqeUCKrtgkNg9aQgq_CLfGMD"] },
+      { id: "kim-lewin", title: "kim lewin", imgs: ["1-rIRg9ZogOnfQtxkYceM73piJTe6ju8t", "1aZXp4GxrEAxHvh46lxadGqQBXudl909e", "1lMRp7gs7sWLeqPaTcRkQLExpoU6RfwRO", "1RiRfCVTSHaXpGranAEt5dKwIot9aFMfU", "1jWVk3C_hdQbEbG8q9xLy6E_V7uqIhe6N", "1-EMtS33G7XB11ZsyuD1T8gwxJIKW-_mA"] },
+      { id: "hanay", title: "hanay", imgs: ["1NsdaC2-h_MaT2TIVI8oYNDC6-hr2rqJR", "1u8Oi8kOKzG9JAerrMq5r83saTz0Zf7ni", "1SuPaOTB4VUYK54vtgaXtkv4C0cuV9Agq", "1chP5sByOIL7n-kBDsINyvwiWHCXthV6Y", "1cTCZV26hUfQbBCQuw1pp70NkDUmqRISM", "13teio5EV_sh8kD4Bcd4Q2BK_c2qGgfL3"] },
+      { id: "sacha-foubard", title: "sacha foubard for clara viot", imgs: ["1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL", "1rMFUsN4yo3DrLP_zi0RmBpbu_XYmlhyf", "1F_tvgBqbigM_FDVpOBw2uhksIl-ThGKn", "1atZQ_4pnq4d8fM_tGGmta5sUDq0kOk9A", "1M7GzK3Y1Md45GRIGWoTeJS5bRccqJjPo", "142oz4qRFCuEXpOZSVllNWTrvvTpEsr9N", "1VIsnF0F_tkjCkCddkqj3wHS9_vpkpCVZ"] },
+      { id: "yara-carioca", title: "yara chary for carioca", imgs: ["18M3j29u23WQT3ERS0E9WvO3GRShgURTU", "1vr1GaHI19uCSWFvCL7OXXwpvBz8MxntT", "1dzKCLqzDu8I_jmRsGLOeNyqYRFLSKEV1", "1LFaS2zS3kTW1m4vXP0cL8jU8WUXrYgl4", "1-udN2ApBkFBUE7cWnYrtRz8ryIs134lg", "1pswkCKoGyi-Q-EmHtJNxBVdBpQIaEm2d", "1CUkuxmM4Ki175_33MLyvRKDniPNar4HM", "1dfGPzkOhfaoYycMNAUeWzEsKNDQAbPEU", "15Q5O3Nial9gHkabMgDNAZlpXR076ZLAE"] },
+    ];
+    var IMG_BASE = "https://drive.google.com/thumbnail?id=";
+      var IMG_SUFFIX = "&sz=w1200";
+
     /* ── ARC CAROUSEL ── */
     (function () {
-      var CAPTIONS = ['atnt skip trip','ba&sh london','corentin et anais','jade pedri','mathis','sacha foubard for clara viot','hébé','ba&sh fashion week','yara chary for carioca'];
       var track    = document.getElementById('arcTrack');
+      var titleBar = document.getElementById('arcTitleBar');
       var prevBtn  = document.getElementById('arcPrev');
       var nextBtn  = document.getElementById('arcNext');
       if (!track) return;
+
+      /* Build cards from PHOTO_SHOOTS — first image of each shoot as cover */
+      var CAROUSEL_SHOOTS = PHOTO_SHOOTS.slice(0, 7); /* first 7 shoots */
+      CAROUSEL_SHOOTS.forEach(function(s, i) {
+        var card = document.createElement('div');
+        card.className = 'arc-card';
+        card.dataset.idx = i;
+        var img = document.createElement('img');
+        img.src = IMG_BASE + s.imgs[0] + IMG_SUFFIX;
+        img.alt = '';
+        card.appendChild(img);
+        track.appendChild(card);
+      });
 
       var cards = Array.from(track.querySelectorAll('.arc-card'));
       var N     = cards.length;
@@ -1591,7 +1617,6 @@
       var STEP_X      = 270;
       var STEP_Y      = 0;
       var SCALE_STEP  = 0.10;
-      var OPACITY_STEP= 0.18;
       var ROT_DEG     = 3.5;
       var BLUR_STEP   = 0.8;
       var VISIBLE     = 2;
@@ -1623,7 +1648,7 @@
           card.classList.toggle('is-active', diff === 0);
         });
 
-        if (titleBar) titleBar.textContent = CAPTIONS[cur] || '';
+        if (titleBar) titleBar.textContent = CAROUSEL_SHOOTS[cur] ? CAROUSEL_SHOOTS[cur].title : '';
       }
 
       function goTo(n) {
@@ -1748,28 +1773,6 @@
 
     /* ── GALLERY LIGHTBOX ── */
     (function() {
-    var PHOTO_SHOOTS = [
-      { id: "atnt-skip-trip", title: "atnt skip trip", imgs: ["1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo", "1iDuFev8IoZRCCV3U-_6yow4HWjbQqdEU", "1YQb3VgCu6qXdkgh0wbNz94URA2V2WQmI", "10Q32w3x_puSZABqNqe_puCWvPszbxQUH", "13znEjXQrryc1Vg62hLPE7_yAW1AmFJX3", "1Xq-x-ia-2QlpVzSpNvk3-MgKY4j85J6q", "1o1zeYZdUtk5fmv6tH2Quy-V6edXZYW8x", "1WHN6jNGZB204zbYHsPNqSVKYD7re7EX-", "1VPMUYFAsAcIp1zdxDVB08StUhseA9-G1", "1UnrZ_GVVxsdYdxtYXE_IjTXNMamC4Egb", "19JAwc4UaPVo6dPGLbseAPzlHNnD-z5Wg", "1BJyZq9k5wcwVPQwAFrTWwVYwKqgng6Iu", "12DfQQ3aQ0AgQZRsQDZHkIXvcjdhpLPma", "13DafhCHXF-BiCailysb7eqvzbhWsSzcw", "1axHRgEp-noONBnL3kE-h9fVRoEKeyOI8", "1AXaIYi88EYoaCbuv8AsNcqblY52TG7yA", "1K-HhQdVSsWzLmN5FQV6ajyKMWD3hXNWx", "1MKvzbB5UmlRCjjuZA3BC4RIi2kNbrzE-", "1SvcQYwTQsSxa7IBwWe7dS-9UeKdxGFC6", "1fxMvVUchbRlkAhd29UZgbGOQLGJW0g52", "1_s7-VySrFpIJpx1SHR1J-KliY5cp8QqI", "1eZ8hgQ7mTEHCJ9quTN-3BlbkW4xEu76e", "1_8fldb9I_qpdO2lLtefLHHJ8PKXdpV4N", "1flu82yw9ocZJNSxL-tvop56h0QxDAJJD", "1-Zzt2V45QTwP3y1eYsUNPiMgdFHq8JPO", "1FzGQt5I4d7QCwx_vLLPndWdpANRdkYq4"] },
-      { id: "atnt-2025", title: "atnt 2025", imgs: ["12YtmyQH8PIcvZaigBKRkbcsaLABE68WH", "1eiSNwC1PdOxiHg_NXQObnhscZ30iY0Jm", "1RdQ2KpIH2Zf3_cduuS6A8CVrPc9L0MaO", "1aL0x7dGmV8eZTup4b_giITKgOkEZKa_k", "15vflYsLOQ7JC_HO9rIbWWajJz54XYDG0", "1V0x9Y6t_BmbJUttUOOCIaT9FA4wIIeJD", "15lpFU83N7toz0GZiXnf-z9fUVTGuO47s"] },
-      { id: "bash-london", title: "ba&sh london", imgs: ["1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG", "13xtW3FQCNLXPoPPsl31xZ77IR-ZSmvCV", "1ASpIH23Ev4qunTZ8WKZd-syPM1ZO45gI", "1qRpVlvrNR6qwavy5AJiAP-V4euOtYSIj", "1YZzngpOlRn1J-95LTMcxex-vUG629B1D", "15bWyJlfHwSfUwNBAQIS1Qzopx3-ltkN9", "1DxE1l8-C7mToKI7NnyhF3oTHewm-Us-g", "1A1RV2HkUmwFWmJ7STcxEcqvzexyt1zJ8", "1iP9uMKTz2teYib9kxDyBvf1o6dzkianl", "1iCHbkcT0syROWuXuYxYKKY9FpeqhuVHN", "1b7MngmkJmcrkSU02AML_74NC4UhfiCCJ"] },
-      { id: "bash-fashion-week", title: "ba&sh fashion week", imgs: ["1mRNGQYr5S52lML21Di03LtJmuBGXBeQj", "1LzFhYC3Xlf365Eol92AcWU7qvlP026un", "1ce9060ycjjAcR8qkJpvkfibZMbdEVcE_", "1G2dAO6atDn6F2kkZs_8hJllDsazXyK2g", "1cKUu-dN6zjiR62T98_lN-KmVP8FW3b0q", "1K5htsQKypoha3-QEOvigzeuKbsVQxBbc", "1V53tPAwqybVRGwqQbu0LeaBaYjOjWu3n", "1ANaChR8SMJUWxEzLswFLNY2hP0sHJVXN", "1W37DAOM5QwvNgNtsSw_FsE2takSMo0J_", "1lAtP4EWlG8BR99FF3crThDSht55t0FFd-"] },
-      { id: "browberry", title: "browberry", imgs: ["1_eqSvmhdVXpJa3o-cosq7BUg7nRG36D-"] },
-      { id: "corentin-et-anais", title: "corentin et anais", imgs: ["13gciX4tncxaiT2ly5OW03BimwKvKie7X", "1eujIOuhM2xGv2IMMmAOXHI0q-goWaqvA", "1Yfst7m7jRSz73Sf_MQNhCcAL8o2XcAPV", "10KypBL6R0bKVD0wybjj-nn41I-Lrhswg", "1lSizja-H2usF1plPblwfl44AfNdYxXHc", "1FFz1RyA4ZY6YwjZHXp3lu3DqTRYJaCHV", "1WHLtSxNoSvilwzTvqlCKaQNxtzRfneSc", "1d2wjrm31VlNT4iI3ryfTuB1FazJBRnDr", "1nWlWwCdbPLfrzL2OOnrBzBDaN2aRsQA1", "1wHWf7-ID0ZNF6AjVpT7ZZJy1QLrnURrx", "1YQGLmwB9qyznz1a3ROBw095CNJHPDV0s", "1rvYA7KmnfLt8TzM4Lkhothi2i7h51EWk"] },
-      { id: "emilie-charpentier", title: "emilie charpentier", imgs: ["1kVBOtp6UHTTYXVA1QDjIe6gyGDo1deZB", "1U5IU_KyXjZPCpU8aj3dlTeG9zYAKSuCU", "1FFi0MsCpW0mh1Q5EXy54hUavwP9oc4oG", "1KKedHoU2hC5F0aKALETduZLqZ9DQhqK9", "1-llUhLo0JPvxxDUKd-cW4ODYKIdVbJSW", "17gyJ4D6yAzsJgSw-rs-uqi2pc6IFO4qL", "1caxgG_iOsRMBDN_yROBSmgMCH8tZtf67"] },
-      { id: "galeries-lafayette", title: "galeries lafayette royal quartz", imgs: ["1fhIwcc2vpLgkpxq_5kE2dOkL2RQa2fSX", "1jcC34PrA3qwa9mET1JXqU4FyrmtCylU_", "1AQZjkpSEhWDoeOeTIk8_kiYEgw-Lkimi", "12MGK3AS5Eexu5iAK_LGsM3Yw4RD_a0CY", "1hgVM-K8uPIzclQCkHXDW56oxwOy4i-wD", "1ugL6eD7bPdKmGq4mCL7tvzfjU5NqDLNt", "1kiTjO9EO8MG0Dhgjs2Z5Q0WD2g0jkG-x", "11c9-7BSfbb56GvlO9_GsPfm49QbER6q-", "1kcFGOQmwUz07LGBeUz8VDGT1nq8l_iRP", "1SHu5_vspunOXksmK4KSrAap26KxKZyU6", "1tv31dbFI7JAHBumTmVI5yDS6hgXpD4l-", "1LUxgiSeg004JETEge7Q2ccK82aXvp8pA", "1NWhT4_sXCbR5e2gAPmA-_afDNc-ylAtL", "1C8aEoC5gqvIRNbu9G_EPYVdUXHeKp3jJ"] },
-      { id: "janet-by-homer", title: "toscane&lucas for janet by homer", imgs: ["1JTkPW5veewawAi0ZVOlPe7RtbqiCBewO", "1iGnkjyT-Cdv8SlTBe-qU3gjKnCig4vAQ", "1mdcnTCa9uDQT91nO4a-0kY8nf3d2xOAW", "1AwlYonPzrpo54XZ_ByOg-sw9fsVXhYLV", "1HaasZ1bJODGXIHXjrZxJ2VIuh-IZ25Rt", "1aObMNUZ-gFjdGsNBk8motuv1TjV22YxW", "1M2AjxJ2U2KZf9T6fRlKWkESAMakKvFAW", "1TiHg_4DH_zZDx5ln0YtJJFZDCkl1Wzbm", "15n8VAdGI39Ztc1I1SDRCOxMkiBoz_MGs", "1mYfcyiHwmJod3FwGKy1SGRcc7y4ieK79", "1u4SwQUAijdx3MJfznxgvB9J8D0S4zdF7", "1TLHrU2VbDH6uP8bM7HcyxxcF09sK6LDp", "12S888hxGHk3wdlYyiEeq-bWt0A3PM-x9", "1g2KfIrVYU61aCUfOkU_qIoqVpgMl_U7L", "1lSmvhQdhBEzOlAVAPJ9WQq0odpuSIijv", "1rWNRJ0BZ2guHXa0r_UoSw76k-u2yf18N", "1koN_YMIJ42kmcE821afBAWwTodwPCvly"] },
-      { id: "mayer-etretat", title: "mayer, étretat", imgs: ["1KoFibxlALMYGN3-gsCNJVRvIkW_SyUG-", "1ObtdiQ9_181WCLxnx0a38_TC53Fr8fcZ", "18sHyeAfXdV-JyJR9PwSwT5_cGwAneHmh", "1AYQ5cPH1uJO5Lsf3H0OoDHYZ9ijTlgUT", "1o226IylDr51XzlgSs79rebpGdczULCXc", "1BIjA6pM03kv5icJu-IYhK6OGnIECXt_G"] },
-      { id: "hebe", title: "hébé", imgs: ["1EqGbWa-nirOc3-YA034CQ-k9vrPDv3kE", "1uaVCXkd59bbrWKKqiHVRk_Isrf8Vdrlq", "1Lq6Dtp5oe-zjpi92lo-drJZX3QTE8QB4", "17C-MyN4sypEkwU6JPE0jeceCd001Ul0S", "1s5W58lKLevG0tXNr6K9zm11NvQMWrtQl", "1-Gnp_xRTnljnrXEjIIv7wllXa1oTXnUK"] },
-      { id: "jade-pedri", title: "jade pedri", imgs: ["1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9", "1e75rgNkcIMyS7b87lqAmU6s0Y4VNG9T_", "1IyCqYEYZkeg0cwsCSXwmH4KQh0-Co6s6", "1MV3LFBwQYrEcjrlxJ3QpkCpSocEklEnY", "1MQaKcFwKurEQX6LdbIyf23wAcc02xr4j", "1JxIkOXU5hNLN9NjgwF1yVzByIjCoN1eX", "1_Sc-i-_nd_fajeYGASGXcKKg4OiE2DZh", "18Hn9nU-T2IskS0W-ev1SK8Jt81afzDaL", "1bSVC-p9MtnsvALOAsLzofIAW0pS7B-qR"] },
-      { id: "lenny", title: "lenny", imgs: ["15uWWQYYPA8blcBHEKTD90zenOXIZpuoR", "1vd7X3URhtmQDi4O2DXpYwswC6rB0oidi", "1kte1gjJzZagOgcAhcDKlTNZbiClPLIVZ", "16DthOayCmlK9rwamTNeUJQ3qVjiA-RZl", "15cG-UW2IRLodGa3-F8Llqjz5t0FYqvhf", "1RP20MYzipu3SLj7F2-m-po827obPy_13", "1rZprivbg3LN3pTUT3SNFAqQaqZLivGTQ"] },
-      { id: "mathis", title: "mathis", imgs: ["1cm7C0DlRtCxQ9-6TM6WUED_JPmlZDXXS", "1qO3if1sB5IxuDi1p_YNAd5BPXSlAD-WK", "1IasDnb3cvxq4glNJiA1vHe8cPRoKRxl-", "1upZ3DK2xOI_2S37tXBpygVwkHbD7PKF_", "1HLyTG30GZvS_9FaI2Lk2Hop9Qez0rQ3O", "1ZgrTwfLJVaVhB31Za6ThIpzoOdZADOdN", "1OTD0_ngqCtIBXdsFxb-oixzIMwqpNbZL", "1gWKAQIv8VqeUCKrtgkNg9aQgq_CLfGMD"] },
-      { id: "kim-lewin", title: "kim lewin", imgs: ["1-rIRg9ZogOnfQtxkYceM73piJTe6ju8t", "1aZXp4GxrEAxHvh46lxadGqQBXudl909e", "1lMRp7gs7sWLeqPaTcRkQLExpoU6RfwRO", "1RiRfCVTSHaXpGranAEt5dKwIot9aFMfU", "1jWVk3C_hdQbEbG8q9xLy6E_V7uqIhe6N", "1-EMtS33G7XB11ZsyuD1T8gwxJIKW-_mA"] },
-      { id: "hanay", title: "hanay", imgs: ["1NsdaC2-h_MaT2TIVI8oYNDC6-hr2rqJR", "1u8Oi8kOKzG9JAerrMq5r83saTz0Zf7ni", "1SuPaOTB4VUYK54vtgaXtkv4C0cuV9Agq", "1chP5sByOIL7n-kBDsINyvwiWHCXthV6Y", "1cTCZV26hUfQbBCQuw1pp70NkDUmqRISM", "13teio5EV_sh8kD4Bcd4Q2BK_c2qGgfL3"] },
-      { id: "sacha-foubard", title: "sacha foubard for clara viot", imgs: ["1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL", "1rMFUsN4yo3DrLP_zi0RmBpbu_XYmlhyf", "1F_tvgBqbigM_FDVpOBw2uhksIl-ThGKn", "1atZQ_4pnq4d8fM_tGGmta5sUDq0kOk9A", "1M7GzK3Y1Md45GRIGWoTeJS5bRccqJjPo", "142oz4qRFCuEXpOZSVllNWTrvvTpEsr9N", "1VIsnF0F_tkjCkCddkqj3wHS9_vpkpCVZ"] },
-      { id: "yara-carioca", title: "yara chary for carioca", imgs: ["18M3j29u23WQT3ERS0E9WvO3GRShgURTU", "1vr1GaHI19uCSWFvCL7OXXwpvBz8MxntT", "1dzKCLqzDu8I_jmRsGLOeNyqYRFLSKEV1", "1LFaS2zS3kTW1m4vXP0cL8jU8WUXrYgl4", "1-udN2ApBkFBUE7cWnYrtRz8ryIs134lg", "1pswkCKoGyi-Q-EmHtJNxBVdBpQIaEm2d", "1CUkuxmM4Ki175_33MLyvRKDniPNar4HM", "1dfGPzkOhfaoYycMNAUeWzEsKNDQAbPEU", "15Q5O3Nial9gHkabMgDNAZlpXR076ZLAE"] },
-    ];
-    var IMG_BASE = "https://drive.google.com/thumbnail?id=";
-      var IMG_SUFFIX = "&sz=w1200";
 
       var lb         = document.getElementById('gallery-lightbox');
       var lbImg      = document.getElementById('g-lightbox-img');
