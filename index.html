@@ -1028,6 +1028,86 @@
     }
     .arc-btn:hover { opacity: 1; }
 
+    /* ════ SCROLL DOWN INDICATOR ════ */
+    .scroll-down-btn {
+      position: absolute;
+      bottom: 2.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: none;
+      border: none;
+      color: var(--black);
+      opacity: 0.4;
+      cursor: pointer;
+      padding: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.25s;
+      animation: scrollBounce 2.2s ease-in-out infinite;
+    }
+    .scroll-down-btn:hover { opacity: 1; }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-down-btn { animation: none; }
+    }
+
+    /* ════ SHOWCASE — large image grid below the carousel ════ */
+    .showcase {
+      width: 100%;
+      background: var(--bg);
+      padding: 0 0 4rem;
+    }
+    .showcase-grid {
+      max-width: 1500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--border);
+      padding: 2px;
+    }
+    .showcase-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--bg);
+      aspect-ratio: 4/5;
+    }
+    .showcase-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .showcase-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.05);
+      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .showcase-item:hover img { transform: scale(1.045); }
+    .showcase-item-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.4rem 1.6rem 1.2rem;
+      background: linear-gradient(transparent, rgba(10,10,10,0.55));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .showcase-item:hover .showcase-item-label { opacity: 1; }
+    .showcase-item-label span {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: #fff;
+    }
+    @media (max-width: 768px) {
+      .showcase-grid { grid-template-columns: 1fr; }
+      .showcase-item.wide { grid-column: span 1; aspect-ratio: 4/5; }
+    }
+
 
     .contact-credit {
       font-size: 0.48rem;
@@ -1254,6 +1334,16 @@
         <button class="arc-btn" id="arcPrev">&#8592;</button>
         <button class="arc-btn" id="arcNext">&#8594;</button>
       </div>
+
+      <!-- scroll-down indicator -->
+      <button class="scroll-down-btn" id="scrollDownBtn" aria-label="scroll down">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 4v15M12 19l-6-6M12 19l6-6" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <!-- ════ SHOWCASE — big image grid, click → gallery ════ -->
+    <div class="showcase" id="showcase">
+      <div class="showcase-grid" id="showcaseGrid"></div>
     </div>
   </div>
 
@@ -1658,7 +1748,7 @@
       if (!track) return;
 
       /* Build cards from PHOTO_SHOOTS — first image of each shoot as cover */
-      var CAROUSEL_SHOOTS = PHOTO_SHOOTS.slice(0, 7); /* first 7 shoots */
+      var CAROUSEL_SHOOTS = PHOTO_SHOOTS.filter(function(s) { return s.id !== 'corentin-et-anais'; }).slice(0, 7);
       CAROUSEL_SHOOTS.forEach(function(s, i) {
         var card = document.createElement('div');
         card.className = 'arc-card';
@@ -1818,6 +1908,58 @@
 
       render();
     }());
+
+    /* ── SHOWCASE — large image grid below carousel ── */
+    (function() {
+      var grid = document.getElementById('showcaseGrid');
+      var scrollBtn = document.getElementById('scrollDownBtn');
+      var showcase = document.getElementById('showcase');
+      if (!grid) return;
+
+      /* Pick one striking image per shoot, skip the very first few already
+         shown as carousel covers to keep the reveal feeling fresh. */
+      var picks = PHOTO_SHOOTS.map(function(s) {
+        var imgIdx = s.imgs.length > 1 ? 1 : 0; /* second image if available */
+        return { shootId: s.id, title: s.title, img: s.imgs[imgIdx] };
+      });
+
+      /* Shuffle deterministically-ish for variety, then take 10 */
+      picks = picks.slice(0, 10);
+
+      picks.forEach(function(p, i) {
+        var item = document.createElement('div');
+        item.className = 'showcase-item' + (i % 5 === 2 ? ' wide' : '');
+        item.dataset.shoot = p.shootId;
+
+        var img = document.createElement('img');
+        img.src = IMG_BASE + p.img + IMG_SUFFIX;
+        img.alt = p.title;
+        img.loading = 'lazy';
+        item.appendChild(img);
+
+        var label = document.createElement('div');
+        label.className = 'showcase-item-label';
+        var span = document.createElement('span');
+        span.textContent = p.title;
+        label.appendChild(span);
+        item.appendChild(label);
+
+        item.addEventListener('click', function() {
+          showPage('gallery');
+        });
+
+        grid.appendChild(item);
+      });
+
+      /* Scroll-down button: short delay, then smooth scroll to showcase */
+      if (scrollBtn && showcase) {
+        scrollBtn.addEventListener('click', function() {
+          setTimeout(function() {
+            showcase.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 180);
+        });
+      }
+    })();
 
     /* ── GALLERY TABS ── */
     function switchTab(btn, tabId) {
