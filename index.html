@@ -1523,70 +1523,191 @@
     </div>
   </div>
 
-  <!-- ════ CONTACT ════ -->
-  <div id="page-contact" class="page">
-    <div class="contact-grid container">
-      <div class="contact-left anim-1">
-        <p class="contact-eyebrow">Get in touch</p>
-        <h1 class="contact-heading">let's create<br>something.</h1>
-        <p class="contact-body">Photographer and visual director based in Paris, working worldwide.</p>
-        <div class="contact-direct-below">
-          <div class="contact-direct-item">
-            <span class="contact-direct-label">Email</span>
-            <a href="mailto:gabryel@example.com" class="contact-email">gabryel@example.com</a>
-          </div>
-          <div class="contact-direct-item">
-            <span class="contact-direct-label">Instagram</span>
-            <a href="https://instagram.com/gabryelsallehount" target="_blank" class="contact-email">@gabryelsallehount</a>
-          </div>
+ <!-- ════ CONTACT ════ -->
+<div id="page-contact" class="page">
+  <div class="contact-grid container">
+    <div class="contact-left anim-1">
+      <p class="contact-eyebrow">Get in touch</p>
+      <h1 class="contact-heading">let's create<br>something.</h1>
+      <p class="contact-body">Photographer and visual director based in Paris, working worldwide.</p>
+
+      <div class="contact-direct-below">
+        <div class="contact-direct-item">
+          <span class="contact-direct-label">Email</span>
+          <a href="mailto:gabryel@example.com" class="contact-email">gabryel@example.com</a>
+        </div>
+
+        <div class="contact-direct-item">
+          <span class="contact-direct-label">Instagram</span>
+          <a href="https://instagram.com/gabryelsallehount" target="_blank" class="contact-email">@gabryelsallehount</a>
         </div>
       </div>
-      <div class="contact-right anim-2">
-        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Name</label>
-              <input class="form-input" type="text" name="name" placeholder="Your name" required />
-            </div>
-            <div class="form-field">
-              <label class="form-label">Brand</label>
-              <input class="form-input" type="text" name="brand" placeholder="Brand or agency" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Email</label>
-              <input class="form-input" type="email" name="email" placeholder="your@email.com" required />
-            </div>
-          </div>
-          <div class="form-field">
-            <label class="form-label">Type of shoot</label>
-            <div class="shoot-types">
-              <button type="button" class="shoot-pill" onclick="togglePill(this)">Editorial</button>
-              <button type="button" class="shoot-pill" onclick="togglePill(this)">Commercial</button>
-              <button type="button" class="shoot-pill" onclick="togglePill(this)">Other</button>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Due Date</label>
-              <input class="form-input" type="date" name="due_date" />
-            </div>
-          </div>
-          <div class="form-field">
-            <label class="form-label">Location / City</label>
-            <input class="form-input" type="text" name="location" placeholder="Paris, studio, on location…" />
-          </div>
-          <div class="form-field">
-            <label class="form-label">Describe your project</label>
-            <textarea class="form-input" name="vision" placeholder="Describe the aesthetic, references, feeling…" rows="4"></textarea>
-          </div>
-          <button type="submit" class="form-submit">send</button>
-        </form>
-      </div>
     </div>
-    <p class="contact-credit"><span class="credit-by">site by</span> <a href="https://www.linkedin.com/in/axel-xiberras-aa0105172/" target="_blank" rel="noopener" class="credit-name">axel xiberras</a></p>
+
+    <div class="contact-right anim-2">
+
+      <form id="contactForm" action="https://formspree.io/f/xbdngzlz" method="POST">
+
+        <input type="hidden" name="_subject" value="New inquiry from gabryelsallehount.com">
+        <input type="hidden" name="shoot_type" id="shootType">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Name</label>
+            <input class="form-input" type="text" name="name" placeholder="Your name" required>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Brand</label>
+            <input class="form-input" type="text" name="brand" placeholder="Brand or agency">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Type of shoot</label>
+
+          <div class="shoot-types">
+            <button type="button" class="shoot-pill" onclick="togglePill(this)">Editorial</button>
+            <button type="button" class="shoot-pill" onclick="togglePill(this)">Commercial</button>
+            <button type="button" class="shoot-pill" onclick="togglePill(this)">Other</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Due Date</label>
+            <input class="form-input" type="date" name="due_date">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Location / City</label>
+          <input class="form-input" type="text" name="location" placeholder="Paris, studio, on location…">
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Describe your project</label>
+          <textarea class="form-input" name="vision" placeholder="Describe the aesthetic, references, feeling…" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">
+          <span class="btn-text">Send</span>
+        </button>
+
+        <p id="form-status" class="form-status"></p>
+
+      </form>
+
+    </div>
   </div>
+
+  <p class="contact-credit">
+    <span class="credit-by">site by</span>
+    <a href="https://www.linkedin.com/in/axel-xiberras-aa0105172/" target="_blank" rel="noopener" class="credit-name">
+      axel xiberras
+    </a>
+  </p>
+</div>
+
+<style>
+.form-status{
+    margin-top:16px;
+    font-size:14px;
+    opacity:0;
+    transform:translateY(10px);
+    transition:.3s ease;
+}
+
+.form-status.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.form-status.success{
+    color:#4CAF50;
+}
+
+.form-status.error{
+    color:#ff4d4d;
+}
+</style>
+
+<script>
+function togglePill(button){
+
+    document.querySelectorAll(".shoot-pill").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    document.getElementById("shootType").value = button.textContent.trim();
+}
+
+const form = document.getElementById("contactForm");
+const submitBtn = form.querySelector(".form-submit");
+const btnText = form.querySelector(".btn-text");
+const status = document.getElementById("form-status");
+
+form.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    btnText.textContent = "Sending...";
+
+    status.className = "form-status";
+    status.textContent = "";
+
+    try{
+
+        const response = await fetch(form.action,{
+            method:"POST",
+            body:new FormData(form),
+            headers:{
+                "Accept":"application/json"
+            }
+        });
+
+        if(response.ok){
+
+            status.textContent = "✓ Message sent successfully!";
+            status.classList.add("show","success");
+
+            form.reset();
+
+            document.getElementById("shootType").value = "";
+
+            document.querySelectorAll(".shoot-pill").forEach(btn=>{
+                btn.classList.remove("active");
+            });
+
+        }else{
+
+            status.textContent = "Something went wrong. Please try again.";
+            status.classList.add("show","error");
+
+        }
+
+    }catch{
+
+        status.textContent = "Something went wrong. Please try again.";
+        status.classList.add("show","error");
+
+    }
+
+    submitBtn.disabled = false;
+    btnText.textContent = "Send";
+
+});
+</script>
 
   <!-- ════ GALLERY LIGHTBOX ════ -->
   <div id="gallery-lightbox" class="g-lightbox">
