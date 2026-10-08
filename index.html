@@ -328,7 +328,7 @@
       filter: contrast(1.05);
       transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
     }
-    .photo-item:hover img { transform: scale(1.04); filter: contrast(1.1); }
+    .photo-item:hover img { transform: scale(1.045); filter: contrast(1.12) saturate(1.18) blur(1.5px); }
     .photo-item-caption {
       position: absolute;
       bottom: 0; left: 0; right: 0;
@@ -399,11 +399,11 @@
     .gallery-tab.active { color: var(--black); border-bottom-color: var(--black); font-weight: 700; }
 
     .gallery-masonry {
-      max-width: 1360px;
+      max-width: 1260px;
       margin: 0 auto;
       columns: 3;
-      column-gap: 2px;
-      background: var(--border);
+      column-gap: clamp(1.5rem, 3.2vw, 3.5rem);
+      padding: 0 clamp(1rem, 2.5vw, 2.5rem);
     }
     .gallery-cell {
       break-inside: avoid;
@@ -411,7 +411,7 @@
       overflow: hidden;
       display: block;
       position: relative;
-      margin-bottom: 2px;
+      margin-bottom: clamp(1.5rem, 3.2vw, 3.5rem);
       cursor: pointer;
     }
     .gallery-cell img {
@@ -419,19 +419,21 @@
       filter: contrast(1.05);
       transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
     }
-    .gallery-cell:hover img { transform: scale(1.03); }
+    .gallery-cell:hover img { transform: scale(1.035); filter: contrast(1.12) saturate(1.2) blur(1.5px); }
     .gallery-cell-info { display: none; }
     /* red overlay + title on hover */
     .gallery-cell::after {
       content: attr(data-title);
       position: absolute;
       inset: 0;
-      background: rgba(155,0,0,0.25);
+      background: rgba(155,0,0,0.52);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.58rem;
+      font-size: clamp(0.62rem, 0.75vw, 0.78rem);
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: lowercase;
@@ -526,11 +528,11 @@
 
     /* Motion tab placeholder */
     .motion-grid {
-      max-width: 1360px;
+      max-width: 1260px;
       margin: 0 auto;
       columns: 3;
-      column-gap: 2px;
-      background: var(--border);
+      column-gap: clamp(1.5rem, 3.2vw, 3.5rem);
+      padding: 0 clamp(1rem, 2.5vw, 2.5rem);
     }
     .motion-cell {
       background: var(--bg);
@@ -539,7 +541,7 @@
       cursor: pointer;
       break-inside: avoid;
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: clamp(1.5rem, 3.2vw, 3.5rem);
     }
     .motion-cell img {
       width: 100%; height: auto;
@@ -547,18 +549,20 @@
       filter: contrast(1.05);
       transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
     }
-    .motion-cell:hover img { transform: scale(1.03); }
+    .motion-cell:hover img { transform: scale(1.035); filter: contrast(1.12) saturate(1.2) blur(1.5px); }
     /* red overlay + title on hover */
     .motion-cell::after {
       content: attr(data-title);
       position: absolute;
       inset: 0;
-      background: rgba(155,0,0,0.25);
+      background: rgba(155,0,0,0.52);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.58rem;
+      font-size: clamp(0.62rem, 0.75vw, 0.78rem);
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: lowercase;
@@ -892,7 +896,7 @@
       .hero-left { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border-hd); margin-bottom: 3rem; }
       .hero-right { padding-left: 0; }
       .photos-wrapper { grid-template-columns: repeat(2, 1fr); }
-      .gallery-masonry { columns: 2; }
+      .gallery-masonry { columns: 2; column-gap: 1.5rem; }
       .mystery-countdown { gap: 2rem; }
       .mystery-content { padding: 24px; }
       .about-simple { grid-template-columns: 1fr; gap: 3rem; }
@@ -903,29 +907,27 @@
       .motion-grid { columns: 2; }
     }
     @media (max-width: 768px) {
-      :root { --nav-w: 0px; }
-      body.loaded { padding-left: 0; }
+      :root { --nav-w: 112px; }
+      body.loaded { padding-left: var(--nav-w); }
       .navbar {
-        width: 100%;
-        height: 52px;
-        bottom: auto;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        flex-direction: row;
+        width: var(--nav-w);
+        height: 100vh;
+        bottom: 0;
+        border-right: 1px solid var(--border);
+        border-bottom: none;
+        flex-direction: column;
       }
       .nav-container {
-        flex-direction: row;
-        align-items: center;
-        padding: 0 1.2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.8rem 1rem;
       }
-      .nav-logo { margin-bottom: 0; margin-right: auto; }
+      .nav-logo { margin-bottom: auto; margin-right: 0; }
       .nav-logo a {
-        font-size: 0.55rem;
-        letter-spacing: 0.12em;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 120px;
+        font-size: 0.52rem;
+        letter-spacing: 0.1em;
+        white-space: normal;
+        max-width: 88px;
       }
       .nav-menu {
         flex-direction: row;
@@ -935,98 +937,125 @@
       .nav-link { font-size: 0.52rem; letter-spacing: 0.12em; }
       body.loaded { padding-top: 52px; }
       .photos-wrapper { grid-template-columns: 1fr; }
-      .gallery-masonry { columns: 1; }
+      .gallery-masonry { columns: 1; padding: 0 1rem; }
       .mystery-countdown { gap: 1.5rem; }
       .motion-grid { columns: 1; }
     }
 
-    /* ════ ARC CAROUSEL ════ */
+    /* ════ HOME CAROUSEL ════ */
     .arc-scene {
       width: 100%;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       background: var(--bg);
-      gap: 0;
       position: relative;
       cursor: grab;
     }
     .arc-scene:active { cursor: grabbing; }
+
+    .arc-layout {
+      width: min(92vw, 1500px);
+      display: grid;
+      grid-template-columns: minmax(170px, 1fr) minmax(320px, 0.95fr) minmax(70px, 1fr);
+      align-items: center;
+      column-gap: clamp(2rem, 5vw, 7rem);
+      margin-top: 2rem;
+    }
+
+    .arc-title-bar {
+      text-align: left;
+      font-size: clamp(1rem, 1.35vw, 1.35rem);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--black);
+      text-transform: lowercase;
+      white-space: normal;
+      line-height: 1.15;
+      margin: 0;
+      min-height: 0;
+    }
+    .arc-title-bar .arc-date {
+      display: block;
+      margin-top: 0.55rem;
+      font-size: 0.68em;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: #999;
+      text-transform: none;
+    }
+
     .arc-track {
       position: relative;
       width: 100%;
-      height: 65vh;
+      height: min(58vh, 620px);
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
+
     .arc-card {
       position: absolute;
-      left: 50%;
-      border-radius: 2px;
-      overflow: visible;
-      cursor: pointer;
-      will-change: transform, opacity, filter;
-      transition:
-        transform  0.65s cubic-bezier(0.25,0.46,0.45,0.94),
-        opacity    0.65s ease,
-        filter     0.65s ease,
-        box-shadow 0.65s ease;
-      display: inline-block;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
     }
-    /* dim overlay on non-active cards — covers only the img */
     .arc-card img {
       display: block;
       pointer-events: none;
       border-radius: 2px;
-      max-height: 52vh;
+      max-width: 100%;
+      max-height: 56vh;
       width: auto;
       height: auto;
-      transition: opacity 0.55s ease;
+      object-fit: contain;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.14);
     }
-    .arc-card:not(.is-active) img {
-      opacity: 0.6;
-    }
-    .arc-card.is-active img {
-      opacity: 1;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
-    }
-    .arc-title-bar {
-      text-align: center;
-      font-size: 1.15rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      color: #9b0000;
-      text-transform: lowercase;
-      white-space: nowrap;
-      margin-top: 1.4rem;
-      min-height: 1.6rem;
-    }
-    .arc-card.is-active {
-      z-index: 10;
-    }
-    .arc-controls {
+
+    .arc-pagination {
       display: flex;
       align-items: center;
-      gap: 2rem;
-      margin-top: 2.5rem;
+      justify-content: flex-start;
+      gap: 10px;
+      padding-left: 1rem;
     }
-    .arc-btn {
-      background: none;
-      border: none;
-      font-family: var(--font);
-      font-size: 1rem;
-      color: var(--black);
-      opacity: 0.35;
+    .arc-dot {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      padding: 0;
+      border: 1px solid #9b0000;
+      border-radius: 50%;
+      background: transparent;
+      opacity: 0.38;
       cursor: pointer;
-      transition: opacity 0.2s;
-      padding: 0.4rem 0.8rem;
-      line-height: 1;
+      transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease;
     }
-    .arc-btn:hover { opacity: 1; }
+    .arc-dot:hover { opacity: 0.75; }
+    .arc-dot.active {
+      opacity: 1;
+      background: #9b0000;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      .arc-layout {
+        width: calc(100% - 2rem);
+        grid-template-columns: minmax(82px, 0.8fr) minmax(150px, 2fr) minmax(42px, 0.55fr);
+        column-gap: clamp(0.7rem, 2.5vw, 1.4rem);
+        margin-top: 1rem;
+      }
+      .arc-title-bar { text-align: left; }
+      .arc-track { height: 52vh; }
+      .arc-track img { max-width: 100%; max-height: 52vh; }
+      .arc-pagination { justify-content: flex-start; padding-left: 0; flex-wrap: wrap; gap: 8px; }
+      .arc-dot { width: 16px; height: 16px; min-width: 16px; }
+    }
 
     /* ════ SCROLL DOWN INDICATOR ════ */
     .scroll-down-btn {
@@ -1059,16 +1088,15 @@
     .showcase {
       width: 100%;
       background: var(--bg);
-      padding: 0 0 4rem;
+      padding: 0 0 6rem;
     }
     .showcase-grid {
-      max-width: 1500px;
+      max-width: 1260px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-      background: var(--border);
-      padding: 2px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(1.5rem, 3.2vw, 3.5rem);
+      padding: 0 clamp(1rem, 2.5vw, 2.5rem);
     }
     .showcase-item {
       position: relative;
@@ -1086,23 +1114,30 @@
       filter: contrast(1.05);
       transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
     }
-    .showcase-item:hover img { transform: scale(1.045); }
-    .showcase-item-label {
+    .showcase-item:hover img { transform: scale(1.05); filter: contrast(1.12) saturate(1.2) blur(1.5px); }
+    .showcase-item::after {
+      content: attr(data-title);
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 1.4rem 1.6rem 1.2rem;
-      background: linear-gradient(transparent, rgba(10,10,10,0.55));
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(155,0,0,0.52);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      color: #fff;
+      font-size: clamp(0.62rem, 0.75vw, 0.78rem);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: lowercase;
+      text-align: center;
       opacity: 0;
       transition: opacity 0.3s ease;
+      pointer-events: none;
     }
-    .showcase-item:hover .showcase-item-label { opacity: 1; }
-    .showcase-item-label span {
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: lowercase;
-      color: #fff;
-    }
+    .showcase-item:hover::after { opacity: 1; }
+    .showcase-item-label { display: none; }
     @media (max-width: 768px) {
       .showcase-grid { grid-template-columns: 1fr; }
       .showcase-item.wide { grid-column: span 1; aspect-ratio: 4/5; }
@@ -1276,6 +1311,15 @@
     .g-lightbox-back:hover { opacity: 1; }
     .g-lightbox-label { display: none; }
     .g-lightbox-title { display: none; }
+
+    /* Keep the custom red-dot cursor over enlarged photo + film media */
+    .g-lightbox,
+    .g-lightbox *,
+    .g-lightbox img,
+    .g-lightbox video,
+    #film-lightbox-video {
+      cursor: none !important;
+    }
   </style>
 </head>
 <body>
@@ -1323,16 +1367,15 @@
   <!-- ════ HOME ════ -->
   <div id="page-home" class="page active">
     <div class="arc-scene" id="arcScene">
-      <!-- track — populated by JS from PHOTO_SHOOTS -->
-      <div class="arc-track" id="arcTrack"></div>
+      <div class="arc-layout">
+        <!-- shoot information -->
+        <div class="arc-title-bar" id="arcTitleBar"></div>
 
-      <!-- shared title — updated by JS -->
-      <div class="arc-title-bar" id="arcTitleBar"></div>
+        <!-- current image only -->
+        <div class="arc-track" id="arcTrack"></div>
 
-      <!-- controls -->
-      <div class="arc-controls">
-        <button class="arc-btn" id="arcPrev">&#8592;</button>
-        <button class="arc-btn" id="arcNext">&#8594;</button>
+        <!-- carousel pagination -->
+        <div class="arc-pagination" id="arcPagination" aria-label="Carousel navigation"></div>
       </div>
 
       <!-- scroll-down indicator -->
@@ -1388,7 +1431,7 @@
             <div class="shoot-label"><span class="shoot-name">emilie charpentier</span><span class="shoot-count">7</span></div>
           </div> 
           <div class="gallery-cell shoot-cover" data-shoot="mayer-etretat">
-            <img src="https://drive.google.com/thumbnail?id=1whebGV-OHz6wyFyIUoQlC_Q8JfjYqoHT&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/drive/u/2/folders/1whebGV-OHz6wyFyIUoQlC_Q8JfjYqoHT&sz=w1200" loading="lazy" />
             <div class="shoot-label"><span class="shoot-name">mayer, étretat</span><span class="shoot-count">6</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="hebe">
@@ -1738,7 +1781,7 @@ form.addEventListener("submit", async function(e){
         <video id="film-lightbox-video"
                controls
                playsinline
-               style="max-width:92vw;max-height:92vh;width:auto;height:auto;display:block;cursor:default;">
+               style="max-width:92vw;max-height:92vh;width:auto;height:auto;display:block;">
         </video>
       </div>
       <div class="g-lightbox-right" style="display:none;"></div>
@@ -1830,117 +1873,97 @@ form.addEventListener("submit", async function(e){
     updateCountdown();
 
     var PHOTO_SHOOTS = [
-      { id: "atnt-skip-trip", title: "atnt skip trip", imgs: ["1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo", "1iDuFev8IoZRCCV3U-_6yow4HWjbQqdEU", "1YQb3VgCu6qXdkgh0wbNz94URA2V2WQmI", "10Q32w3x_puSZABqNqe_puCWvPszbxQUH", "13znEjXQrryc1Vg62hLPE7_yAW1AmFJX3", "1Xq-x-ia-2QlpVzSpNvk3-MgKY4j85J6q", "1o1zeYZdUtk5fmv6tH2Quy-V6edXZYW8x", "1WHN6jNGZB204zbYHsPNqSVKYD7re7EX-", "1VPMUYFAsAcIp1zdxDVB08StUhseA9-G1", "1UnrZ_GVVxsdYdxtYXE_IjTXNMamC4Egb", "19JAwc4UaPVo6dPGLbseAPzlHNnD-z5Wg", "1BJyZq9k5wcwVPQwAFrTWwVYwKqgng6Iu", "12DfQQ3aQ0AgQZRsQDZHkIXvcjdhpLPma", "13DafhCHXF-BiCailysb7eqvzbhWsSzcw", "1axHRgEp-noONBnL3kE-h9fVRoEKeyOI8", "1AXaIYi88EYoaCbuv8AsNcqblY52TG7yA", "1K-HhQdVSsWzLmN5FQV6ajyKMWD3hXNWx", "1MKvzbB5UmlRCjjuZA3BC4RIi2kNbrzE-", "1SvcQYwTQsSxa7IBwWe7dS-9UeKdxGFC6", "1fxMvVUchbRlkAhd29UZgbGOQLGJW0g52", "1_s7-VySrFpIJpx1SHR1J-KliY5cp8QqI", "1eZ8hgQ7mTEHCJ9quTN-3BlbkW4xEu76e", "1_8fldb9I_qpdO2lLtefLHHJ8PKXdpV4N", "1flu82yw9ocZJNSxL-tvop56h0QxDAJJD", "1-Zzt2V45QTwP3y1eYsUNPiMgdFHq8JPO", "1FzGQt5I4d7QCwx_vLLPndWdpANRdkYq4"] },
-      { id: "atnt-2025", title: "atnt 2025", imgs: ["12YtmyQH8PIcvZaigBKRkbcsaLABE68WH", "1eiSNwC1PdOxiHg_NXQObnhscZ30iY0Jm", "1RdQ2KpIH2Zf3_cduuS6A8CVrPc9L0MaO", "1aL0x7dGmV8eZTup4b_giITKgOkEZKa_k", "15vflYsLOQ7JC_HO9rIbWWajJz54XYDG0", "1V0x9Y6t_BmbJUttUOOCIaT9FA4wIIeJD", "15lpFU83N7toz0GZiXnf-z9fUVTGuO47s"] },
-      { id: "bash-london", title: "ba&sh london", imgs: ["1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG", "13xtW3FQCNLXPoPPsl31xZ77IR-ZSmvCV", "1ASpIH23Ev4qunTZ8WKZd-syPM1ZO45gI", "1qRpVlvrNR6qwavy5AJiAP-V4euOtYSIj", "1YZzngpOlRn1J-95LTMcxex-vUG629B1D", "15bWyJlfHwSfUwNBAQIS1Qzopx3-ltkN9", "1DxE1l8-C7mToKI7NnyhF3oTHewm-Us-g", "1A1RV2HkUmwFWmJ7STcxEcqvzexyt1zJ8", "1iP9uMKTz2teYib9kxDyBvf1o6dzkianl", "1iCHbkcT0syROWuXuYxYKKY9FpeqhuVHN", "1b7MngmkJmcrkSU02AML_74NC4UhfiCCJ"] },
-      { id: "bash-fashion-week", title: "ba&sh fashion week", imgs: ["1mRNGQYr5S52lML21Di03LtJmuBGXBeQj", "1LzFhYC3Xlf365Eol92AcWU7qvlP026un", "1ce9060ycjjAcR8qkJpvkfibZMbdEVcE_", "1G2dAO6atDn6F2kkZs_8hJllDsazXyK2g", "1cKUu-dN6zjiR62T98_lN-KmVP8FW3b0q", "1K5htsQKypoha3-QEOvigzeuKbsVQxBbc", "1V53tPAwqybVRGwqQbu0LeaBaYjOjWu3n", "1ANaChR8SMJUWxEzLswFLNY2hP0sHJVXN", "1W37DAOM5QwvNgNtsSw_FsE2takSMo0J_", "1lAtP4EWlG8BR99FF3crThDSht55t0FFd-"] },
-      { id: "browberry", title: "browberry", imgs: ["1_eqSvmhdVXpJa3o-cosq7BUg7nRG36D-"] },
-      { id: "corentin-et-anais", title: "corentin et anais", imgs: ["13gciX4tncxaiT2ly5OW03BimwKvKie7X", "1eujIOuhM2xGv2IMMmAOXHI0q-goWaqvA", "1Yfst7m7jRSz73Sf_MQNhCcAL8o2XcAPV", "10KypBL6R0bKVD0wybjj-nn41I-Lrhswg", "1lSizja-H2usF1plPblwfl44AfNdYxXHc", "1FFz1RyA4ZY6YwjZHXp3lu3DqTRYJaCHV", "1WHLtSxNoSvilwzTvqlCKaQNxtzRfneSc", "1d2wjrm31VlNT4iI3ryfTuB1FazJBRnDr", "1nWlWwCdbPLfrzL2OOnrBzBDaN2aRsQA1", "1wHWf7-ID0ZNF6AjVpT7ZZJy1QLrnURrx", "1YQGLmwB9qyznz1a3ROBw095CNJHPDV0s", "1rvYA7KmnfLt8TzM4Lkhothi2i7h51EWk"] },
-      { id: "emilie-charpentier", title: "emilie charpentier", imgs: ["1kVBOtp6UHTTYXVA1QDjIe6gyGDo1deZB", "1U5IU_KyXjZPCpU8aj3dlTeG9zYAKSuCU", "1FFi0MsCpW0mh1Q5EXy54hUavwP9oc4oG", "1KKedHoU2hC5F0aKALETduZLqZ9DQhqK9", "1-llUhLo0JPvxxDUKd-cW4ODYKIdVbJSW", "17gyJ4D6yAzsJgSw-rs-uqi2pc6IFO4qL", "1caxgG_iOsRMBDN_yROBSmgMCH8tZtf67"] },      { id: "mayer-etretat", title: "mayer, étretat", imgs: ["1KoFibxlALMYGN3-gsCNJVRvIkW_SyUG-", "1ObtdiQ9_181WCLxnx0a38_TC53Fr8fcZ", "18sHyeAfXdV-JyJR9PwSwT5_cGwAneHmh", "1AYQ5cPH1uJO5Lsf3H0OoDHYZ9ijTlgUT", "1o226IylDr51XzlgSs79rebpGdczULCXc", "1BIjA6pM03kv5icJu-IYhK6OGnIECXt_G"] },
-      { id: "hebe", title: "hébé", imgs: ["1EqGbWa-nirOc3-YA034CQ-k9vrPDv3kE", "1uaVCXkd59bbrWKKqiHVRk_Isrf8Vdrlq", "1Lq6Dtp5oe-zjpi92lo-drJZX3QTE8QB4", "17C-MyN4sypEkwU6JPE0jeceCd001Ul0S", "1s5W58lKLevG0tXNr6K9zm11NvQMWrtQl", "1-Gnp_xRTnljnrXEjIIv7wllXa1oTXnUK"] },
-      { id: "jade-pedri", title: "jade pedri", imgs: ["1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9", "1e75rgNkcIMyS7b87lqAmU6s0Y4VNG9T_", "1IyCqYEYZkeg0cwsCSXwmH4KQh0-Co6s6", "1MV3LFBwQYrEcjrlxJ3QpkCpSocEklEnY", "1MQaKcFwKurEQX6LdbIyf23wAcc02xr4j", "1JxIkOXU5hNLN9NjgwF1yVzByIjCoN1eX", "1_Sc-i-_nd_fajeYGASGXcKKg4OiE2DZh", "18Hn9nU-T2IskS0W-ev1SK8Jt81afzDaL", "1bSVC-p9MtnsvALOAsLzofIAW0pS7B-qR"] },
-      { id: "lenny", title: "lenny", imgs: ["15uWWQYYPA8blcBHEKTD90zenOXIZpuoR", "1vd7X3URhtmQDi4O2DXpYwswC6rB0oidi", "1kte1gjJzZagOgcAhcDKlTNZbiClPLIVZ", "16DthOayCmlK9rwamTNeUJQ3qVjiA-RZl", "15cG-UW2IRLodGa3-F8Llqjz5t0FYqvhf", "1RP20MYzipu3SLj7F2-m-po827obPy_13", "1rZprivbg3LN3pTUT3SNFAqQaqZLivGTQ"] },
-      { id: "mathis", title: "mathis", imgs: ["1cm7C0DlRtCxQ9-6TM6WUED_JPmlZDXXS", "1qO3if1sB5IxuDi1p_YNAd5BPXSlAD-WK", "1IasDnb3cvxq4glNJiA1vHe8cPRoKRxl-", "1upZ3DK2xOI_2S37tXBpygVwkHbD7PKF_", "1HLyTG30GZvS_9FaI2Lk2Hop9Qez0rQ3O", "1ZgrTwfLJVaVhB31Za6ThIpzoOdZADOdN", "1OTD0_ngqCtIBXdsFxb-oixzIMwqpNbZL", "1gWKAQIv8VqeUCKrtgkNg9aQgq_CLfGMD"] },
-      { id: "kim-lewin", title: "kim lewin", imgs: ["1-rIRg9ZogOnfQtxkYceM73piJTe6ju8t", "1aZXp4GxrEAxHvh46lxadGqQBXudl909e", "1lMRp7gs7sWLeqPaTcRkQLExpoU6RfwRO", "1RiRfCVTSHaXpGranAEt5dKwIot9aFMfU", "1jWVk3C_hdQbEbG8q9xLy6E_V7uqIhe6N", "1-EMtS33G7XB11ZsyuD1T8gwxJIKW-_mA"] },
-      { id: "hanay", title: "hanay", imgs: ["1NsdaC2-h_MaT2TIVI8oYNDC6-hr2rqJR", "1u8Oi8kOKzG9JAerrMq5r83saTz0Zf7ni", "1SuPaOTB4VUYK54vtgaXtkv4C0cuV9Agq", "1chP5sByOIL7n-kBDsINyvwiWHCXthV6Y", "1cTCZV26hUfQbBCQuw1pp70NkDUmqRISM", "13teio5EV_sh8kD4Bcd4Q2BK_c2qGgfL3"] },
-      { id: "sacha-foubard", title: "sacha foubard for clara viot", imgs: ["1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL", "1rMFUsN4yo3DrLP_zi0RmBpbu_XYmlhyf", "1F_tvgBqbigM_FDVpOBw2uhksIl-ThGKn", "1atZQ_4pnq4d8fM_tGGmta5sUDq0kOk9A", "1M7GzK3Y1Md45GRIGWoTeJS5bRccqJjPo", "142oz4qRFCuEXpOZSVllNWTrvvTpEsr9N", "1VIsnF0F_tkjCkCddkqj3wHS9_vpkpCVZ"] },
-      { id: "mayer", title: "mayer", imgs: ["19iHEHugZ0uzVJuYua5DHCGmYbhW_2oVy", "1jufSwwqDlSi3ID3UvxRfzfmLhNPVPR_L", "1kd4VLRn1JskOPcxhprkpHMnMTJw0HRfP", "1ohzMs8cFX8BJfZGNVGjV6e63z2nXEgRS", "1tidmJGfIyY-fjWWoUlLtXZnclfXDf7zB"] },
-      { id: "yara-carioca", title: "yara chary for carioca", imgs: ["18M3j29u23WQT3ERS0E9WvO3GRShgURTU", "1vr1GaHI19uCSWFvCL7OXXwpvBz8MxntT", "1dzKCLqzDu8I_jmRsGLOeNyqYRFLSKEV1", "1LFaS2zS3kTW1m4vXP0cL8jU8WUXrYgl4", "1-udN2ApBkFBUE7cWnYrtRz8ryIs134lg", "1pswkCKoGyi-Q-EmHtJNxBVdBpQIaEm2d", "1CUkuxmM4Ki175_33MLyvRKDniPNar4HM", "1dfGPzkOhfaoYycMNAUeWzEsKNDQAbPEU", "15Q5O3Nial9gHkabMgDNAZlpXR076ZLAE"] },
+      { id: "atnt-skip-trip", title: "atnt skip trip", date: "", imgs: ["1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo", "1iDuFev8IoZRCCV3U-_6yow4HWjbQqdEU", "1YQb3VgCu6qXdkgh0wbNz94URA2V2WQmI", "10Q32w3x_puSZABqNqe_puCWvPszbxQUH", "13znEjXQrryc1Vg62hLPE7_yAW1AmFJX3", "1Xq-x-ia-2QlpVzSpNvk3-MgKY4j85J6q", "1o1zeYZdUtk5fmv6tH2Quy-V6edXZYW8x", "1WHN6jNGZB204zbYHsPNqSVKYD7re7EX-", "1VPMUYFAsAcIp1zdxDVB08StUhseA9-G1", "1UnrZ_GVVxsdYdxtYXE_IjTXNMamC4Egb", "19JAwc4UaPVo6dPGLbseAPzlHNnD-z5Wg", "1BJyZq9k5wcwVPQwAFrTWwVYwKqgng6Iu", "12DfQQ3aQ0AgQZRsQDZHkIXvcjdhpLPma", "13DafhCHXF-BiCailysb7eqvzbhWsSzcw", "1axHRgEp-noONBnL3kE-h9fVRoEKeyOI8", "1AXaIYi88EYoaCbuv8AsNcqblY52TG7yA", "1K-HhQdVSsWzLmN5FQV6ajyKMWD3hXNWx", "1MKvzbB5UmlRCjjuZA3BC4RIi2kNbrzE-", "1SvcQYwTQsSxa7IBwWe7dS-9UeKdxGFC6", "1fxMvVUchbRlkAhd29UZgbGOQLGJW0g52", "1_s7-VySrFpIJpx1SHR1J-KliY5cp8QqI", "1eZ8hgQ7mTEHCJ9quTN-3BlbkW4xEu76e", "1_8fldb9I_qpdO2lLtefLHHJ8PKXdpV4N", "1flu82yw9ocZJNSxL-tvop56h0QxDAJJD", "1-Zzt2V45QTwP3y1eYsUNPiMgdFHq8JPO", "1FzGQt5I4d7QCwx_vLLPndWdpANRdkYq4"] },
+      { id: "atnt-2025", title: "atnt 2025", date: "2025", imgs: ["12YtmyQH8PIcvZaigBKRkbcsaLABE68WH", "1eiSNwC1PdOxiHg_NXQObnhscZ30iY0Jm", "1RdQ2KpIH2Zf3_cduuS6A8CVrPc9L0MaO", "1aL0x7dGmV8eZTup4b_giITKgOkEZKa_k", "15vflYsLOQ7JC_HO9rIbWWajJz54XYDG0", "1V0x9Y6t_BmbJUttUOOCIaT9FA4wIIeJD", "15lpFU83N7toz0GZiXnf-z9fUVTGuO47s"] },
+      { id: "bash-london", title: "ba&sh london", date: "", imgs: ["1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG", "13xtW3FQCNLXPoPPsl31xZ77IR-ZSmvCV", "1ASpIH23Ev4qunTZ8WKZd-syPM1ZO45gI", "1qRpVlvrNR6qwavy5AJiAP-V4euOtYSIj", "1YZzngpOlRn1J-95LTMcxex-vUG629B1D", "15bWyJlfHwSfUwNBAQIS1Qzopx3-ltkN9", "1DxE1l8-C7mToKI7NnyhF3oTHewm-Us-g", "1A1RV2HkUmwFWmJ7STcxEcqvzexyt1zJ8", "1iP9uMKTz2teYib9kxDyBvf1o6dzkianl", "1iCHbkcT0syROWuXuYxYKKY9FpeqhuVHN", "1b7MngmkJmcrkSU02AML_74NC4UhfiCCJ"] },
+      { id: "bash-fashion-week", title: "ba&sh fashion week", date: "", imgs: ["1mRNGQYr5S52lML21Di03LtJmuBGXBeQj", "1LzFhYC3Xlf365Eol92AcWU7qvlP026un", "1ce9060ycjjAcR8qkJpvkfibZMbdEVcE_", "1G2dAO6atDn6F2kkZs_8hJllDsazXyK2g", "1cKUu-dN6zjiR62T98_lN-KmVP8FW3b0q", "1K5htsQKypoha3-QEOvigzeuKbsVQxBbc", "1V53tPAwqybVRGwqQbu0LeaBaYjOjWu3n", "1ANaChR8SMJUWxEzLswFLNY2hP0sHJVXN", "1W37DAOM5QwvNgNtsSw_FsE2takSMo0J_", "1lAtP4EWlG8BR99FF3crThDSht55t0FFd-"] },
+      { id: "browberry", title: "browberry", date: "", imgs: ["1_eqSvmhdVXpJa3o-cosq7BUg7nRG36D-"] },
+      { id: "corentin-et-anais", title: "corentin et anais", date: "", imgs: ["13gciX4tncxaiT2ly5OW03BimwKvKie7X", "1eujIOuhM2xGv2IMMmAOXHI0q-goWaqvA", "1Yfst7m7jRSz73Sf_MQNhCcAL8o2XcAPV", "10KypBL6R0bKVD0wybjj-nn41I-Lrhswg", "1lSizja-H2usF1plPblwfl44AfNdYxXHc", "1FFz1RyA4ZY6YwjZHXp3lu3DqTRYJaCHV", "1WHLtSxNoSvilwzTvqlCKaQNxtzRfneSc", "1d2wjrm31VlNT4iI3ryfTuB1FazJBRnDr", "1nWlWwCdbPLfrzL2OOnrBzBDaN2aRsQA1", "1wHWf7-ID0ZNF6AjVpT7ZZJy1QLrnURrx", "1YQGLmwB9qyznz1a3ROBw095CNJHPDV0s", "1rvYA7KmnfLt8TzM4Lkhothi2i7h51EWk"] },
+      { id: "emilie-charpentier", title: "emilie charpentier", date: "", imgs: ["1kVBOtp6UHTTYXVA1QDjIe6gyGDo1deZB", "1U5IU_KyXjZPCpU8aj3dlTeG9zYAKSuCU", "1FFi0MsCpW0mh1Q5EXy54hUavwP9oc4oG", "1KKedHoU2hC5F0aKALETduZLqZ9DQhqK9", "1-llUhLo0JPvxxDUKd-cW4ODYKIdVbJSW", "17gyJ4D6yAzsJgSw-rs-uqi2pc6IFO4qL", "1caxgG_iOsRMBDN_yROBSmgMCH8tZtf67"] },      { id: "mayer-etretat", title: "mayer, étretat", date: "", imgs: ["1KoFibxlALMYGN3-gsCNJVRvIkW_SyUG-", "1ObtdiQ9_181WCLxnx0a38_TC53Fr8fcZ", "18sHyeAfXdV-JyJR9PwSwT5_cGwAneHmh", "1AYQ5cPH1uJO5Lsf3H0OoDHYZ9ijTlgUT", "1o226IylDr51XzlgSs79rebpGdczULCXc", "1BIjA6pM03kv5icJu-IYhK6OGnIECXt_G"] },
+      { id: "hebe", title: "hébé", date: "", imgs: ["1EqGbWa-nirOc3-YA034CQ-k9vrPDv3kE", "1uaVCXkd59bbrWKKqiHVRk_Isrf8Vdrlq", "1Lq6Dtp5oe-zjpi92lo-drJZX3QTE8QB4", "17C-MyN4sypEkwU6JPE0jeceCd001Ul0S", "1s5W58lKLevG0tXNr6K9zm11NvQMWrtQl", "1-Gnp_xRTnljnrXEjIIv7wllXa1oTXnUK"] },
+      { id: "jade-pedri", title: "jade pedri", date: "", imgs: ["1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9", "1e75rgNkcIMyS7b87lqAmU6s0Y4VNG9T_", "1IyCqYEYZkeg0cwsCSXwmH4KQh0-Co6s6", "1MV3LFBwQYrEcjrlxJ3QpkCpSocEklEnY", "1MQaKcFwKurEQX6LdbIyf23wAcc02xr4j", "1JxIkOXU5hNLN9NjgwF1yVzByIjCoN1eX", "1_Sc-i-_nd_fajeYGASGXcKKg4OiE2DZh", "18Hn9nU-T2IskS0W-ev1SK8Jt81afzDaL", "1bSVC-p9MtnsvALOAsLzofIAW0pS7B-qR"] },
+      { id: "lenny", title: "lenny", date: "", imgs: ["15uWWQYYPA8blcBHEKTD90zenOXIZpuoR", "1vd7X3URhtmQDi4O2DXpYwswC6rB0oidi", "1kte1gjJzZagOgcAhcDKlTNZbiClPLIVZ", "16DthOayCmlK9rwamTNeUJQ3qVjiA-RZl", "15cG-UW2IRLodGa3-F8Llqjz5t0FYqvhf", "1RP20MYzipu3SLj7F2-m-po827obPy_13", "1rZprivbg3LN3pTUT3SNFAqQaqZLivGTQ"] },
+      { id: "mathis", title: "mathis", date: "", imgs: ["1cm7C0DlRtCxQ9-6TM6WUED_JPmlZDXXS", "1qO3if1sB5IxuDi1p_YNAd5BPXSlAD-WK", "1IasDnb3cvxq4glNJiA1vHe8cPRoKRxl-", "1upZ3DK2xOI_2S37tXBpygVwkHbD7PKF_", "1HLyTG30GZvS_9FaI2Lk2Hop9Qez0rQ3O", "1ZgrTwfLJVaVhB31Za6ThIpzoOdZADOdN", "1OTD0_ngqCtIBXdsFxb-oixzIMwqpNbZL", "1gWKAQIv8VqeUCKrtgkNg9aQgq_CLfGMD"] },
+      { id: "kim-lewin", title: "kim lewin", date: "", imgs: ["1-rIRg9ZogOnfQtxkYceM73piJTe6ju8t", "1aZXp4GxrEAxHvh46lxadGqQBXudl909e", "1lMRp7gs7sWLeqPaTcRkQLExpoU6RfwRO", "1RiRfCVTSHaXpGranAEt5dKwIot9aFMfU", "1jWVk3C_hdQbEbG8q9xLy6E_V7uqIhe6N", "1-EMtS33G7XB11ZsyuD1T8gwxJIKW-_mA"] },
+      { id: "hanay", title: "hanay", date: "", imgs: ["1NsdaC2-h_MaT2TIVI8oYNDC6-hr2rqJR", "1u8Oi8kOKzG9JAerrMq5r83saTz0Zf7ni", "1SuPaOTB4VUYK54vtgaXtkv4C0cuV9Agq", "1chP5sByOIL7n-kBDsINyvwiWHCXthV6Y", "1cTCZV26hUfQbBCQuw1pp70NkDUmqRISM", "13teio5EV_sh8kD4Bcd4Q2BK_c2qGgfL3"] },
+      { id: "sacha-foubard", title: "sacha foubard for clara viot", date: "", imgs: ["1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL", "1rMFUsN4yo3DrLP_zi0RmBpbu_XYmlhyf", "1F_tvgBqbigM_FDVpOBw2uhksIl-ThGKn", "1atZQ_4pnq4d8fM_tGGmta5sUDq0kOk9A", "1M7GzK3Y1Md45GRIGWoTeJS5bRccqJjPo", "142oz4qRFCuEXpOZSVllNWTrvvTpEsr9N", "1VIsnF0F_tkjCkCddkqj3wHS9_vpkpCVZ"] },
+      { id: "mayer", title: "mayer", date: "", imgs: ["19iHEHugZ0uzVJuYua5DHCGmYbhW_2oVy", "1jufSwwqDlSi3ID3UvxRfzfmLhNPVPR_L", "1kd4VLRn1JskOPcxhprkpHMnMTJw0HRfP", "1ohzMs8cFX8BJfZGNVGjV6e63z2nXEgRS", "1tidmJGfIyY-fjWWoUlLtXZnclfXDf7zB"] },
+      { id: "yara-carioca", title: "yara chary for carioca", date: "", imgs: ["18M3j29u23WQT3ERS0E9WvO3GRShgURTU", "1vr1GaHI19uCSWFvCL7OXXwpvBz8MxntT", "1dzKCLqzDu8I_jmRsGLOeNyqYRFLSKEV1", "1LFaS2zS3kTW1m4vXP0cL8jU8WUXrYgl4", "1-udN2ApBkFBUE7cWnYrtRz8ryIs134lg", "1pswkCKoGyi-Q-EmHtJNxBVdBpQIaEm2d", "1CUkuxmM4Ki175_33MLyvRKDniPNar4HM", "1dfGPzkOhfaoYycMNAUeWzEsKNDQAbPEU", "15Q5O3Nial9gHkabMgDNAZlpXR076ZLAE"] },
     ];
     var IMG_BASE = "https://drive.google.com/thumbnail?id=";
       var IMG_SUFFIX = "&sz=w1200";
 
-    /* ── ARC CAROUSEL ── */
+    /* ── HOME CAROUSEL ── */
     (function () {
-      var track    = document.getElementById('arcTrack');
-      var titleBar = document.getElementById('arcTitleBar');
-      var prevBtn  = document.getElementById('arcPrev');
-      var nextBtn  = document.getElementById('arcNext');
-      if (!track) return;
+      var track      = document.getElementById('arcTrack');
+      var titleBar   = document.getElementById('arcTitleBar');
+      var pagination = document.getElementById('arcPagination');
+      var scene      = document.getElementById('arcScene');
+      if (!track || !titleBar || !pagination) return;
 
-      /* Build cards from PHOTO_SHOOTS — first image of each shoot as cover */
-      var CAROUSEL_SHOOTS = PHOTO_SHOOTS.filter(function(s) { return s.id !== 'corentin-et-anais'; }).slice(0, 7);
+      var CAROUSEL_SHOOTS = PHOTO_SHOOTS
+        .filter(function(s) { return s.id !== 'corentin-et-anais'; })
+        .slice(0, 7);
+      var cur = 0;
+
+      /* One image only: no neighbouring cards are rendered behind it. */
+      var card = document.createElement('div');
+      card.className = 'arc-card';
+      var img = document.createElement('img');
+      img.alt = '';
+      card.appendChild(img);
+      track.appendChild(card);
+
       CAROUSEL_SHOOTS.forEach(function(s, i) {
-        var card = document.createElement('div');
-        card.className = 'arc-card';
-        card.dataset.idx = i;
-        var img = document.createElement('img');
-        img.src = IMG_BASE + s.imgs[0] + IMG_SUFFIX;
-        img.alt = '';
-        card.appendChild(img);
-        track.appendChild(card);
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'arc-dot';
+        dot.setAttribute('aria-label', 'Go to ' + s.title);
+        dot.addEventListener('click', function(e) {
+          e.stopPropagation();
+          userInteract();
+          goTo(i);
+        });
+        pagination.appendChild(dot);
       });
 
-      var cards = Array.from(track.querySelectorAll('.arc-card'));
-      var N     = cards.length;
-      var cur   = 0;
+      var dots = Array.from(pagination.querySelectorAll('.arc-dot'));
 
-      var STEP_X      = 270;
-      var STEP_Y      = 0;
-      var SCALE_STEP  = 0.10;
-      var ROT_DEG     = 3.5;
-      var BLUR_STEP   = 0.8;
-      var VISIBLE     = 2;
+      function render(animate) {
+        var shoot = CAROUSEL_SHOOTS[cur];
+        if (!shoot) return;
 
-      var titleBar = document.getElementById('arcTitleBar');
+        card.style.opacity = '0';
+        if (!animate) card.style.transition = 'none';
 
-      function render() {
-        cards.forEach(function (card, i) {
-          var diff = i - cur;
-          if (diff >  N / 2) diff -= N;
-          if (diff < -N / 2) diff += N;
+        img.src = IMG_BASE + shoot.imgs[0] + IMG_SUFFIX;
+        titleBar.innerHTML = '<span class="arc-title">' + shoot.title + '</span>' +
+          (shoot.date ? '<span class="arc-date">' + shoot.date + '</span>' : '');
 
-          var abs  = Math.abs(diff);
-          var vis  = abs <= VISIBLE;
-
-          var tx   = diff * STEP_X;
-          var ty   = Math.pow(abs, 1.4) * STEP_Y;
-          var sc   = Math.max(0.45, 1 - abs * SCALE_STEP);
-          var op   = vis ? 1 : 0;
-          var rot  = diff * ROT_DEG;
-          var blur = abs > 0 ? abs * BLUR_STEP : 0;
-          var zi   = 100 - abs * 10;
-
-          card.style.transform  = 'translateX(calc(-50% + ' + tx + 'px)) translateY(' + ty + 'px) scale(' + sc + ') rotateZ(' + rot + 'deg)';
-          card.style.opacity    = op;
-          card.style.filter     = blur > 0 ? 'blur(' + blur.toFixed(1) + 'px)' : 'none';
-          card.style.zIndex     = zi;
-          card.style.visibility = vis ? 'visible' : 'hidden';
-          card.classList.toggle('is-active', diff === 0);
+        dots.forEach(function(dot, i) {
+          dot.classList.toggle('active', i === cur);
+          dot.setAttribute('aria-current', i === cur ? 'true' : 'false');
         });
 
-        if (titleBar) titleBar.textContent = CAROUSEL_SHOOTS[cur] ? CAROUSEL_SHOOTS[cur].title : '';
-      }
-
-      function goTo(n) {
-        var next = ((n % N) + N) % N;
-        var delta = next - cur;
-        var isWrap = Math.abs(delta) > N / 2;
-        if (isWrap) {
-          cards.forEach(function(c) { c.style.transition = 'none'; });
-          cur = next;
-          render();
-          void cards[0].offsetWidth;
-          cards.forEach(function(c) { c.style.transition = ''; });
+        if (!animate) {
+          void card.offsetWidth;
+          card.style.transition = '';
+          card.style.opacity = '1';
         } else {
-          cur = next;
-          render();
+          requestAnimationFrame(function() { card.style.opacity = '1'; });
         }
       }
 
-      prevBtn.addEventListener('click', function () { userInteract(); goTo(cur - 1); });
-      nextBtn.addEventListener('click', function () { userInteract(); goTo(cur + 1); });
+      function goTo(n) {
+        cur = ((n % CAROUSEL_SHOOTS.length) + CAROUSEL_SHOOTS.length) % CAROUSEL_SHOOTS.length;
+        render(true);
+      }
 
-      cards.forEach(function (card, i) {
-        card.addEventListener('click', function () { if (i !== cur) { userInteract(); goTo(i); } });
-      });
+      function userInteract() {
+        stopAutoplay();
+        setTimeout(startAutoplay, 6000);
+      }
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft')  { userInteract(); goTo(cur - 1); }
-        if (e.key === 'ArrowRight') { userInteract(); goTo(cur + 1); }
-      });
-
-      /* ── AUTOPLAY — advances every 3 s, pauses on user interaction ── */
       var autoTimer = null;
       function startAutoplay() {
         if (autoTimer) return;
@@ -1950,75 +1973,42 @@ form.addEventListener("submit", async function(e){
         clearInterval(autoTimer);
         autoTimer = null;
       }
-      function userInteract() {
-        /* pause autoplay for 6 s then resume */
-        stopAutoplay();
-        setTimeout(startAutoplay, 6000);
-      }
-      startAutoplay();
 
-      /* ── touch swipe ── */
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft')  { userInteract(); goTo(cur - 1); }
+        if (e.key === 'ArrowRight') { userInteract(); goTo(cur + 1); }
+      });
+
       var tx0 = 0;
-      var scene = document.getElementById('arcScene');
-      scene.addEventListener('touchstart', function (e) {
-        tx0 = e.touches[0].clientX;
-      }, { passive: true });
-      scene.addEventListener('touchend', function (e) {
+      scene.addEventListener('touchstart', function(e) { tx0 = e.touches[0].clientX; }, { passive: true });
+      scene.addEventListener('touchend', function(e) {
         var dx = e.changedTouches[0].clientX - tx0;
         if (Math.abs(dx) > 45) { userInteract(); goTo(cur + (dx < 0 ? 1 : -1)); }
       }, { passive: true });
 
-      /* ── mouse drag ── */
       var dragStartX = 0, isDragging = false, dragMoved = false;
-      scene.addEventListener('mousedown', function (e) {
-        isDragging = true; dragMoved = false; dragStartX = e.clientX;
-        scene.style.cursor = 'grabbing';
+      scene.addEventListener('mousedown', function(e) {
+        if (e.target.closest('.arc-dot')) return;
+        isDragging = true;
+        dragMoved = false;
+        dragStartX = e.clientX;
       });
-      window.addEventListener('mousemove', function (e) {
-        if (!isDragging) return;
-        if (Math.abs(e.clientX - dragStartX) > 5) dragMoved = true;
+      window.addEventListener('mousemove', function(e) {
+        if (isDragging && Math.abs(e.clientX - dragStartX) > 5) dragMoved = true;
       });
-      window.addEventListener('mouseup', function (e) {
+      window.addEventListener('mouseup', function(e) {
         if (!isDragging) return;
         isDragging = false;
         var dx = e.clientX - dragStartX;
-        if (dragMoved && Math.abs(dx) > 40) { userInteract(); goTo(cur + (dx < 0 ? 1 : -1)); }
+        if (dragMoved && Math.abs(dx) > 40) {
+          userInteract();
+          goTo(cur + (dx < 0 ? 1 : -1));
+        }
       });
 
-      /* ── wheel / trackpad ── */
-      var wheelLock = false;
-      scene.addEventListener('wheel', function (e) {
-        e.preventDefault();
-        if (wheelLock) return;
-        wheelLock = true;
-        var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-        userInteract(); goTo(cur + (delta > 0 ? 1 : -1));
-        setTimeout(function () { wheelLock = false; }, 550);
-      }, { passive: false });
-
-      /* ── hover over side cards — slow scroll toward them (2500 ms interval) ── */
-      var hoverTimer = null;
-      cards.forEach(function (card, i) {
-        card.addEventListener('mouseenter', function () {
-          if (isDragging) return;
-          if (i === cur) return;
-          var diff = i - cur;
-          if (diff >  N / 2) diff -= N;
-          if (diff < -N / 2) diff += N;
-          var dir = diff > 0 ? 1 : -1;
-          if (hoverTimer) { clearInterval(hoverTimer); hoverTimer = null; }
-          stopAutoplay();
-          goTo(cur + dir);
-          hoverTimer = setInterval(function () { goTo(cur + dir); }, 2500);
-        });
-        card.addEventListener('mouseleave', function () {
-          if (hoverTimer) { clearInterval(hoverTimer); hoverTimer = null; }
-          startAutoplay();
-        });
-      });
-
-      render();
-    }());
+      render(false);
+      startAutoplay();
+    })();
 
     /* ── SHOWCASE — large image grid below carousel ── */
     (function() {
@@ -2041,6 +2031,7 @@ form.addEventListener("submit", async function(e){
         var item = document.createElement('div');
         item.className = 'showcase-item' + (i % 5 === 2 ? ' wide' : '');
         item.dataset.shoot = p.shootId;
+        item.dataset.title = p.title;
 
         var img = document.createElement('img');
         img.src = IMG_BASE + p.img + IMG_SUFFIX;
@@ -2073,6 +2064,11 @@ form.addEventListener("submit", async function(e){
     })();
 
     /* ── GALLERY TABS ── */
+    document.querySelectorAll('.gallery-cell.shoot-cover').forEach(function(cell) {
+      var name = cell.querySelector('.shoot-name');
+      if (name) cell.dataset.title = name.textContent.trim();
+    });
+
     function switchTab(btn, tabId) {
       document.querySelectorAll('.gallery-tab').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
