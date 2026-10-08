@@ -593,6 +593,14 @@
     #page-mystery.active {
       display: flex !important;
     }
+    /* Mystery page: pure white, typography only */
+    #page-mystery {
+      background: #fff !important;
+      color: #000 !important;
+    }
+    #page-mystery .mystery-bg { display: none !important; }
+    #page-mystery .mystery-content,
+    #page-mystery .mystery-content * { color: #000 !important; }
     .mystery-bg {
       position: absolute;
       inset: 0;
@@ -1060,7 +1068,7 @@
     /* ════ SCROLL DOWN INDICATOR ════ */
     .scroll-down-btn {
       position: absolute;
-      bottom: 2.4rem;
+      bottom: 4.2rem;
       left: 50%;
       transform: translateX(-50%);
       background: none;
@@ -1068,7 +1076,9 @@
       color: var(--black);
       opacity: 0.4;
       cursor: pointer;
-      padding: 0.6rem;
+      padding: 0.75rem;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1320,7 +1330,17 @@
     #film-lightbox-video {
       cursor: none !important;
     }
-  </style>
+  
+/* Keep the sidebar white on the red Contact page */
+body.contact-page .navbar {
+  background: rgba(248,248,246,0.97) !important;
+  border-right-color: var(--border) !important;
+}
+body.contact-page .navbar a,
+body.contact-page .navbar .nav-link {
+  color: var(--black) !important;
+}
+</style>
 </head>
 <body>
 
@@ -1380,7 +1400,7 @@
 
       <!-- scroll-down indicator -->
       <button class="scroll-down-btn" id="scrollDownBtn" aria-label="scroll down">
-        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 4v15M12 19l-6-6M12 19l6-6" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="28" height="28"><path d="M12 4v15M12 19l-6-6M12 19l6-6" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
 
@@ -1609,7 +1629,7 @@
         <div class="form-row">
           <div class="form-field">
             <label class="form-label">Email</label>
-            <input class="form-input" type="email" name="email" placeholder="your@email.com" required>
+            <input class="form-input" type="email" name="email" placeholder="contact@gabryelsallehount.com" required>
           </div>
         </div>
 
@@ -1844,6 +1864,7 @@ form.addEventListener("submit", async function(e){
 
     /* ── PAGE SYSTEM ── */
     function showPage(id) {
+  document.body.classList.toggle('contact-page', id === 'contact');
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
       const pg = document.getElementById('page-' + id);
