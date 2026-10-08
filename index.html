@@ -426,7 +426,7 @@
       content: attr(data-title);
       position: absolute;
       inset: 0;
-      background: rgba(155,0,0,0.52);
+      background: rgba(155,0,0,0.62);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       color: #fff;
@@ -549,13 +549,13 @@
       filter: contrast(1.05);
       transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
     }
-    .motion-cell:hover img { transform: scale(1.035); filter: contrast(1.12) saturate(1.2) blur(1.5px); }
+    .motion-cell:hover img { transform: scale(1.035); filter: contrast(1.12) saturate(1.28) blur(1.5px); }
     /* red overlay + title on hover */
     .motion-cell::after {
       content: attr(data-title);
       position: absolute;
       inset: 0;
-      background: rgba(155,0,0,0.52);
+      background: rgba(155,0,0,0.62);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       color: #fff;
@@ -1281,6 +1281,17 @@
       object-fit: contain;
       display: block;
       cursor: pointer;
+    }
+    /* Film lightbox: keep the video sized to its native aspect ratio. */
+    #film-lightbox-video {
+      width: auto !important;
+      height: auto !important;
+      max-width: 92vw !important;
+      max-height: 88vh !important;
+      object-fit: contain !important;
+      background: transparent !important;
+      display: block;
+      margin: 0 auto;
     }
     .g-lightbox-right { display: none; }
     .g-lightbox-close {
@@ -2098,7 +2109,7 @@ form.addEventListener("submit", async function(e){
     })();
 
     /* ── GALLERY TABS ── */
-    document.querySelectorAll('.gallery-cell.shoot-cover').forEach(function(cell) {
+    document.querySelectorAll('.gallery-cell.shoot-cover, .motion-cell.film-cover').forEach(function(cell) {
       var name = cell.querySelector('.shoot-name');
       if (name) cell.dataset.title = name.textContent.trim();
     });
@@ -2211,8 +2222,15 @@ form.addEventListener("submit", async function(e){
         /* Use the Drive file directly so the media stays on the page, keeps the custom cursor,
            and avoids the black letterboxing/background of Google's preview iframe. */
         fLeft.innerHTML = '<video id="film-lightbox-video" controls playsinline preload="metadata"'
-          + ' style="width:auto;height:auto;max-width:92vw;max-height:92vh;display:block;background:transparent;cursor:none !important;"'
+          + ' style="width:auto;height:auto;max-width:92vw;max-height:88vh;display:block;background:transparent;cursor:none !important;object-fit:contain;"'
           + ' src="https://drive.google.com/uc?export=download&id=' + vid + '"></video>';
+        var filmVideo = document.getElementById('film-lightbox-video');
+        if (filmVideo) {
+          filmVideo.addEventListener('loadedmetadata', function() {
+            filmVideo.style.width = 'auto';
+            filmVideo.style.height = 'auto';
+          }, { once: true });
+        }
         fTitle.textContent   = curFilmShoot.title;
         fCounter.textContent = (curFilmIdx + 1) + ' / ' + curFilmShoot.vids.length;
         fPrev.style.display  = curFilmShoot.vids.length > 1 ? 'block' : 'none';
@@ -2227,6 +2245,8 @@ form.addEventListener("submit", async function(e){
       function filmNext() { if (!curFilmShoot) return; curFilmIdx = (curFilmIdx + 1) % curFilmShoot.vids.length; showFilmSlide(); }
 
       document.querySelectorAll('.film-cover[data-shoot]').forEach(function(cell) {
+        var name = cell.querySelector('.shoot-name');
+        if (name) cell.setAttribute('data-title', name.textContent.trim());
         cell.addEventListener('click', function() { openFilmShoot(cell.dataset.shoot); });
       });
 
