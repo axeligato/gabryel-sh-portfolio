@@ -2208,9 +2208,11 @@ form.addEventListener("submit", async function(e){
       }
       function showFilmSlide() {
         var vid = curFilmShoot.vids[curFilmIdx];
-        /* Replace left panel content with an iframe for Drive video streaming */
-        fLeft.innerHTML = '<iframe src="https://drive.google.com/file/d/' + vid + '/preview"'
-          + ' style="width:80vw;max-width:1100px;height:80vh;border:none;display:block;" allow="autoplay"></iframe>';
+        /* Use the Drive file directly so the media stays on the page, keeps the custom cursor,
+           and avoids the black letterboxing/background of Google's preview iframe. */
+        fLeft.innerHTML = '<video id="film-lightbox-video" controls playsinline preload="metadata"'
+          + ' style="width:auto;height:auto;max-width:92vw;max-height:92vh;display:block;background:transparent;cursor:none !important;"'
+          + ' src="https://drive.google.com/uc?export=download&id=' + vid + '"></video>';
         fTitle.textContent   = curFilmShoot.title;
         fCounter.textContent = (curFilmIdx + 1) + ' / ' + curFilmShoot.vids.length;
         fPrev.style.display  = curFilmShoot.vids.length > 1 ? 'block' : 'none';
