@@ -1328,6 +1328,17 @@
       cursor: none !important;
     }
   
+/* Keep the sidebar white on the red About page too */
+body.about-active .navbar {
+  background: rgba(248,248,246,0.97) !important;
+  border-right-color: var(--border) !important;
+  border-bottom-color: var(--border) !important;
+}
+body.about-active .navbar a,
+body.about-active .navbar .nav-link {
+  color: var(--black) !important;
+}
+
 /* Keep the sidebar white on the red Contact page */
 body.contact-page .navbar {
   background: rgba(248,248,246,0.97) !important;
