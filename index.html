@@ -960,6 +960,7 @@
     }
 
     .arc-title-bar {
+      padding-left: clamp(1.5rem, 3vw, 4rem);
       text-align: left;
       font-size: clamp(1rem, 1.35vw, 1.35rem);
       font-weight: 600;
@@ -1008,15 +1009,22 @@
       width: auto;
       height: auto;
       object-fit: contain;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.14);
+      box-shadow: none;
     }
 
     .arc-pagination {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+      justify-self: center;
+      position: relative;
+      z-index: 2;
+      margin-top: clamp(-2.25rem, -3vh, -1.25rem);
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 10px;
-      padding-left: 1rem;
+      padding-left: 0;
     }
     .arc-dot {
       width: 16px;
@@ -1044,10 +1052,10 @@
         column-gap: clamp(0.7rem, 2.5vw, 1.4rem);
         margin-top: 1rem;
       }
-      .arc-title-bar { text-align: left; }
+      .arc-title-bar { text-align: left; padding-left: clamp(0.5rem, 2vw, 1rem); }
       .arc-track { height: 52vh; }
       .arc-track img { max-width: 100%; max-height: 52vh; }
-      .arc-pagination { justify-content: flex-start; padding-left: 0; flex-wrap: wrap; gap: 8px; }
+      .arc-pagination { justify-content: center; padding-left: 0; flex-wrap: wrap; gap: 8px; margin-top: -1.75rem; }
       .arc-dot { width: 16px; height: 16px; min-width: 16px; }
     }
 
