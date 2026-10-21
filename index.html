@@ -1512,7 +1512,8 @@ body.contact-page .navbar .nav-link {
       <div class="nav-logo">
         <a href="#/" onclick="showPage('home'); return false;">gabryel sallehount</a>
       </div>
-      <ul class="nav-menu">
+      <button type="button" class="mobile-nav-toggle" aria-label="Open navigation" aria-controls="site-nav-menu" aria-expanded="false" onclick="toggleMobileNav()">Menu</button>
+      <ul class="nav-menu" id="site-nav-menu">
         <li><button class="nav-link active" data-page="home" onclick="showPage('home')">Home</button></li>
         <li><button class="nav-link" data-page="gallery" onclick="showPage('gallery')">Gallery</button></li>
         <li><button class="nav-link" data-page="about" onclick="showPage('about')">About</button></li>
@@ -1943,6 +1944,90 @@ body.contact-page .navbar .nav-link {
       .nav-link, .nav-logo a { transition: none; }
     }
 
+    /* Compact, collapsible mobile navigation: full-width content, 44px controls. */
+    .mobile-nav-toggle { display: none; }
+    @media (max-width: 768px) {
+      :root { --nav-w: 0px; --mobile-nav-height: 64px; }
+      body.loaded { padding-left: 0 !important; padding-top: var(--mobile-nav-height) !important; }
+      .navbar {
+        position: fixed;
+        inset: 0 0 auto 0;
+        width: 100%;
+        height: var(--mobile-nav-height);
+        bottom: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+        z-index: 1000;
+      }
+      .nav-container {
+        position: relative;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        padding: 0 1rem;
+      }
+      .nav-logo { width: auto; margin: 0; text-align: left; }
+      .nav-logo a { width: auto; font-size: 0.875rem; line-height: 1.4; text-align: left; white-space: nowrap; }
+      .mobile-nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        flex: 0 0 44px;
+        padding: 0;
+        background: transparent;
+        color: var(--black);
+        border: 1px solid currentColor;
+        border-radius: 0;
+        font: inherit;
+        font-size: 0.875rem;
+        cursor: pointer;
+      }
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0.65rem 1rem 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.2rem;
+        background: #f8f8f6;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 12px 22px rgba(0,0,0,0.08);
+      }
+      .navbar.mobile-nav-open .nav-menu { display: flex; }
+      .nav-menu li { width: 100%; }
+      .nav-link {
+        width: 100%;
+        min-height: 44px;
+        padding: 0.6rem 0.75rem;
+        font-size: 0.875rem;
+        text-align: left;
+        justify-content: flex-start;
+      }
+      body.about-active .navbar .mobile-nav-toggle { color: #0a0a0a; }
+      body.contact-active .navbar .mobile-nav-toggle { color: #0a0a0a; }
+      .page.layer-incoming, .page.layer-outgoing {
+        inset: var(--mobile-nav-height) 0 0 0 !important;
+        width: 100% !important;
+        height: calc(100dvh - var(--mobile-nav-height)) !important;
+      }
+      .nav-logo a:focus-visible, .mobile-nav-toggle:focus-visible, .nav-link:focus-visible {
+        outline: 2px solid #780000;
+        outline-offset: 3px;
+      }
+    }
+    @media (max-width: 380px) {
+      .nav-container { padding: 0 0.75rem; }
+      .nav-logo a { font-size: 0.75rem; }
+    }
+
     /* Name-specific overrides follow component styles, including mobile rules. */
     .nav-logo a,
     .loader-name,
@@ -2147,6 +2232,39 @@ form.addEventListener("submit", async function(e){
           number.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(cards.length).padStart(2, '0');
           label.appendChild(number);
         });
+      });
+    })();
+
+    /* Mobile navigation: accessible disclosure, dismiss and focus behavior. */
+    function setMobileNavOpen(open, restoreFocus) {
+      var nav = document.querySelector('.navbar');
+      var toggle = document.querySelector('.mobile-nav-toggle');
+      if (!nav || !toggle) return;
+      var shouldOpen = !!open && window.matchMedia('(max-width: 768px)').matches;
+      nav.classList.toggle('mobile-nav-open', shouldOpen);
+      toggle.setAttribute('aria-expanded', String(shouldOpen));
+      toggle.setAttribute('aria-label', shouldOpen ? 'Close navigation' : 'Open navigation');
+      toggle.textContent = shouldOpen ? 'Close' : 'Menu';
+      if (!shouldOpen && restoreFocus) toggle.focus();
+    }
+    function toggleMobileNav() {
+      setMobileNavOpen(!document.querySelector('.navbar').classList.contains('mobile-nav-open'));
+    }
+    (function() {
+      var nav = document.querySelector('.navbar');
+      nav.addEventListener('click', function(event) {
+        if (event.target.closest('.nav-link, .nav-logo a')) setMobileNavOpen(false);
+      });
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && nav.classList.contains('mobile-nav-open')) {
+          setMobileNavOpen(false, true);
+        }
+      });
+      document.addEventListener('pointerdown', function(event) {
+        if (nav.classList.contains('mobile-nav-open') && !nav.contains(event.target)) setMobileNavOpen(false);
+      });
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) setMobileNavOpen(false);
       });
     })();
 
