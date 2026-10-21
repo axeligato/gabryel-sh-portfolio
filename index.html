@@ -1039,13 +1039,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       padding-left: 0;
     }
     .arc-dot {
-      width: 16px;
-      height: 16px;
-      min-width: 16px;
+      width: 8px;
+      height: 8px;
+      min-width: 8px;
       padding: 0;
       border: 1px solid #d3d3d3;
       border-radius: 50%;
@@ -1073,7 +1073,7 @@
       .arc-track { height: 52vh; }
       .arc-track img { max-width: 100%; max-height: 52vh; }
       .arc-pagination { justify-content: center; padding-left: 0; flex-wrap: wrap; gap: 8px; margin: 0 0 1rem; }
-      .arc-dot { width: 16px; height: 16px; min-width: 16px; }
+      .arc-dot { width: 8px; height: 8px; min-width: 8px; }
     }
 
     /* ════ SCROLL DOWN INDICATOR ════ */
@@ -2002,7 +2002,7 @@ form.addEventListener("submit", async function(e){
 
       var CAROUSEL_SHOOTS = PHOTO_SHOOTS
         .filter(function(s) { return s.id !== 'corentin-et-anais'; })
-        .slice(0, 7);
+        .slice(0, 14);
       var cur = 0;
 
       /* One image only: no neighbouring cards are rendered behind it. */
