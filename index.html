@@ -33,6 +33,17 @@
       --font:      'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
+    /* All visible instances of the name share the About heading's typography. */
+    :root { --gabryel-name-tracking: -0.045em; }
+    .nav-logo a,
+    .loader-name,
+    #page-about .about-name {
+      font-family: var(--font);
+      font-weight: 700;
+      letter-spacing: var(--gabryel-name-tracking);
+      text-transform: lowercase;
+    }
+
     /* ─── BASE ─── */
     /* Site-wide typography matches the Gabryel Sallehount navbar wordmark.
        Component font sizes and layout remain independently responsive. */
@@ -1838,6 +1849,15 @@ body.contact-page .navbar .nav-link {
 .film-modal * {
   cursor: none !important;
 }
+    /* Name-specific overrides follow component styles, including mobile rules. */
+    .nav-logo a,
+    .loader-name,
+    #page-about .about-name {
+      font-family: var(--font) !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.045em !important;
+      text-transform: lowercase;
+    }
 </style>
 
 <script>
