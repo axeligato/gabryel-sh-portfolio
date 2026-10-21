@@ -48,58 +48,23 @@
       transform: translateY(-100%);
       pointer-events: none;
     }
-    .loader-bar {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
     .loader-name {
-      font-size: 0.58rem;
-      font-weight: 600;
-      letter-spacing: 0.26em;
-      text-transform: lowercase;
-      color: var(--black);
-      opacity: 0.55;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: calc(50% + clamp(90px, 16vw, 210px) + 2.5rem);
-      z-index: 3;
-      white-space: nowrap;
-    }
-    .loader-count {
-      font-size: 0.58rem;
-      font-weight: 600;
-      letter-spacing: 0.10em;
-      color: var(--black);
-      font-variant-numeric: tabular-nums;
-      opacity: 0.55;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: calc(50% + clamp(90px, 16vw, 210px) + 2.5rem);
-      z-index: 3;
-    }
-    .loader-img-wrap {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: clamp(180px, 32vw, 420px);
-      height: clamp(240px, 48vh, 600px);
-      z-index: 2;
-    }
-    .loader-img {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      opacity: 0;
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      color: var(--black);
+      font-size: clamp(0.8rem, 1.2vw, 1rem);
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      text-align: center;
     }
-    .loader-img.visible { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) {
+      #loader { transition: none; }
+    }
 
     /* ─── NAVBAR ─── */
     /* ─── SIDEBAR NAV ─── */
@@ -1383,22 +1348,8 @@ body.contact-page .navbar .nav-link {
   <div id="cursor-dot-white"></div>
 
   <!-- ════ LOADER ════ -->
-  <div id="loader">
-    <div class="loader-bar">
-      <span class="loader-name">gabryel sallehount</span>
-      <span class="loader-count" id="loader-count">0</span>
-    </div>
-    <div class="loader-img-wrap" id="loader-img-wrap">
-      <img class="loader-img" src="https://drive.google.com/thumbnail?id=1qThLVwEUOPAjJ4o3X8nmc3aYh-obn1QF&sz=w1200" alt="" />
-      <img class="loader-img" src="https://drive.google.com/thumbnail?id=1lcSnMMm8SnCXv0JYO3XP91U5w-DHo7QS&sz=w1200" alt="" />
-      <img class="loader-img" src="https://drive.google.com/thumbnail?id=12V-LX2UW4ymTEMswV10IBXYPwFz8j8vs&sz=w1200" alt="" />
-      <img class="loader-img" src="https://drive.google.com/thumbnail?id=1WFPO9YVYf5KbVSm3Z9309vbJ_diDQqvN&sz=w1200" alt="" />
-      <img class="loader-img" src="https://drive.google.com/thumbnail?id=1Zxahjh9DuJ7LWBIRUzh7Vl459j6T6xn9&sz=w1200" alt="" />
-      <img class="loader-img" src="https://drive.google.com/thumbnail?id=1Hzp_fHkrbyU-zMlJcZmYjJ_aBJ1J7DQ4&sz=w1200" alt="" />
-      <img class="loader-img" src="https://drive.google.com/thumbnail?id=1CQHsn8-LON-vuw128BsvU9bWJLrCyYkB&sz=w1200" alt="" />
-      <img class="loader-img" src="https://drive.google.com/thumbnail?id=1QAiaxicz7hktI8okmXhijHootYABsX3k&sz=w1200" alt="" />
-      <img class="loader-img" src="https://drive.google.com/thumbnail?id=1fW5QLtWlmiqMM3s0qvDVvyFgl7e5gA8g&sz=w1200" alt="" />
-    </div>
+  <div id="loader" role="status" aria-label="Loading website">
+    <span class="loader-name">gabryel sallehount</span>
   </div>
 
   <!-- NAVBAR -->
@@ -1874,38 +1825,25 @@ form.addEventListener("submit", async function(e){
       dot.style.transform = s; dotWhite.style.transform = s;
     });
 
-    /* ── LOADER ── */
+    /* ── MINIMAL TEXT LOADER ── */
     (function() {
-      var countEl = document.getElementById('loader-count');
-      var loader  = document.getElementById('loader');
-      var wrap    = document.getElementById('loader-img-wrap');
-      var imgs    = Array.from(wrap.querySelectorAll('.loader-img'));
-      var total   = 100;
-      var duration = 2400;
-      var stepMs   = duration / total;
-      var n = 0, imgIdx = 0;
-
-      imgs[0].classList.add('visible');
-
-      var imgTimer = setInterval(function() {
-        imgs[imgIdx % imgs.length].classList.remove('visible');
-        imgIdx++;
-        imgs[imgIdx % imgs.length].classList.add('visible');
-      }, 150);
-
-      var countTimer = setInterval(function() {
-        n++;
-        countEl.textContent = n;
-        if (n >= total) {
-          clearInterval(countTimer);
-          clearInterval(imgTimer);
-          setTimeout(function() {
-            loader.classList.add('hide');
-            document.body.classList.add('loaded');
-            setTimeout(function() { loader.style.display = 'none'; }, 900);
-          }, 300);
-        }
-      }, stepMs);
+      var loader = document.getElementById('loader');
+      var startedAt = Date.now();
+      var dismissed = false;
+      function dismissLoader() {
+        if (dismissed) return;
+        dismissed = true;
+        var remaining = Math.max(0, 450 - (Date.now() - startedAt));
+        setTimeout(function() {
+          loader.classList.add('hide');
+          document.body.classList.add('loaded');
+          setTimeout(function() { loader.style.display = 'none'; }, 900);
+        }, remaining);
+      }
+      if (document.readyState === 'complete') dismissLoader();
+      else window.addEventListener('load', dismissLoader, { once: true });
+      /* Do not trap visitors if an external media request stalls. */
+      setTimeout(dismissLoader, 2500);
     })();
 
     /* ── PAGE SYSTEM ── */
