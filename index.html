@@ -107,6 +107,11 @@
       display: flex;
       flex-direction: column;
     }
+    /* Keep About navigation explicitly white, regardless of page theme. */
+    body.about-active .navbar { background: #fff !important; border-right-color: rgba(10,10,10,0.10); }
+    body.about-active .navbar .nav-logo a,
+    body.about-active .navbar .nav-link { color: #0a0a0a; }
+
     .nav-container {
       display: flex;
       flex-direction: column;
