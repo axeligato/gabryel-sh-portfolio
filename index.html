@@ -3,7 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gabryel Sallehount</title>
+  <title>Gabryel Sallehount — Photography & Film</title>
+  <meta name="description" content="Explore the photography and film portfolio of Gabryel Sallehount, featuring editorial imagery, creative projects and motion work." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Gabryel Sallehount" />
+  <meta property="og:title" content="Gabryel Sallehount — Photography & Film" />
+  <meta property="og:description" content="Photography and film portfolio by Gabryel Sallehount." />
+  <meta property="og:image" content="https://drive.google.com/thumbnail?id=1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo&amp;sz=w1200" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gabryel Sallehount — Photography & Film" />
+  <meta name="twitter:description" content="Photography and film portfolio by Gabryel Sallehount." />
+  <meta name="twitter:image" content="https://drive.google.com/thumbnail?id=1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo&amp;sz=w1200" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Gabryel Sallehount","description":"Photography and film portfolio"}</script>
   <link rel="icon" type="image/png" href="/gsh_favicon.png" />
   <style>
     /* ─── RESET ─── */
@@ -1906,7 +1918,7 @@ form.addEventListener("submit", async function(e){
     })();
 
     /* ── PAGE SYSTEM ── */
-    function showPage(id) {
+    function showPage(id, skipRouteUpdate) {
   document.body.classList.toggle('contact-page', id === 'contact');
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -1915,6 +1927,11 @@ form.addEventListener("submit", async function(e){
       const link = document.querySelector('[data-page="' + id + '"]');
       if (link) link.classList.add('active');
       window.scrollTo(0, 0);
+      if (!skipRouteUpdate) {
+        var route = id === 'home' ? '#/' : '#/' + id;
+        if (location.hash !== route) history.pushState(null, '', route);
+      }
+      document.title = 'Gabryel Sallehount' + (id === 'home' ? ' — Photography & Film' : ' — ' + id.charAt(0).toUpperCase() + id.slice(1));
       const onC = id === 'contact' || id === 'about';
       const onContact = id === 'contact';
       document.body.classList.toggle('contact-active', onContact);
@@ -1956,6 +1973,41 @@ form.addEventListener("submit", async function(e){
         touchStartX = null;
         if (dy < -65 && Math.abs(dy) > Math.abs(dx) * 1.5) showPage('gallery');
       }, { passive: true });
+    })();
+
+    /* Shareable hash routes: static-host friendly, including browser Back/Forward. */
+    (function() {
+      function applyRoute() {
+        var path = decodeURIComponent(location.hash.replace(/^#\/?/, ''));
+        var parts = path.split('/').filter(Boolean);
+        var page = parts[0] || 'home';
+        var photoLightbox = document.getElementById('g-lightbox');
+        var filmLightbox = document.getElementById('film-lightbox');
+        if (photoLightbox.classList.contains('open')) document.getElementById('g-lightbox-close').click();
+        if (filmLightbox.classList.contains('open')) document.getElementById('film-lightbox-back').click();
+        if (page === 'photo' || page === 'film') {
+          var card = document.querySelector((page === 'photo' ? '.shoot-cover' : '.film-cover') + '[data-shoot="' + CSS.escape(parts[1] || '') + '"]');
+          showPage('gallery', true);
+          var tab = page === 'photo' ? 'print' : 'motion';
+          var tabButton = document.querySelector('.gallery-tab[onclick*="' + tab + '"]');
+          if (tabButton) switchTab(tabButton, tab, true);
+          if (card) {
+            card.click();
+            history.replaceState(null, '', '#/' + page + '/' + encodeURIComponent(parts[1]));
+          }
+          return;
+        }
+        if (!document.getElementById('page-' + page)) page = 'home';
+        showPage(page, true);
+        if (page === 'gallery') {
+          var tab = parts[1] === 'film' ? 'motion' : 'print';
+          var tabButton = document.querySelector('.gallery-tab[onclick*="' + tab + '"]');
+          if (tabButton) switchTab(tabButton, tab, true);
+        }
+      }
+      window.addEventListener('popstate', applyRoute);
+      window.addEventListener('hashchange', applyRoute);
+      applyRoute();
     })();
 
     /* ── COUNTDOWN ── */
@@ -2118,12 +2170,13 @@ form.addEventListener("submit", async function(e){
       if (name) cell.dataset.title = name.textContent.trim();
     });
 
-    function switchTab(btn, tabId) {
+    function switchTab(btn, tabId, skipRouteUpdate) {
       document.querySelectorAll('.gallery-tab').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       const panel = document.getElementById('tab-' + tabId);
       if (panel) { panel.classList.add('active'); void panel.offsetWidth; }
+      if (!skipRouteUpdate) history.replaceState(null, '', tabId === 'motion' ? '#/gallery/film' : '#/gallery');
     }
 
 
@@ -2157,12 +2210,14 @@ form.addEventListener("submit", async function(e){
       var curShoot = null;
       var curIdx   = 0;
 
-      function openShoot(shootId, startIdx) {
+      function openShoot(shootId, startIdx, skipRouteUpdate) {
         curShoot = PHOTO_SHOOTS.find(function(s) { return s.id === shootId; });
         if (!curShoot) return;
         curIdx = startIdx || 0;
         showSlide();
         lb.classList.add('open');
+        document.title = curShoot.title + ' — Gabryel Sallehount';
+        if (!skipRouteUpdate) history.pushState(null, '', '#/photo/' + encodeURIComponent(shootId));
       }
       function showSlide() {
         var imgId = curShoot.imgs[curIdx];
@@ -2172,7 +2227,9 @@ form.addEventListener("submit", async function(e){
         lbPrev.style.display = curShoot.imgs.length > 1 ? 'block' : 'none';
         lbNext.style.display = curShoot.imgs.length > 1 ? 'block' : 'none';
       }
-      function closeLightbox() {
+      function closeLightbox(skipRouteUpdate) {
+        if (!skipRouteUpdate && curShoot) history.pushState(null, '', '#/gallery');
+        document.title = 'Gabryel Sallehount — Gallery';
         lb.classList.remove('open');
         lbImg.src = '';
         curShoot = null;
@@ -2231,12 +2288,14 @@ form.addEventListener("submit", async function(e){
       var curFilmShoot = null;
       var curFilmIdx   = 0;
 
-      function openFilmShoot(shootId) {
+      function openFilmShoot(shootId, skipRouteUpdate) {
         curFilmShoot = FILM_SHOOTS.find(function(s) { return s.id === shootId; });
         if (!curFilmShoot) return;
         curFilmIdx = 0;
         showFilmSlide();
         flb.classList.add('open');
+        document.title = curFilmShoot.title + ' — Gabryel Sallehount';
+        if (!skipRouteUpdate) history.pushState(null, '', '#/film/' + encodeURIComponent(shootId));
       }
       function showFilmSlide() {
         var vid = curFilmShoot.vids[curFilmIdx];
@@ -2262,7 +2321,9 @@ form.addEventListener("submit", async function(e){
         fPrev.style.display  = curFilmShoot.vids.length > 1 ? 'block' : 'none';
         fNext.style.display  = curFilmShoot.vids.length > 1 ? 'block' : 'none';
       }
-      function closeFilmLightbox() {
+      function closeFilmLightbox(skipRouteUpdate) {
+        if (!skipRouteUpdate && curFilmShoot) history.pushState(null, '', '#/gallery/film');
+        document.title = 'Gabryel Sallehount — Gallery';
         flb.classList.remove('open');
         if (fLeft) fLeft.innerHTML = '';
         curFilmShoot = null;
