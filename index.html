@@ -1865,22 +1865,21 @@ body.contact-page .navbar .nav-link {
       .nav-logo a { font-size: 0.67rem; max-width: none; }
     }
 
-    /* Give the full name enough room to remain on one centered line. */
-    :root { --nav-w: 260px; }
-    .nav-container { padding-left: 1.1rem; padding-right: 1.1rem; }
+    /* Retain the prior compact wordmark size, centered on one line. */
+    :root { --nav-w: 210px; }
+    .nav-container { padding-left: 1rem; padding-right: 1rem; }
     .nav-logo a {
-      font-size: 1rem;
+      font-size: 0.82rem;
       white-space: nowrap;
       overflow-wrap: normal;
       word-break: normal;
     }
     @media (max-width: 1024px) {
-      :root { --nav-w: 240px; }
-      .nav-logo a { font-size: 0.92rem; }
+      :root { --nav-w: 210px; }
     }
     @media (max-width: 768px) {
-      :root { --nav-w: 220px; }
-      .nav-logo a { font-size: 0.86rem; }
+      :root { --nav-w: 185px; }
+      .nav-logo a { font-size: 0.67rem; }
     }
 
     /* Name-specific overrides follow component styles, including mobile rules. */
