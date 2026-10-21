@@ -2090,6 +2090,8 @@ form.addEventListener("submit", async function(e){
     (function() {
       var order = editorialPageOrder;
       var accumulated = 0, previousDirection = 0, lastWheel = 0;
+      var momentumGuardUntil = 0;
+      var WHEEL_THRESHOLD = 260, COOLDOWN_MS = 1250, RESET_MS = 220;
       var touchY = null, touchX = null, touchAtTop = false, touchAtBottom = false;
       function activeIndex() {
         var active = document.querySelector('.page.active');
@@ -2108,7 +2110,8 @@ form.addEventListener("submit", async function(e){
         var next = index + direction;
         if (index < 0 || next < 0 || next >= order.length || Date.now() < editorialNavLockUntil) return false;
         accumulated = 0;
-        editorialNavLockUntil = Date.now() + 850;
+        editorialNavLockUntil = Date.now() + COOLDOWN_MS;
+        momentumGuardUntil = editorialNavLockUntil + RESET_MS;
         showPage(order[next], false, direction > 0 ? 'down' : 'up');
         window.scrollTo({top: 0, left: 0, behavior: 'instant'});
         return true;
@@ -2117,13 +2120,26 @@ form.addEventListener("submit", async function(e){
         if (event.ctrlKey || isBlocked(event.target)) return;
         var direction = Math.sign(event.deltaY);
         if (!direction) return;
-        if (Date.now() < editorialNavLockUntil) { event.preventDefault(); return; }
-        if (!boundary(direction)) { accumulated = 0; previousDirection = direction; return; }
-        if (Date.now() - lastWheel > 320 || direction !== previousDirection) accumulated = 0;
+        if (Date.now() < momentumGuardUntil || Date.now() < editorialNavLockUntil) {
+          accumulated = 0;
+          event.preventDefault();
+          return;
+        }
+        if (!boundary(direction)) {
+          accumulated = 0;
+          previousDirection = direction;
+          /* Reaching the boundary via normal scrolling must not carry momentum into navigation. */
+          momentumGuardUntil = Date.now() + RESET_MS;
+          return;
+        }
+        if (Date.now() < momentumGuardUntil) { accumulated = 0; return; }
+        if (Date.now() - lastWheel > RESET_MS || direction !== previousDirection) accumulated = 0;
         lastWheel = Date.now();
         previousDirection = direction;
-        accumulated += Math.abs(event.deltaY);
-        if (accumulated >= 65) {
+        /* Convert line/page wheel units to pixels and cap momentum spikes. */
+        var scale = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
+        accumulated += Math.min(Math.abs(event.deltaY * scale), 100);
+        if (accumulated >= WHEEL_THRESHOLD) {
           if (advance(direction)) event.preventDefault();
           else accumulated = 0;
         }
@@ -2140,7 +2156,7 @@ form.addEventListener("submit", async function(e){
         var dy = event.changedTouches[0].clientY - touchY;
         var dx = event.changedTouches[0].clientX - touchX;
         touchY = touchX = null;
-        if (Math.abs(dy) < 90 || Math.abs(dy) < Math.abs(dx) * 1.5 || isBlocked(event.target)) return;
+        if (Math.abs(dy) < 120 || Math.abs(dy) < Math.abs(dx) * 1.5 || isBlocked(event.target)) return;
         if (dy > 0 && touchAtTop) advance(-1);
         else if (dy < 0 && touchAtBottom) advance(1);
       }, {passive: true});
