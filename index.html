@@ -180,6 +180,31 @@
       .mystery-content { padding: 1.25rem; width: 100%; }
     }
 
+    /* Layered editorial navigation: incoming page covers the outgoing page. */
+    .page.layer-incoming, .page.layer-outgoing {
+      position: fixed !important;
+      inset: 0 0 0 var(--nav-w);
+      width: calc(100% - var(--nav-w));
+      height: 100dvh;
+      overflow: hidden;
+      margin: 0;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .page.layer-incoming { z-index: 42; display: block !important; animation: layerCover 580ms cubic-bezier(.22,1,.36,1) both; }
+    .page.layer-outgoing { z-index: 43; display: block !important; animation: layerUncover 580ms cubic-bezier(.22,1,.36,1) both; }
+    .page.layer-incoming.layer-up { animation: none; z-index: 42; }
+    .page.layer-outgoing.layer-down { animation: none; z-index: 41; }
+    .page.layer-incoming#page-home { display: flex !important; }
+    .page.layer-incoming#page-mystery, .page.layer-outgoing#page-mystery { display: grid !important; }
+    @keyframes layerCover { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    @keyframes layerUncover { from { transform: translateY(0); } to { transform: translateY(100%); } }
+    @media (max-width: 700px) {
+      .page.layer-incoming, .page.layer-outgoing { inset: var(--nav-h) 0 0; width: 100%; height: calc(100dvh - var(--nav-h)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .page.layer-incoming, .page.layer-outgoing { animation: none !important; }
+    }
     /* ─── SHARED ─── */
     .container {
       max-width: 1360px;
@@ -1970,8 +1995,29 @@ form.addEventListener("submit", async function(e){
     })();
 
     /* ── PAGE SYSTEM ── */
-    function showPage(id, skipRouteUpdate) {
-  document.body.classList.toggle('contact-page', id === 'contact');
+    var editorialNavLockUntil = 0;
+    var editorialTransitionTimer = null;
+    var editorialPageOrder = ['home', 'gallery', 'about', 'contact', 'mystery'];
+    function showPage(id, skipRouteUpdate, direction) {
+      var outgoing = document.querySelector('.page.active');
+      var incoming = document.getElementById('page-' + id);
+      var outgoingId = outgoing ? outgoing.id.replace(/^page-/, '') : null;
+      var indexDelta = editorialPageOrder.indexOf(id) - editorialPageOrder.indexOf(outgoingId);
+      var moving = direction || (indexDelta > 0 ? 'down' : indexDelta < 0 ? 'up' : null);
+      var animate = !!(outgoing && incoming && outgoing !== incoming && moving && !skipRouteUpdate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      if (editorialTransitionTimer) {
+        clearTimeout(editorialTransitionTimer);
+        document.querySelectorAll('.page.layer-incoming, .page.layer-outgoing').forEach(function(p) {
+          p.classList.remove('layer-incoming', 'layer-outgoing', 'layer-up', 'layer-down');
+        });
+        editorialTransitionTimer = null;
+      }
+      if (animate) {
+        outgoing.classList.add('layer-outgoing', 'layer-' + moving);
+        incoming.classList.add('layer-incoming', 'layer-' + moving);
+        editorialNavLockUntil = Date.now() + 850;
+      }
+      document.body.classList.toggle('contact-page', id === 'contact');
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
       const pg = document.getElementById('page-' + id);
@@ -1993,82 +2039,80 @@ form.addEventListener("submit", async function(e){
       const overSidebar = bounds && window.__cursorX >= bounds.left && window.__cursorX <= bounds.right && window.__cursorY >= bounds.top && window.__cursorY <= bounds.bottom;
       document.getElementById('cursor-dot').style.display = (!onC || overSidebar) ? 'block' : 'none';
       document.getElementById('cursor-dot-white').style.display = (onC && !overSidebar) ? 'block' : 'none';
+      if (animate) {
+        editorialTransitionTimer = setTimeout(function() {
+          outgoing.classList.remove('layer-outgoing', 'layer-up', 'layer-down');
+          incoming.classList.remove('layer-incoming', 'layer-up', 'layer-down');
+          editorialTransitionTimer = null;
+          window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+        }, 600);
+      }
     }
 
-    /* Scroll down on Home to enter Gallery, matching the arrow action. */
+    /* Boundary-aware navigation: scroll long pages normally, then change sections. */
     (function() {
-      let lastGalleryScroll = 0;
-      window.addEventListener('wheel', function(event) {
-        if (!document.getElementById('page-home').classList.contains('active')) return;
-        if (event.deltaY <= 12 || event.ctrlKey || event.target.closest('.navbar')) return;
-        if (Date.now() - lastGalleryScroll < 650) return;
-        lastGalleryScroll = Date.now();
-        event.preventDefault();
-        showPage('gallery');
-        // Reset after the page switch to defeat smooth-scroll or browser scroll restoration.
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      }, { passive: false });
-
-      let touchStartY = null;
-      let touchStartX = null;
-      const home = document.getElementById('page-home');
-      home.addEventListener('touchstart', function(event) {
-        if (event.touches.length !== 1) return;
-        touchStartY = event.touches[0].clientY;
-        touchStartX = event.touches[0].clientX;
-      }, { passive: true });
-      home.addEventListener('touchend', function(event) {
-        if (touchStartY === null || !home.classList.contains('active')) return;
-        const dy = event.changedTouches[0].clientY - touchStartY;
-        const dx = event.changedTouches[0].clientX - touchStartX;
-        touchStartY = null;
-        touchStartX = null;
-        if (dy < -65 && Math.abs(dy) > Math.abs(dx) * 1.5) showPage('gallery');
-      }, { passive: true });
-    })();
-
-    /* Navigate to the preceding site page when scrolling upward at the top. */
-    (function() {
-      var order = ['home', 'gallery', 'about', 'contact', 'mystery'];
-      var lastChange = 0;
-      var upAccum = 0;
-      var touchY = null;
-      var touchX = null;
-      function currentPage() {
+      var order = editorialPageOrder;
+      var accumulated = 0, previousDirection = 0, lastWheel = 0;
+      var touchY = null, touchX = null, touchAtTop = false, touchAtBottom = false;
+      function activeIndex() {
         var active = document.querySelector('.page.active');
-        return active ? active.id.replace(/^page-/, '') : null;
+        return active ? order.indexOf(active.id.replace(/^page-/, '')) : -1;
       }
-      function goPrevious() {
-        var index = order.indexOf(currentPage());
-        if (index <= 0 || Date.now() - lastChange < 1100) return false;
-        lastChange = Date.now();
-        upAccum = 0;
-        showPage(order[index - 1]);
-        window.scrollTo(0, 0);
+      function isBlocked(target) {
+        return !!(target.closest('.navbar, .g-lightbox, #film-lightbox, input, textarea, select, [contenteditable="true"]') ||
+          document.querySelector('.g-lightbox.open, #film-lightbox.open'));
+      }
+      function boundary(direction) {
+        return direction < 0 ? window.scrollY <= 3 :
+          window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+      }
+      function advance(direction) {
+        var index = activeIndex();
+        var next = index + direction;
+        if (index < 0 || next < 0 || next >= order.length || Date.now() < editorialNavLockUntil) return false;
+        accumulated = 0;
+        editorialNavLockUntil = Date.now() + 850;
+        showPage(order[next], false, direction > 0 ? 'down' : 'up');
+        window.scrollTo({top: 0, left: 0, behavior: 'instant'});
         return true;
       }
       window.addEventListener('wheel', function(event) {
-        if (event.ctrlKey || event.target.closest('.navbar, .g-lightbox, input, textarea, select')) return;
-        if (document.querySelector('.g-lightbox.open')) return;
-        if (event.deltaY >= 0 || window.scrollY > 2) { upAccum = 0; return; }
-        if (Date.now() - lastChange < 1100) { event.preventDefault(); return; }
-        upAccum += Math.abs(event.deltaY);
-        if (upAccum >= 55 && goPrevious()) event.preventDefault();
-      }, { passive: false });
+        if (event.ctrlKey || isBlocked(event.target)) return;
+        var direction = Math.sign(event.deltaY);
+        if (!direction) return;
+        if (Date.now() < editorialNavLockUntil) { event.preventDefault(); return; }
+        if (!boundary(direction)) { accumulated = 0; previousDirection = direction; return; }
+        if (Date.now() - lastWheel > 320 || direction !== previousDirection) accumulated = 0;
+        lastWheel = Date.now();
+        previousDirection = direction;
+        accumulated += Math.abs(event.deltaY);
+        if (accumulated >= 65) {
+          if (advance(direction)) event.preventDefault();
+          else accumulated = 0;
+        }
+      }, {passive: false});
       window.addEventListener('touchstart', function(event) {
-        if (event.touches.length !== 1) return;
+        if (event.touches.length !== 1 || isBlocked(event.target)) { touchY = null; return; }
         touchY = event.touches[0].clientY;
         touchX = event.touches[0].clientX;
-      }, { passive: true });
+        touchAtTop = boundary(-1);
+        touchAtBottom = boundary(1);
+      }, {passive: true});
       window.addEventListener('touchend', function(event) {
         if (touchY === null || event.changedTouches.length !== 1) return;
         var dy = event.changedTouches[0].clientY - touchY;
         var dx = event.changedTouches[0].clientX - touchX;
-        touchY = null;
-        touchX = null;
-        if (event.target.closest('.navbar, .g-lightbox, input, textarea, select')) return;
-        if (window.scrollY <= 2 && dy > 85 && Math.abs(dy) > Math.abs(dx) * 1.5 && !document.querySelector('.g-lightbox.open')) goPrevious();
-      }, { passive: true });
+        touchY = touchX = null;
+        if (Math.abs(dy) < 90 || Math.abs(dy) < Math.abs(dx) * 1.5 || isBlocked(event.target)) return;
+        if (dy > 0 && touchAtTop) advance(-1);
+        else if (dy < 0 && touchAtBottom) advance(1);
+      }, {passive: true});
+      window.addEventListener('keydown', function(event) {
+        if (isBlocked(event.target) || event.altKey || event.ctrlKey || event.metaKey) return;
+        if (event.key !== 'PageDown' && event.key !== 'PageUp') return;
+        var direction = event.key === 'PageDown' ? 1 : -1;
+        if (boundary(direction) && advance(direction)) event.preventDefault();
+      });
     })();
 
     /* Shareable hash routes: static-host friendly, including browser Back/Forward. */
