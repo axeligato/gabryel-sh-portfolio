@@ -862,6 +862,18 @@
       display: none;
     }
 
+    /* Accessible cursor fallback for touch, reduced motion and keyboard focus */
+    @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { cursor: auto !important; }
+      a, button, [role="button"] { cursor: pointer !important; }
+      #cursor-dot, #cursor-dot-white { display: none !important; }
+    }
+    :focus-visible { outline: 2px solid #9b0000; outline-offset: 4px; }
+    body.about-active :focus-visible, body.contact-active :focus-visible { outline-color: #fff; }
+    body.about-active .navbar :focus-visible, body.contact-active .navbar :focus-visible { outline-color: #9b0000; }
+    .film-playback-error { max-width: 32rem; padding: 2rem; text-align: center; line-height: 1.6; }
+    .film-playback-error a { display: inline-block; margin-top: 1rem; text-decoration: underline; }
+
     /* ─── CONTACT DIRECT BELOW FORM ─── */
     .contact-direct-below {
       margin-top: 2.5rem;
@@ -1439,67 +1451,67 @@ body.contact-page .navbar .nav-link {
       <div id="tab-print" class="tab-panel active anim-3">
         <div class="gallery-masonry">
           <div class="gallery-cell shoot-cover" data-shoot="atnt-skip-trip">
-            <img src="https://drive.google.com/thumbnail?id=1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1_IjxFf0Oitj7ycAy6jluaTKrD4V3nmPo&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">atnt skip trip</span><span class="shoot-count">26</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="atnt-2025">
-            <img src="https://drive.google.com/thumbnail?id=12YtmyQH8PIcvZaigBKRkbcsaLABE68WH&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=12YtmyQH8PIcvZaigBKRkbcsaLABE68WH&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">atnt 2025</span><span class="shoot-count">7</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="bash-london">
-            <img src="https://drive.google.com/thumbnail?id=1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1VJ9Ty6oLgpPg0UGDA4IMfc0KnDqHt9qG&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">ba&amp;sh london</span><span class="shoot-count">11</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="bash-fashion-week">
-            <img src="https://drive.google.com/thumbnail?id=1mRNGQYr5S52lML21Di03LtJmuBGXBeQj&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1mRNGQYr5S52lML21Di03LtJmuBGXBeQj&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">ba&amp;sh fashion week</span><span class="shoot-count">10</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="browberry">
-            <img src="https://drive.google.com/thumbnail?id=1_eqSvmhdVXpJa3o-cosq7BUg7nRG36D-&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1_eqSvmhdVXpJa3o-cosq7BUg7nRG36D-&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">browberry</span><span class="shoot-count">1</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="corentin-et-anais">
-            <img src="https://drive.google.com/thumbnail?id=13gciX4tncxaiT2ly5OW03BimwKvKie7X&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=13gciX4tncxaiT2ly5OW03BimwKvKie7X&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">corentin et anais</span><span class="shoot-count">12</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="emilie-charpentier">
-            <img src="https://drive.google.com/thumbnail?id=1kVBOtp6UHTTYXVA1QDjIe6gyGDo1deZB&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1kVBOtp6UHTTYXVA1QDjIe6gyGDo1deZB&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">emilie charpentier</span><span class="shoot-count">7</span></div>
           </div> 
           <div class="gallery-cell shoot-cover" data-shoot="mayer-etretat">
-            <img src="https://drive.google.com/drive/u/2/folders/1whebGV-OHz6wyFyIUoQlC_Q8JfjYqoHT&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/drive/u/2/folders/1whebGV-OHz6wyFyIUoQlC_Q8JfjYqoHT&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">mayer, étretat</span><span class="shoot-count">6</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="hebe">
-            <img src="https://drive.google.com/thumbnail?id=1EqGbWa-nirOc3-YA034CQ-k9vrPDv3kE&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1EqGbWa-nirOc3-YA034CQ-k9vrPDv3kE&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">hébé</span><span class="shoot-count">6</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="jade-pedri">
-            <img src="https://drive.google.com/thumbnail?id=1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1ZeM8UVtB1kB6OTm9KJwV0ECuNT8HrBL9&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">jade pedri</span><span class="shoot-count">9</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="lenny">
-            <img src="https://drive.google.com/thumbnail?id=15uWWQYYPA8blcBHEKTD90zenOXIZpuoR&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=15uWWQYYPA8blcBHEKTD90zenOXIZpuoR&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">lenny</span><span class="shoot-count">7</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="mathis">
-            <img src="https://drive.google.com/thumbnail?id=1cm7C0DlRtCxQ9-6TM6WUED_JPmlZDXXS&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1cm7C0DlRtCxQ9-6TM6WUED_JPmlZDXXS&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">mathis</span><span class="shoot-count">8</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="kim-lewin">
-            <img src="https://drive.google.com/thumbnail?id=1-rIRg9ZogOnfQtxkYceM73piJTe6ju8t&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1-rIRg9ZogOnfQtxkYceM73piJTe6ju8t&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">kim lewin</span><span class="shoot-count">6</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="hanay">
-            <img src="https://drive.google.com/thumbnail?id=1NsdaC2-h_MaT2TIVI8oYNDC6-hr2rqJR&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1NsdaC2-h_MaT2TIVI8oYNDC6-hr2rqJR&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">hanay</span><span class="shoot-count">6</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="sacha-foubard">
-            <img src="https://drive.google.com/thumbnail?id=1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1lYIPwNGayIuGyFkoYKb8DXcBNYBqzbXL&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">sacha foubard for clara viot</span><span class="shoot-count">7</span></div>
           </div>
           <div class="gallery-cell shoot-cover" data-shoot="yara-carioca">
-            <img src="https://drive.google.com/thumbnail?id=18M3j29u23WQT3ERS0E9WvO3GRShgURTU&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=18M3j29u23WQT3ERS0E9WvO3GRShgURTU&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">yara chary for carioca</span><span class="shoot-count">9</span></div>
           </div>
         </div>
@@ -1509,51 +1521,51 @@ body.contact-page .navbar .nav-link {
       <div id="tab-motion" class="tab-panel anim-3">
         <div class="motion-grid">
           <div class="motion-cell film-cover" data-shoot="margot-sustrac">
-            <img src="https://drive.google.com/thumbnail?id=1kPMnyQSiN2C7lCf4EyyCrQqfDQZh3R6B&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1kPMnyQSiN2C7lCf4EyyCrQqfDQZh3R6B&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">margot sustrac</span><span class="shoot-count">3</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="st-dupont">
-            <img src="https://drive.google.com/thumbnail?id=1DedpIRcWVii83kFSgUzBKE_hYrIcywIS&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1DedpIRcWVii83kFSgUzBKE_hYrIcywIS&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">st dupont</span><span class="shoot-count">2</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="bash-christmas">
-            <img src="https://drive.google.com/thumbnail?id=14ilV6c2IKy266YPRnTlsIrirwizXPPiu&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=14ilV6c2IKy266YPRnTlsIrirwizXPPiu&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">ba&amp;sh christmas party</span><span class="shoot-count">4</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="dinh-van">
-            <img src="https://drive.google.com/thumbnail?id=1XY4tUbTNZ5tEnVfPv0XoO-mG85K7K9Lw&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1XY4tUbTNZ5tEnVfPv0XoO-mG85K7K9Lw&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">dinh van</span><span class="shoot-count">2</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="louis-pion">
-            <img src="https://drive.google.com/thumbnail?id=1A7dkHXYfwtbrcfYA0n-LKKLrZ0I0ndhZ&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1A7dkHXYfwtbrcfYA0n-LKKLrZ0I0ndhZ&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">louis pion</span><span class="shoot-count">6</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="bash-film">
-            <img src="https://drive.google.com/thumbnail?id=1p8rou2HYJz-6f1GHzyq_szhwQbv4rLLF&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1p8rou2HYJz-6f1GHzyq_szhwQbv4rLLF&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">ba&amp;sh</span><span class="shoot-count">1</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="caviar-kaspia">
-            <img src="https://drive.google.com/thumbnail?id=1g7e-BOQ1GysEBwtK3av2jelfr9peKPHI&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1g7e-BOQ1GysEBwtK3av2jelfr9peKPHI&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">caviar kaspia</span><span class="shoot-count">1</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="armani-fanny-russo">
-            <img src="https://drive.google.com/thumbnail?id=1lqNsoM4hZuGwUaWNpijU1YNrlBHawze-&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1lqNsoM4hZuGwUaWNpijU1YNrlBHawze-&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">armani and fanny russo</span><span class="shoot-count">1</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="le-crillon">
-            <img src="https://drive.google.com/thumbnail?id=15pjGdMUixBtXnWowzMhfWeJm9wRFPH5t&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=15pjGdMUixBtXnWowzMhfWeJm9wRFPH5t&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">le crillon, rosewood hotel</span><span class="shoot-count">1</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="rabanne-toscane">
-            <img src="https://drive.google.com/thumbnail?id=1cABtdS1i6yFAoO1GPfzr4-Cj3U9UXcub&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1cABtdS1i6yFAoO1GPfzr4-Cj3U9UXcub&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">rabanne, toscane and lucas</span><span class="shoot-count">1</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="guess-stella">
-            <img src="https://drive.google.com/thumbnail?id=1bE09RoI_LlUsgxAz0-YDl3Jb987uInd3&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=1bE09RoI_LlUsgxAz0-YDl3Jb987uInd3&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">guess, stella dreyfus</span><span class="shoot-count">1</span></div>
           </div>
           <div class="motion-cell film-cover" data-shoot="janet-homer-film">
-            <img src="https://drive.google.com/thumbnail?id=12_QNrMh3FN3leMRne_l03j9ORr7hiybf&sz=w1200" loading="lazy" />
+            <img src="https://drive.google.com/thumbnail?id=12_QNrMh3FN3leMRne_l03j9ORr7hiybf&sz=w1200" loading="lazy" / alt="">
             <div class="shoot-label"><span class="shoot-name">janet by homer, toscane and lucas</span><span class="shoot-count">1</span></div>
           </div>
         </div>
@@ -1563,9 +1575,6 @@ body.contact-page .navbar .nav-link {
 
   <!-- ════ MYSTERY ════ -->
   <div id="page-mystery" class="page">
-    <div class="mystery-bg">
-      <img src="https://drive.google.com/thumbnail?id=1Zxahjh9DuJ7LWBIRUzh7Vl459j6T6xn9&sz=w1200" alt="" />
-    </div>
     <div class="mystery-content">
       <div class="mystery-countdown">
         <div class="countdown-unit">
@@ -2084,8 +2093,6 @@ form.addEventListener("submit", async function(e){
       if (panel) { panel.classList.add('active'); void panel.offsetWidth; }
     }
 
-    /* ── SHOOT PILLS ── */
-    function togglePill(el) { el.classList.toggle('selected'); }
 
     var FILM_SHOOTS = [
       { id: "margot-sustrac", title: "margot sustrac", vids: ["1kPMnyQSiN2C7lCf4EyyCrQqfDQZh3R6B", "1u--Nr0ZfzIdUXEkMLq_Evmdnse5-yHq4", "1z7ZjpcDuDYdi4JT6qBUinnMhPil-TZbG"] },
@@ -2191,6 +2198,11 @@ form.addEventListener("submit", async function(e){
           filmVideo.addEventListener('loadedmetadata', function() {
             filmVideo.style.width = 'auto';
             filmVideo.style.height = 'auto';
+          }, { once: true });
+        }
+        if (filmVideo) {
+          filmVideo.addEventListener('error', function() {
+            fLeft.innerHTML = '<div class="film-playback-error" role="alert"><p>Video unavailable here. It may require permission or a different hosting format.</p><a href="https://drive.google.com/file/d/' + encodeURIComponent(vid) + '/view" target="_blank" rel="noopener noreferrer">Open video in Google Drive</a></div>';
           }, { once: true });
         }
         fTitle.textContent   = curFilmShoot.title;
