@@ -2028,6 +2028,26 @@ body.contact-page .navbar .nav-link {
       .nav-logo a { font-size: 0.75rem; }
     }
 
+    /* Tight navigation spacing while keeping 44px minimum touch targets. */
+    .nav-menu { gap: 0.1rem; }
+    .nav-link { min-height: 44px; padding-top: 0.35rem; padding-bottom: 0.35rem; }
+    @media (max-width: 768px) {
+      .nav-menu { gap: 0; padding-top: 0.35rem; padding-bottom: 0.55rem; }
+    }
+
+    /* Preserve red blurred overlays and centered titles; remove only
+       the redundant bottom-left shoot title on Photo and Film cards. */
+    .shoot-cover .shoot-label .shoot-name,
+    .film-cover .shoot-label .shoot-name { display: none; }
+    .shoot-cover .shoot-label,
+    .film-cover .shoot-label { background: none; pointer-events: none; }
+    @media (hover: none), (pointer: coarse) {
+      .gallery-cell::after, .motion-cell::after {
+        display: flex;
+        opacity: 1;
+      }
+    }
+
     /* Name-specific overrides follow component styles, including mobile rules. */
     .nav-logo a,
     .loader-name,
