@@ -1844,9 +1844,16 @@ form.addEventListener("submit", async function(e){
     const dotWhite = document.getElementById('cursor-dot-white');
 
     document.addEventListener('mousemove', e => {
+      window.__cursorX = e.clientX; window.__cursorY = e.clientY;
       const x = e.clientX + 'px', y = e.clientY + 'px';
       dot.style.left      = x; dot.style.top      = y;
       dotWhite.style.left = x; dotWhite.style.top = y;
+      const redPage = document.body.classList.contains('contact-active') || document.body.classList.contains('about-active');
+      const sidebar = document.querySelector('.navbar');
+      const bounds = sidebar && sidebar.getBoundingClientRect();
+      const overSidebar = bounds && e.clientX >= bounds.left && e.clientX <= bounds.right && e.clientY >= bounds.top && e.clientY <= bounds.bottom;
+      dot.style.display = (!redPage || overSidebar) ? 'block' : 'none';
+      dotWhite.style.display = (redPage && !overSidebar) ? 'block' : 'none';
     });
     document.addEventListener('mousedown', () => {
       const s = 'translate(-50%,-50%) scale(1.6)';
@@ -1905,8 +1912,11 @@ form.addEventListener("submit", async function(e){
       const onContact = id === 'contact';
       document.body.classList.toggle('contact-active', onContact);
       document.body.classList.toggle('about-active', id === 'about');
-      document.getElementById('cursor-dot').style.display       = onC ? 'none'  : 'block';
-      document.getElementById('cursor-dot-white').style.display = onC ? 'block' : 'none';
+      const sidebar = document.querySelector('.navbar');
+      const bounds = sidebar && sidebar.getBoundingClientRect();
+      const overSidebar = bounds && window.__cursorX >= bounds.left && window.__cursorX <= bounds.right && window.__cursorY >= bounds.top && window.__cursorY <= bounds.bottom;
+      document.getElementById('cursor-dot').style.display = (!onC || overSidebar) ? 'block' : 'none';
+      document.getElementById('cursor-dot-white').style.display = (onC && !overSidebar) ? 'block' : 'none';
     }
 
     /* ── COUNTDOWN ── */
