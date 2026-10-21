@@ -1901,6 +1901,18 @@ body.contact-page .navbar .nav-link {
       body.loaded { padding-top: 0; }
     }
 
+    /* Left-align navigation items while keeping the site title centered. */
+    .nav-menu { align-items: stretch; }
+    .nav-link {
+      justify-content: flex-start;
+      text-align: left;
+      padding-left: 0.75rem;
+    }
+    @media (max-width: 768px) {
+      .nav-menu { align-items: stretch; }
+      .nav-link { justify-content: flex-start; text-align: left; }
+    }
+
     /* Name-specific overrides follow component styles, including mobile rules. */
     .nav-logo a,
     .loader-name,
