@@ -729,15 +729,47 @@
       color: var(--black);
       text-transform: lowercase;
     }
-    .about-bio {
-      font-size: 0.88rem;
-      line-height: 1.85;
-      color: #454545;
-      font-weight: 700;
-      max-width: 560px;
-      text-transform: lowercase;
+    /* About — magazine-style biography, preserving the author's capitalization. */
+    #page-about { background: #fff; }
+    #page-about .about-simple {
+      grid-template-columns: minmax(250px, 38%) minmax(0, 1fr);
+      gap: clamp(2.5rem, 5vw, 6rem);
     }
-    .about-bio strong { color: var(--black); font-weight: 700; }
+    #page-about .about-photo { position: sticky; top: 2.5rem; }
+    #page-about .about-name { margin-bottom: 2.4rem; }
+    #page-about .about-bio {
+      max-width: 650px;
+      font-size: clamp(0.94rem, 1.1vw, 1.08rem);
+      font-weight: 400;
+      line-height: 1.9;
+      letter-spacing: 0.005em;
+      color: #303030;
+      text-transform: none;
+    }
+    #page-about .about-bio p { margin: 0 0 2.2rem; }
+    #page-about .about-bio p:last-child { margin-bottom: 0; }
+    #page-about .about-bio p::first-letter {
+      float: left;
+      color: #780000;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 3.9em;
+      line-height: 0.79;
+      padding: 0.13em 0.11em 0 0;
+      font-weight: 400;
+    }
+    body.about-active .navbar,
+    body.about-active .nav-container { background: #fff !important; }
+    @media (max-width: 1024px) {
+      #page-about .about-simple { grid-template-columns: 1fr; gap: 2.5rem; }
+      #page-about .about-photo { position: static; max-width: 480px; }
+    }
+    @media (max-width: 700px) {
+      #page-about { padding: 3rem 1.25rem 4rem; }
+      #page-about .about-name { margin-bottom: 2rem; }
+      #page-about .about-bio { font-size: 0.96rem; line-height: 1.85; }
+      #page-about .about-bio p { margin-bottom: 1.8rem; }
+      #page-about .about-bio p::first-letter { font-size: 3.2em; }
+    }
 
     /* ════════════════════════════════
        CONTACT PAGE
@@ -1664,7 +1696,12 @@ body.contact-page .navbar .nav-link {
       </div>
       <div class="about-text-col anim-2">
         <h1 class="about-name">Gabryel<br>Sallehount</h1>
-        <p class="about-bio">Photographer and visual director based in Paris, working worldwide.</p>
+        <div class="about-bio">
+          <p>Gabryel Sallehount is a Paris-based photographer and director working worldwide across fashion, beauty and fine jewellery. At 26, he brings a contemporary perspective to luxury imagery, creating photographs and films designed to command attention and leave a lasting impression.</p>
+          <p>His relationship with the image began at the age of nine. What started as an early fascination gradually became a way of seeing the world, an instinct for light, composition and the subtle details that transform an image into something memorable. Years later, that instinct has evolved into a distinct visual approach, shaped by an enduring curiosity for fashion, culture and the art of visual seduction.</p>
+          <p>Moving between photography and film, Gabryel creates striking, character-driven imagery that balances sophistication with impact. Whether working on a fashion campaign, a beauty story, a fine jewellery commission or an exclusive event, his approach remains the same: to create images that don't simply get seen, but make people stop and look.</p>
+          <p>His work brings together a sharp editorial sensibility and an understanding of the visual codes of luxury, collaborating with brands, talent and creative teams across international markets.</p>
+        </div>
       </div>
     </div>
   </div>
