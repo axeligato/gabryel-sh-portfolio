@@ -166,7 +166,9 @@
     #page-mystery.active { display: grid; }
     /* Preserve the original full-viewport carousel and mystery countdown layout. */
     #page-home.active { display: flex; }
-    #page-mystery.active { place-items: center; }
+    #page-mystery.active { place-items: center; background: #780000; }
+    #page-mystery .mystery-title, #page-mystery .countdown-num { color: #f8f8f6; }
+    #page-mystery .countdown-label { color: rgba(248,248,246,0.72); }
     @media (max-width: 700px) {
       .mystery-countdown { gap: clamp(8px, 3vw, 24px); flex-wrap: wrap; }
       .countdown-num { font-size: clamp(2.4rem, 11vw, 5rem); }
@@ -2050,9 +2052,10 @@ form.addEventListener("submit", async function(e){
           if (tabButton) switchTab(tabButton, tab, true);
         }
       }
-      window.addEventListener('popstate', applyRoute);
-      window.addEventListener('hashchange', applyRoute);
-      applyRoute();
+      /* Route initialization must not block the carousel or countdown. */
+      window.addEventListener('popstate', function() { try { applyRoute(); } catch (error) { console.error('Route error:', error); } });
+      window.addEventListener('hashchange', function() { try { applyRoute(); } catch (error) { console.error('Route error:', error); } });
+      window.addEventListener('load', function() { try { applyRoute(); } catch (error) { console.error('Route error:', error); } }, { once: true });
     })();
 
     /* ── COUNTDOWN ── */
@@ -2212,6 +2215,7 @@ form.addEventListener("submit", async function(e){
         }
       });
 
+      /* Initialize even when an unrelated route fails. */
       /* Restore original carousel behavior: render immediately, then autoplay. */
       render(false);
       startAutoplay();
