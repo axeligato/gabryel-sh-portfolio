@@ -744,14 +744,15 @@
       line-height: 1.9;
       letter-spacing: 0.005em;
       color: #303030;
-      text-transform: none;
+      text-transform: lowercase;
+      font-family: var(--font);
     }
     #page-about .about-bio p { margin: 0 0 2.2rem; }
     #page-about .about-bio p:last-child { margin-bottom: 0; }
     #page-about .about-bio p::first-letter {
       float: left;
       color: #780000;
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: var(--font);
       font-size: 3.9em;
       line-height: 0.79;
       padding: 0.13em 0.11em 0 0;
@@ -2091,7 +2092,7 @@ form.addEventListener("submit", async function(e){
       var order = editorialPageOrder;
       var accumulated = 0, previousDirection = 0, lastWheel = 0;
       var momentumGuardUntil = 0;
-      var WHEEL_THRESHOLD = 260, COOLDOWN_MS = 1250, RESET_MS = 220;
+      var WHEEL_THRESHOLD = 180, COOLDOWN_MS = 1100, RESET_MS = 250;
       var touchY = null, touchX = null, touchAtTop = false, touchAtBottom = false;
       function activeIndex() {
         var active = document.querySelector('.page.active');
