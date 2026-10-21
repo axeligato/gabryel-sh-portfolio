@@ -62,8 +62,21 @@
       text-transform: lowercase;
       text-align: center;
     }
+    .loader-name { white-space: pre; }
+    .loader-name::after {
+      content: '';
+      display: inline-block;
+      width: 0.55em;
+      height: 1em;
+      margin-left: 0.2em;
+      background: #9b0000;
+      vertical-align: -0.12em;
+      animation: loader-caret 0.65s steps(1, end) infinite;
+    }
+    @keyframes loader-caret { 50% { opacity: 0; } }
     @media (prefers-reduced-motion: reduce) {
       #loader { transition: none; }
+      .loader-name::after { animation: none; opacity: 0; }
     }
 
     /* ─── NAVBAR ─── */
@@ -1825,25 +1838,43 @@ form.addEventListener("submit", async function(e){
       dot.style.transform = s; dotWhite.style.transform = s;
     });
 
-    /* ── MINIMAL TEXT LOADER ── */
+    /* ── TYPOGRAPHIC REVEAL LOADER ── */
     (function() {
       var loader = document.getElementById('loader');
+      var nameEl = loader.querySelector('.loader-name');
+      var fullName = 'gabryel sallehount';
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var startedAt = Date.now();
+      var pageReady = document.readyState === 'complete';
+      var revealed = reducedMotion;
       var dismissed = false;
-      function dismissLoader() {
-        if (dismissed) return;
+      nameEl.textContent = reducedMotion ? fullName : '';
+      function dismissIfReady() {
+        if (dismissed || !pageReady || !revealed) return;
         dismissed = true;
-        var remaining = Math.max(0, 450 - (Date.now() - startedAt));
+        var remaining = Math.max(0, (reducedMotion ? 200 : 1200) - (Date.now() - startedAt));
         setTimeout(function() {
           loader.classList.add('hide');
           document.body.classList.add('loaded');
-          setTimeout(function() { loader.style.display = 'none'; }, 900);
+          setTimeout(function() { loader.style.display = 'none'; }, reducedMotion ? 0 : 900);
         }, remaining);
       }
-      if (document.readyState === 'complete') dismissLoader();
-      else window.addEventListener('load', dismissLoader, { once: true });
-      /* Do not trap visitors if an external media request stalls. */
-      setTimeout(dismissLoader, 2500);
+      if (!reducedMotion) {
+        var index = 0;
+        var revealTimer = setInterval(function() {
+          index++;
+          nameEl.textContent = fullName.slice(0, index);
+          if (index >= fullName.length) {
+            clearInterval(revealTimer);
+            revealed = true;
+            dismissIfReady();
+          }
+        }, 48);
+      }
+      if (!pageReady) window.addEventListener('load', function() { pageReady = true; dismissIfReady(); }, { once: true });
+      /* External images must not leave the loader on screen indefinitely. */
+      setTimeout(function() { pageReady = true; dismissIfReady(); }, 2500);
+      dismissIfReady();
     })();
 
     /* ── PAGE SYSTEM ── */
