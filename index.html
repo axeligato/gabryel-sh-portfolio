@@ -1849,6 +1849,22 @@ body.contact-page .navbar .nav-link {
 .film-modal * {
   cursor: none !important;
 }
+    /* Center the site wordmark horizontally within the sidebar. */
+    .nav-logo { width: 100%; text-align: center; }
+    .nav-logo a {
+      width: 100%;
+      max-width: none;
+      font-size: 0.82rem;
+      line-height: 1.35;
+      text-align: center;
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+    @media (max-width: 768px) {
+      .nav-container { align-items: stretch; }
+      .nav-logo a { font-size: 0.67rem; max-width: none; }
+    }
+
     /* Name-specific overrides follow component styles, including mobile rules. */
     .nav-logo a,
     .loader-name,
