@@ -157,13 +157,21 @@
 
     /* ─── PAGE SYSTEM ─── */
     .page { display: none; min-height: calc(100vh - var(--nav-h)); }
-    .page.active { display: block; animation: pgIn 0.45s ease both; }
+    .page.active { display: block; }
     @keyframes pgIn {
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     #page-mystery { display: none; }
     #page-mystery.active { display: grid; }
+    /* Preserve the original full-viewport carousel and mystery countdown layout. */
+    #page-home.active { display: flex; }
+    #page-mystery.active { place-items: center; }
+    @media (max-width: 700px) {
+      .mystery-countdown { gap: clamp(8px, 3vw, 24px); flex-wrap: wrap; }
+      .countdown-num { font-size: clamp(2.4rem, 11vw, 5rem); }
+      .mystery-content { padding: 1.25rem; width: 100%; }
+    }
 
     /* ─── SHARED ─── */
     .container {
@@ -1097,11 +1105,6 @@
     .shoot-count { display: none; }
 
     /* Editorial polish: restrained hover, page transitions, and numbering. */
-    .page.active { animation: editorialPageIn 0.38s ease-out both; }
-    @keyframes editorialPageIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
     .gallery-cell img, .motion-cell img { transition: transform 0.55s cubic-bezier(.2,.7,.2,1), filter 0.55s ease; }
     @media (hover: hover) {
       .gallery-cell:hover img, .motion-cell:hover img { transform: scale(1.02); }
@@ -2053,14 +2056,21 @@ form.addEventListener("submit", async function(e){
     })();
 
     /* ── COUNTDOWN ── */
+    /* Original count-up: days, hours, minutes and seconds since 29 Nov 2000. */
     const targetDate = new Date('2000-11-29T00:00:00');
     function updateCountdown() {
-      const diff = new Date() - targetDate;
-      const pad = n => String(Math.floor(n)).padStart(2,'0');
-      document.getElementById('cd-days').textContent  = pad(diff / 86400000);
-      document.getElementById('cd-hours').textContent = pad((diff % 86400000) / 3600000);
-      document.getElementById('cd-mins').textContent  = pad((diff % 3600000) / 60000);
-      document.getElementById('cd-secs').textContent  = pad((diff % 60000) / 1000);
+      const diff = Math.max(0, Date.now() - targetDate.getTime());
+      const pad = n => String(Math.floor(n)).padStart(2, '0');
+      const fields = {
+        'cd-days': pad(diff / 86400000),
+        'cd-hours': pad((diff % 86400000) / 3600000),
+        'cd-mins': pad((diff % 3600000) / 60000),
+        'cd-secs': pad((diff % 60000) / 1000)
+      };
+      Object.keys(fields).forEach(function(id) {
+        var element = document.getElementById(id);
+        if (element) element.textContent = fields[id];
+      });
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
@@ -2202,6 +2212,7 @@ form.addEventListener("submit", async function(e){
         }
       });
 
+      /* Restore original carousel behavior: render immediately, then autoplay. */
       render(false);
       startAutoplay();
     })();
