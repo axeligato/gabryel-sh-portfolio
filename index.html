@@ -70,7 +70,7 @@
       color: var(--black);
       font-size: clamp(0.8rem, 1.2vw, 1rem);
       font-weight: 600;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.06em;
       text-transform: lowercase;
       text-align: center;
     }
@@ -124,7 +124,7 @@
     .nav-logo a {
       font-size: 0.62rem;
       font-weight: 600;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.06em;
       text-transform: lowercase;
       text-decoration: none;
       color: var(--black);
@@ -739,15 +739,18 @@
     #page-about .about-name { margin-bottom: 2.4rem; }
     #page-about .about-bio {
       max-width: 650px;
-      font-size: clamp(0.94rem, 1.1vw, 1.08rem);
-      font-weight: 400;
-      line-height: 1.9;
+      font-size: clamp(0.84rem, 0.95vw, 0.96rem);
+      font-weight: 600;
+      line-height: 1.75;
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
       letter-spacing: 0.005em;
       color: #303030;
       text-transform: lowercase;
       font-family: var(--font);
     }
-    #page-about .about-bio p { margin: 0 0 2.2rem; }
+    #page-about .about-bio p { margin: 0 0 1.35rem; }
     #page-about .about-bio p:last-child { margin-bottom: 0; }
     body.about-active .navbar,
     body.about-active .nav-container { background: #fff !important; }
@@ -758,8 +761,8 @@
     @media (max-width: 700px) {
       #page-about { padding: 3rem 1.25rem 4rem; }
       #page-about .about-name { margin-bottom: 2rem; }
-      #page-about .about-bio { font-size: 0.96rem; line-height: 1.85; }
-      #page-about .about-bio p { margin-bottom: 1.8rem; }
+      #page-about .about-bio { font-size: 0.88rem; line-height: 1.75; }
+      #page-about .about-bio p { margin-bottom: 1.25rem; }
     }
 
     /* ════════════════════════════════
