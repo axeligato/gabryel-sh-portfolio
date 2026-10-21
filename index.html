@@ -956,10 +956,12 @@
       grid-template-columns: minmax(170px, 1fr) minmax(320px, 0.95fr) minmax(70px, 1fr);
       align-items: center;
       column-gap: clamp(2rem, 5vw, 7rem);
-      margin-top: 2rem;
+      margin-top: 0;
     }
 
     .arc-title-bar {
+      grid-column: 1;
+      grid-row: 2;
       padding-left: clamp(1.5rem, 3vw, 4rem);
       text-align: left;
       font-size: clamp(1rem, 1.35vw, 1.35rem);
@@ -983,6 +985,8 @@
     }
 
     .arc-track {
+      grid-column: 2;
+      grid-row: 2;
       position: relative;
       width: 100%;
       height: min(58vh, 620px);
@@ -1015,11 +1019,11 @@
     .arc-pagination {
       grid-column: 2;
       grid-row: 1;
-      align-self: start;
+      align-self: end;
       justify-self: center;
       position: relative;
       z-index: 2;
-      margin-top: clamp(-2.25rem, -3vh, -1.25rem);
+      margin: 0 0 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1055,7 +1059,7 @@
       .arc-title-bar { text-align: left; padding-left: clamp(0.5rem, 2vw, 1rem); }
       .arc-track { height: 52vh; }
       .arc-track img { max-width: 100%; max-height: 52vh; }
-      .arc-pagination { justify-content: center; padding-left: 0; flex-wrap: wrap; gap: 8px; margin-top: -1.75rem; }
+      .arc-pagination { justify-content: center; padding-left: 0; flex-wrap: wrap; gap: 8px; margin: 0 0 1rem; }
       .arc-dot { width: 16px; height: 16px; min-width: 16px; }
     }
 
@@ -1407,23 +1411,19 @@ body.contact-page .navbar .nav-link {
         <!-- shoot information -->
         <div class="arc-title-bar" id="arcTitleBar"></div>
 
-        <!-- current image only -->
-        <div class="arc-track" id="arcTrack"></div>
-
-        <!-- carousel pagination -->
+        <!-- carousel navigation above the media -->
         <div class="arc-pagination" id="arcPagination" aria-label="Carousel navigation"></div>
+
+        <!-- current image below the dots -->
+        <div class="arc-track" id="arcTrack"></div>
       </div>
 
       <!-- scroll-down indicator -->
-      <button class="scroll-down-btn" id="scrollDownBtn" aria-label="scroll down">
+      <button class="scroll-down-btn" id="scrollDownBtn" aria-label="Go to Gallery" onclick="showPage('gallery')">
         <svg viewBox="0 0 24 24" width="28" height="28"><path d="M12 4v15M12 19l-6-6M12 19l6-6" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
 
-    <!-- ════ SHOWCASE — big image grid, click → gallery ════ -->
-    <div class="showcase" id="showcase">
-      <div class="showcase-grid" id="showcaseGrid"></div>
-    </div>
   </div>
 
   <!-- ════ GALLERY ════ -->
@@ -2058,59 +2058,6 @@ form.addEventListener("submit", async function(e){
 
       render(false);
       startAutoplay();
-    })();
-
-    /* ── SHOWCASE — large image grid below carousel ── */
-    (function() {
-      var grid = document.getElementById('showcaseGrid');
-      var scrollBtn = document.getElementById('scrollDownBtn');
-      var showcase = document.getElementById('showcase');
-      if (!grid) return;
-
-      /* Pick one striking image per shoot, skip the very first few already
-         shown as carousel covers to keep the reveal feeling fresh. */
-      var picks = PHOTO_SHOOTS.map(function(s) {
-        var imgIdx = s.imgs.length > 1 ? 1 : 0; /* second image if available */
-        return { shootId: s.id, title: s.title, img: s.imgs[imgIdx] };
-      });
-
-      /* Shuffle deterministically-ish for variety, then take 10 */
-      picks = picks.slice(0, 10);
-
-      picks.forEach(function(p, i) {
-        var item = document.createElement('div');
-        item.className = 'showcase-item' + (i % 5 === 2 ? ' wide' : '');
-        item.dataset.shoot = p.shootId;
-        item.dataset.title = p.title;
-
-        var img = document.createElement('img');
-        img.src = IMG_BASE + p.img + IMG_SUFFIX;
-        img.alt = p.title;
-        img.loading = 'lazy';
-        item.appendChild(img);
-
-        var label = document.createElement('div');
-        label.className = 'showcase-item-label';
-        var span = document.createElement('span');
-        span.textContent = p.title;
-        label.appendChild(span);
-        item.appendChild(label);
-
-        item.addEventListener('click', function() {
-          showPage('gallery');
-        });
-
-        grid.appendChild(item);
-      });
-
-      /* Scroll-down button: short delay, then smooth scroll to showcase */
-      if (scrollBtn && showcase) {
-        scrollBtn.addEventListener('click', function() {
-          setTimeout(function() {
-            showcase.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 180);
-        });
-      }
     })();
 
     /* ── GALLERY TABS ── */
