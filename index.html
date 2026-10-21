@@ -1054,6 +1054,25 @@
       .arc-dot { width: 8px; height: 8px; min-width: 8px; }
     }
 
+    /* Phase 1: focus and touch-friendly gallery/card navigation */
+    .shoot-cover:focus-visible, .film-cover:focus-visible {
+      outline: 3px solid #9b0000;
+      outline-offset: 4px;
+    }
+    @media (hover: none) {
+      .shoot-cover .shoot-label, .film-cover .shoot-label { opacity: 1; }
+      .gallery-cell::after { display: none; }
+    }
+    @media (max-width: 600px) {
+      .arc-pagination { gap: 6px; max-width: min(90vw, 260px); }
+      .arc-dot { width: 7px; height: 7px; min-width: 7px; }
+      .arc-title-bar { font-size: 0.82rem; overflow-wrap: anywhere; }
+      .g-lightbox-nav { padding: 0.7rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .gallery-cell img, .shoot-label { transition: none !important; }
+    }
+
     /* ════ SCROLL DOWN INDICATOR ════ */
     .scroll-down-btn {
       position: absolute;
@@ -1877,6 +1896,15 @@ form.addEventListener("submit", async function(e){
       dismissIfReady();
     })();
 
+    /* Defer non-critical gallery thumbnails until near the viewport. */
+    (function() {
+      document.querySelectorAll('#page-gallery img').forEach(function(img) {
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.setAttribute('fetchpriority', 'low');
+      });
+    })();
+
     /* ── PAGE SYSTEM ── */
     function showPage(id) {
   document.body.classList.toggle('contact-page', id === 'contact');
@@ -1982,6 +2010,8 @@ form.addEventListener("submit", async function(e){
       card.className = 'arc-card';
       var img = document.createElement('img');
       img.alt = '';
+      img.decoding = 'async';
+      img.fetchPriority = 'high';
       card.appendChild(img);
       track.appendChild(card);
 
@@ -2007,6 +2037,7 @@ form.addEventListener("submit", async function(e){
         card.style.opacity = '0';
         if (!animate) card.style.transition = 'none';
 
+        img.alt = shoot.title + ' — featured photograph';
         img.src = IMG_BASE + shoot.imgs[0] + IMG_SUFFIX;
         titleBar.innerHTML = '<span class="arc-title">' + shoot.title + '</span>' +
           (shoot.date ? '<span class="arc-date">' + shoot.date + '</span>' : '');
@@ -2149,6 +2180,25 @@ form.addEventListener("submit", async function(e){
       function goPrev() { if (!curShoot) return; curIdx = (curIdx - 1 + curShoot.imgs.length) % curShoot.imgs.length; showSlide(); }
       function goNext() { if (!curShoot) return; curIdx = (curIdx + 1) % curShoot.imgs.length; showSlide(); }
 
+      /* Keyboard activation for gallery project cards. */
+      function makeProjectCardsAccessible(selector) {
+        document.querySelectorAll(selector).forEach(function(cell) {
+          var label = cell.querySelector('.shoot-name');
+          cell.setAttribute('role', 'button');
+          cell.setAttribute('tabindex', '0');
+          cell.setAttribute('aria-label', 'Open ' + (label ? label.textContent.trim() : 'project'));
+          cell.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              cell.click();
+            }
+          });
+        });
+      }
+      makeProjectCardsAccessible('.shoot-cover[data-shoot], .film-cover[data-shoot]');
+
+      /* Load full-size lightbox media only when requested. */
+      lbImg.decoding = 'async';
       /* wire shoot covers */
       document.querySelectorAll('.shoot-cover[data-shoot]').forEach(function(cell) {
         cell.addEventListener('click', function() { openShoot(cell.dataset.shoot, 0); });
