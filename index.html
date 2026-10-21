@@ -34,17 +34,14 @@
     }
 
     /* ─── BASE ─── */
-    /* Unified typography: match the navbar's font, weight, tracking and case.
-       Keep existing component font sizes and intentional display treatments. */
-    body, button, input, textarea, select {
-      font-family: var(--font);
-      font-weight: 600;
-      letter-spacing: normal;
-      text-transform: lowercase;
-    }
+    /* Site-wide typography matches the Gabryel Sallehount navbar wordmark.
+       Component font sizes and layout remain independently responsive. */
+    :root { --site-tracking: 0.06em; }
+    body, button, input, textarea, select,
     h1, h2, h3, h4, h5, h6, p, a, span, label, li {
       font-family: var(--font);
-      letter-spacing: normal;
+      font-weight: 600;
+      letter-spacing: var(--site-tracking);
       text-transform: lowercase;
     }
 
