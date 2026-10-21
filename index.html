@@ -81,7 +81,7 @@
       width: 0.55em;
       height: 1em;
       margin-left: 0.2em;
-      background: #9b0000;
+      background: #780000;
       vertical-align: -0.12em;
       animation: loader-caret 0.65s steps(1, end) infinite;
     }
@@ -402,7 +402,7 @@
       content: attr(data-title);
       position: absolute;
       inset: 0;
-      background: rgba(155,0,0,0.62);
+      background: rgba(120,0,0,0.62);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       color: #fff;
@@ -531,7 +531,7 @@
       content: attr(data-title);
       position: absolute;
       inset: 0;
-      background: rgba(155,0,0,0.62);
+      background: rgba(120,0,0,0.62);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       color: #fff;
@@ -657,7 +657,7 @@
     /* ════════════════════════════════
        ABOUT PAGE — image + title + para only
     ════════════════════════════════ */
-    #page-about { padding: 5rem 2.5rem 6rem; min-height: 100vh; background: #9b0000; }
+    #page-about { padding: 5rem 2.5rem 6rem; min-height: 100vh; background: var(--bg); }
 
     .about-simple {
       max-width: 1360px;
@@ -686,23 +686,23 @@
       letter-spacing: -0.04em;
       line-height: 0.92;
       margin-bottom: 3rem;
-      color: #fff;
+      color: var(--black);
       text-transform: lowercase;
     }
     .about-bio {
       font-size: 0.88rem;
       line-height: 1.85;
-      color: rgba(255,255,255,0.7);
+      color: #454545;
       font-weight: 700;
       max-width: 560px;
       text-transform: lowercase;
     }
-    .about-bio strong { color: #fff; font-weight: 700; }
+    .about-bio strong { color: var(--black); font-weight: 700; }
 
     /* ════════════════════════════════
        CONTACT PAGE
     ════════════════════════════════ */
-    #page-contact { padding: 5rem 2.5rem 6rem; background: #9b0000; min-height: 100vh; text-transform: lowercase; }
+    #page-contact { padding: 5rem 2.5rem 6rem; background: #780000; min-height: 100vh; text-transform: lowercase; }
 
     .contact-grid {
       max-width: 1360px;
@@ -829,7 +829,7 @@
       position: fixed;
       width: 16px;
       height: 16px;
-      background: #9b0000;
+      background: #780000;
       border-radius: 50%;
       pointer-events: none;
       z-index: 99999;
@@ -858,9 +858,9 @@
       a, button, [role="button"] { cursor: pointer !important; }
       #cursor-dot, #cursor-dot-white { display: none !important; }
     }
-    :focus-visible { outline: 2px solid #9b0000; outline-offset: 4px; }
-    body.about-active :focus-visible, body.contact-active :focus-visible { outline-color: #fff; }
-    body.about-active .navbar :focus-visible, body.contact-active .navbar :focus-visible { outline-color: #9b0000; }
+    :focus-visible { outline: 2px solid #780000; outline-offset: 4px; }
+    body.contact-active :focus-visible { outline-color: #fff; }
+    body.about-active .navbar :focus-visible, body.contact-active .navbar :focus-visible { outline-color: #780000; }
     .film-playback-error { max-width: 32rem; padding: 2rem; text-align: center; line-height: 1.6; }
     .film-playback-error a { display: inline-block; margin-top: 1rem; text-decoration: underline; }
 
@@ -1047,8 +1047,8 @@
     .arc-dot:hover { opacity: 0.75; }
     .arc-dot.active {
       opacity: 1;
-      border-color: #9b0000;
-      background: #9b0000;
+      border-color: #780000;
+      background: #780000;
       transform: scale(1.05);
     }
 
@@ -1068,7 +1068,7 @@
 
     /* Phase 1: focus and touch-friendly gallery/card navigation */
     .shoot-cover:focus-visible, .film-cover:focus-visible {
-      outline: 3px solid #9b0000;
+      outline: 3px solid #780000;
       outline-offset: 4px;
     }
     @media (hover: none) {
@@ -1083,6 +1083,33 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .gallery-cell img, .shoot-label { transition: none !important; }
+    }
+
+    .shoot-label { gap: 0.65rem; }
+    .editorial-project-number {
+      font-size: 0.52rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.8);
+      white-space: nowrap;
+      margin-left: auto;
+    }
+    .shoot-count { display: none; }
+
+    /* Editorial polish: restrained hover, page transitions, and numbering. */
+    .page.active { animation: editorialPageIn 0.38s ease-out both; }
+    @keyframes editorialPageIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .gallery-cell img, .motion-cell img { transition: transform 0.55s cubic-bezier(.2,.7,.2,1), filter 0.55s ease; }
+    @media (hover: hover) {
+      .gallery-cell:hover img, .motion-cell:hover img { transform: scale(1.02); }
+    }
+    .gallery-cell:focus-visible img, .motion-cell:focus-visible img { transform: scale(1.02); }
+    @media (prefers-reduced-motion: reduce) {
+      .page.active { animation: none; }
+      .gallery-cell img, .motion-cell img { transition: none; }
     }
 
     /* ════ SCROLL DOWN INDICATOR ════ */
@@ -1153,7 +1180,7 @@
       align-items: center;
       justify-content: center;
       padding: 1rem;
-      background: rgba(155,0,0,0.52);
+      background: rgba(120,0,0,0.52);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       color: #fff;
@@ -1181,7 +1208,7 @@
       text-align: center;
       padding: 2rem 0 0.5rem;
       text-transform: lowercase;
-      background: #9b0000;
+      background: #780000;
     }
     .credit-by {
       font-size: 0.48rem;
@@ -1214,10 +1241,10 @@
 
     /* ════ CONTACT + ABOUT — NAV OVERRIDE ════ */
     body.contact-active,
-    body.about-active { background: #9b0000; }
+    body.about-active { background: #780000; }
     body.contact-active .navbar,
     body.about-active .navbar {
-      background: #9b0000 !important;
+      background: #780000 !important;
       border-right-color: rgba(255,255,255,0.15) !important;
     }
     body.contact-active .nav-logo a,
@@ -1259,8 +1286,8 @@
     #page-contact .form-input:focus { border-bottom-color: #fff; }
     #page-contact select.form-input option { color: #0a0a0a; background: #fff; }
     #page-contact .shoot-pill { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.6); background: transparent; }
-    #page-contact .shoot-pill.selected, #page-contact .shoot-pill:hover { background: #fff; color: #9b0000; border-color: #fff; }
-    #page-contact .form-submit { background: #fff; color: #9b0000; border-color: #fff; }
+    #page-contact .shoot-pill.selected, #page-contact .shoot-pill:hover { background: #fff; color: #780000; border-color: #fff; }
+    #page-contact .form-submit { background: #fff; color: #780000; border-color: #fff; }
     #page-contact .form-submit:hover { background: transparent; color: #fff; border-color: #fff; }
 
     /* ════ GALLERY LIGHTBOX ════ */
@@ -1853,7 +1880,7 @@ form.addEventListener("submit", async function(e){
       const x = e.clientX + 'px', y = e.clientY + 'px';
       dot.style.left      = x; dot.style.top      = y;
       dotWhite.style.left = x; dotWhite.style.top = y;
-      const redPage = document.body.classList.contains('contact-active') || document.body.classList.contains('about-active');
+      const redPage = document.body.classList.contains('contact-active');
       const sidebar = document.querySelector('.navbar');
       const bounds = sidebar && sidebar.getBoundingClientRect();
       const overSidebar = bounds && e.clientX >= bounds.left && e.clientX <= bounds.right && e.clientY >= bounds.top && e.clientY <= bounds.bottom;
@@ -1917,6 +1944,21 @@ form.addEventListener("submit", async function(e){
       });
     })();
 
+    /* Editorial project numbering: subtle 01 / 16 labels on project covers. */
+    (function() {
+      ['.shoot-cover[data-shoot]', '.film-cover[data-shoot]'].forEach(function(selector) {
+        var cards = Array.from(document.querySelectorAll(selector));
+        cards.forEach(function(card, index) {
+          var label = card.querySelector('.shoot-label');
+          if (!label) return;
+          var number = document.createElement('span');
+          number.className = 'editorial-project-number';
+          number.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(cards.length).padStart(2, '0');
+          label.appendChild(number);
+        });
+      });
+    })();
+
     /* ── PAGE SYSTEM ── */
     function showPage(id, skipRouteUpdate) {
   document.body.classList.toggle('contact-page', id === 'contact');
@@ -1932,7 +1974,7 @@ form.addEventListener("submit", async function(e){
         if (location.hash !== route) history.pushState(null, '', route);
       }
       document.title = 'Gabryel Sallehount' + (id === 'home' ? ' — Photography & Film' : ' — ' + id.charAt(0).toUpperCase() + id.slice(1));
-      const onC = id === 'contact' || id === 'about';
+      const onC = id === 'contact';
       const onContact = id === 'contact';
       document.body.classList.toggle('contact-active', onContact);
       document.body.classList.toggle('about-active', id === 'about');
