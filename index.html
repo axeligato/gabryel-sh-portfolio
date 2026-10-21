@@ -1510,7 +1510,7 @@ body.contact-page .navbar .nav-link {
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">
-        <a onclick="showPage('home')" style="cursor:pointer;">gabryel sallehount</a>
+        <a href="#/" onclick="showPage('home'); return false;">gabryel sallehount</a>
       </div>
       <ul class="nav-menu">
         <li><button class="nav-link active" data-page="home" onclick="showPage('home')">Home</button></li>
@@ -1913,6 +1913,36 @@ body.contact-page .navbar .nav-link {
       .nav-link { justify-content: flex-start; text-align: left; }
     }
 
+    /* Navigation refinement and small-screen accessibility. */
+    :root { --nav-w: 205px; }
+    .nav-link {
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      min-height: 44px;
+      padding: 0.6rem 0.75rem;
+      opacity: 0.85;
+    }
+    .nav-logo a { font-size: 0.875rem; }
+    .nav-menu { gap: 0.4rem; }
+    @media (max-width: 1024px) {
+      :root { --nav-w: 190px; }
+    }
+    @media (max-width: 768px) {
+      :root { --nav-w: 170px; }
+      .nav-container { padding: 1.25rem 0.65rem; }
+      .nav-logo a { font-size: 0.75rem; white-space: nowrap; }
+      .nav-menu { flex-direction: column; gap: 0.25rem; }
+      .nav-link { font-size: 0.8125rem; min-height: 44px; }
+    }
+    @media (max-width: 380px) {
+      :root { --nav-w: 150px; }
+      .nav-container { padding-left: 0.4rem; padding-right: 0.4rem; }
+      .nav-logo a { font-size: 0.6875rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .nav-link, .nav-logo a { transition: none; }
+    }
+
     /* Name-specific overrides follow component styles, including mobile rules. */
     .nav-logo a,
     .loader-name,
@@ -2187,7 +2217,7 @@ form.addEventListener("submit", async function(e){
         return active ? order.indexOf(active.id.replace(/^page-/, '')) : -1;
       }
       function isBlocked(target) {
-        return !!(target.closest('.navbar, .g-lightbox, #film-lightbox, input, textarea, select, [contenteditable="true"]') ||
+        return !!(target.closest('.navbar, .g-lightbox, #film-lightbox, input, textarea, select, button, a, [role="button"], [contenteditable="true"], .arc-scene, .gallery-cell, .film-item') ||
           document.querySelector('.g-lightbox.open, #film-lightbox.open'));
       }
       function boundary(direction) {
