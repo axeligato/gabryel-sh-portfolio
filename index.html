@@ -1849,37 +1849,56 @@ body.contact-page .navbar .nav-link {
 .film-modal * {
   cursor: none !important;
 }
-    /* Center the site wordmark horizontally within the sidebar. */
-    .nav-logo { width: 100%; text-align: center; }
+    /* Accessible, centered sidebar typography across viewport sizes. */
+    :root { --nav-w: 230px; }
+    .nav-container {
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    .nav-logo { width: 100%; margin-bottom: auto; text-align: center; }
     .nav-logo a {
+      display: block;
       width: 100%;
       max-width: none;
-      font-size: 0.82rem;
-      line-height: 1.35;
-      text-align: center;
-      overflow-wrap: normal;
-      word-break: normal;
-    }
-    @media (max-width: 768px) {
-      .nav-container { align-items: stretch; }
-      .nav-logo a { font-size: 0.67rem; max-width: none; }
-    }
-
-    /* Retain the prior compact wordmark size, centered on one line. */
-    :root { --nav-w: 210px; }
-    .nav-container { padding-left: 1rem; padding-right: 1rem; }
-    .nav-logo a {
-      font-size: 0.82rem;
+      font-size: 1rem;
+      line-height: 1.5;
       white-space: nowrap;
-      overflow-wrap: normal;
       word-break: normal;
+      text-align: center;
+    }
+    .nav-menu {
+      width: 100%;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 44px;
+      padding: 0.65rem 0.35rem;
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      text-align: center;
+      opacity: 0.75;
+    }
+    .nav-link:hover, .nav-link.active, .nav-link:focus-visible { opacity: 1; }
+    .nav-logo a:focus-visible, .nav-link:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 4px;
     }
     @media (max-width: 1024px) {
-      :root { --nav-w: 210px; }
+      :root { --nav-w: 220px; }
     }
     @media (max-width: 768px) {
-      :root { --nav-w: 185px; }
-      .nav-logo a { font-size: 0.67rem; }
+      :root { --nav-w: 210px; }
+      .nav-container { align-items: center; padding: 1.5rem 0.75rem; }
+      .nav-logo { margin-right: 0; }
+      .nav-logo a { font-size: 0.9375rem; max-width: none; white-space: nowrap; }
+      .nav-menu { flex-direction: column; align-items: center; gap: 0.45rem; }
+      .nav-link { font-size: 0.9375rem; min-height: 44px; }
+      body.loaded { padding-top: 0; }
     }
 
     /* Name-specific overrides follow component styles, including mobile rules. */
