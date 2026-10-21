@@ -34,6 +34,20 @@
     }
 
     /* ─── BASE ─── */
+    /* Unified typography: match the navbar's font, weight, tracking and case.
+       Keep existing component font sizes and intentional display treatments. */
+    body, button, input, textarea, select {
+      font-family: var(--font);
+      font-weight: 600;
+      letter-spacing: normal;
+      text-transform: lowercase;
+    }
+    h1, h2, h3, h4, h5, h6, p, a, span, label, li {
+      font-family: var(--font);
+      letter-spacing: normal;
+      text-transform: lowercase;
+    }
+
     html, body {
       font-family: var(--font);
       background: var(--bg);
