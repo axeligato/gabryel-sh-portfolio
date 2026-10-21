@@ -1047,16 +1047,17 @@
       height: 16px;
       min-width: 16px;
       padding: 0;
-      border: 1px solid #9b0000;
+      border: 1px solid #d3d3d3;
       border-radius: 50%;
-      background: transparent;
-      opacity: 0.38;
+      background: #d3d3d3;
+      opacity: 1;
       cursor: pointer;
       transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease;
     }
     .arc-dot:hover { opacity: 0.75; }
     .arc-dot.active {
       opacity: 1;
+      border-color: #9b0000;
       background: #9b0000;
       transform: scale(1.05);
     }
@@ -1927,6 +1928,35 @@ form.addEventListener("submit", async function(e){
       document.getElementById('cursor-dot').style.display = (!onC || overSidebar) ? 'block' : 'none';
       document.getElementById('cursor-dot-white').style.display = (onC && !overSidebar) ? 'block' : 'none';
     }
+
+    /* Scroll down on Home to enter Gallery, matching the arrow action. */
+    (function() {
+      let lastGalleryScroll = 0;
+      window.addEventListener('wheel', function(event) {
+        if (!document.getElementById('page-home').classList.contains('active')) return;
+        if (event.deltaY <= 12 || event.ctrlKey || event.target.closest('.navbar')) return;
+        if (Date.now() - lastGalleryScroll < 650) return;
+        lastGalleryScroll = Date.now();
+        showPage('gallery');
+      }, { passive: true });
+
+      let touchStartY = null;
+      let touchStartX = null;
+      const home = document.getElementById('page-home');
+      home.addEventListener('touchstart', function(event) {
+        if (event.touches.length !== 1) return;
+        touchStartY = event.touches[0].clientY;
+        touchStartX = event.touches[0].clientX;
+      }, { passive: true });
+      home.addEventListener('touchend', function(event) {
+        if (touchStartY === null || !home.classList.contains('active')) return;
+        const dy = event.changedTouches[0].clientY - touchStartY;
+        const dx = event.changedTouches[0].clientX - touchStartX;
+        touchStartY = null;
+        touchStartX = null;
+        if (dy < -65 && Math.abs(dy) > Math.abs(dx) * 1.5) showPage('gallery');
+      }, { passive: true });
+    })();
 
     /* ── COUNTDOWN ── */
     const targetDate = new Date('2000-11-29T00:00:00');
